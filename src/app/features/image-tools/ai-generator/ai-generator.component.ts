@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 interface GeneratedImage {
   id: string;
@@ -26,7 +27,7 @@ export class AiGeneratorComponent {
   generatedImages: GeneratedImage[] = [];
   errorMessage = '';
 
-  private readonly API_URL = 'http://localhost:3000';
+  private readonly API_URL = environment.apiUrl.replace('/api', ''); // Remove /api since some endpoints might use base URL
 
   async generateImages(): Promise<void> {
     if (!this.prompt.trim() || this.isGenerating) return;
@@ -55,7 +56,7 @@ export class AiGeneratorComponent {
       if (response && response.success && response.images) {
         this.generatedImages = response.images.map((url, index) => ({
           id: `${Date.now()}_${index}`,
-          url: `${this.API_URL}${url}`,
+          url: url,  // Use HuggingFace URL directly
           prompt: currentPrompt
         }));
 
@@ -78,13 +79,28 @@ export class AiGeneratorComponent {
     }
   }
 
-  downloadImage(image: GeneratedImage): void {
-    const link = document.createElement('a');
-    link.href = image.url;
-    link.download = `generated-${image.id}.png`;
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  async downloadImage(image: GeneratedImage): Promise<void> {
+    try {
+      // Fetch the image as a blob to handle cross-origin properly
+      const response = await fetch(image.url);
+      const blob = await response.blob();
+
+      // Create a blob URL for download
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `ai-generated-${image.id}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up the blob URL
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Download failed:', error);
+      // Fallback: open in new tab
+      window.open(image.url, '_blank');
+    }
   }
 }

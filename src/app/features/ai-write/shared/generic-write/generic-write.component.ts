@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-generic-write',
@@ -154,7 +155,7 @@ export class GenericWriteComponent implements OnInit {
 
         try {
             const response: any = await firstValueFrom(
-                this.http.post('http://localhost:3000/api/ai/generate', {
+                this.http.post(`${environment.apiUrl}/ai/generate`, {
                     promptType: this.promptType,
                     text: this.userText
                 })

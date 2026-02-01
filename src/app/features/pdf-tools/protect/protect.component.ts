@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
+import { environment } from '../../../../environments/environment';
 
 declare const PDFLib: any;
 declare const saveAs: any;
@@ -175,7 +176,7 @@ export class ProtectComponent implements OnInit {
             formData.append('file', this.file);
             formData.append('password', this.password);
 
-            const response = await fetch('http://localhost:3000/api/pdf/protect', {
+            const response = await fetch(`${environment.apiUrl}/pdf/protect`, {
                 method: 'POST',
                 body: formData
             });

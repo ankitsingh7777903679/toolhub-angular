@@ -81,7 +81,7 @@ import { ThemeService } from '../../../core/services/theme.service';
     </nav>
 
     <!-- Auth Modal (Login/Signup) -->
-    <div *ngIf="showLogin" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" (click)="showLogin = false">
+    <div *ngIf="showLogin" class="fixed inset-0 bg-black/50 flex items-center justify-center z-[100]" (click)="showLogin = false">
       <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8" (click)="$event.stopPropagation()">
         <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">
           {{ isSignup ? 'Create Account' : 'Login to ToolHub' }}
