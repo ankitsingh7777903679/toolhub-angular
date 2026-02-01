@@ -1,0 +1,137 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="py-12 text-center" style="background-color: #DBEAFE;">
+        <div class="w-16 h-16 bg-white/40 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-compress text-3xl" style="color: #3B82F6;"></i>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Image Compressor</h1>
+        <p class="text-gray-600">Compress your images while maintaining quality</p>
+    </div>
+
+    <div class="container mx-auto px-4 max-w-5xl py-12">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-8 md:p-12">
+                <div class="border-3 border-dashed border-gray-200 rounded-2xl p-10 text-center transition-all duration-300 hover:border-blue-400 hover:bg-blue-50/50 cursor-pointer"
+                    (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"
+                    (click)="fileInput.click()">
+                    <input #fileInput type="file" multiple accept="image/*" class="hidden"
+                        (change)="onFileSelected($event)">
+                    <div class="flex flex-col items-center justify-center space-y-4">
+                        <div
+                            class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 mb-2">
+                            <i class="fa-solid fa-compress text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Drag & Drop files here</h3>
+                        <p class="text-gray-500">or <span class="text-blue-500 font-semibold hover:underline">browse
+                                files</span> from your computer</p>
+                        <p class="text-xs text-gray-400 mt-2">Supports all image formats</p>
+                    </div>
+                </div>
+
+                <!-- Quality Slider & Action Bar - only show after files selected -->
+                @if (files.length > 0) {
+                <div class="mt-6 flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
+                    <label class="text-gray-700 font-medium">Quality:</label>
+                    <input type="range" [(ngModel)]="quality" min="10" max="100" class="flex-1 accent-blue-500">
+                    <span class="text-blue-600 font-bold w-12 text-center">{{ quality }}%</span>
+                </div>
+                <div
+                    class="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <div class="text-gray-600 font-medium">
+                        <span class="text-gray-900 font-bold">{{ files.length }}</span> files selected
+                        @if (allDone) {
+                        <span class="ml-2 text-green-600 font-bold">• Saved {{ formatSize(totalSaved) }}</span>
+                        }
+                    </div>
+                    <div class="flex gap-3">
+                        <button (click)="clearAll()"
+                            class="px-5 py-2.5 rounded-lg text-red-500 font-medium hover:bg-red-50 transition-colors">Clear
+                            All</button>
+                        <button (click)="compressAll()" [disabled]="isCompressing || allDone"
+                            class="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                            {{ isCompressing ? 'Compressing...' : (allDone ? 'Compressed!' : 'Compress Images') }}
+                        </button>
+                    </div>
+                </div>
+                }
+
+                @if (isCompressing) {
+                <div class="mt-6">
+                    <div class="flex justify-between text-sm font-medium text-gray-600 mb-2">
+                        <span>Compressing...</span><span>{{ progress }}%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+                            [style.width.%]="progress">
+                        </div>
+                    </div>
+                </div>
+                }
+
+                @if (allDone) {
+                <div class="mt-6 flex flex-col md:flex-row items-center justify-center gap-4">
+                    @if (files.length > 1) {
+                    <button (click)="downloadAll()"
+                        class="flex-1 w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-green-500 text-white rounded-xl font-bold text-lg shadow-lg shadow-green-200 hover:bg-green-600 transition-all">
+                        <i class="fa-solid fa-download"></i> Download All Files
+                    </button>
+                    }
+
+                    <!-- Send to Tool (first compressed image) - Always show when done -->
+                    <div class="w-full md:w-auto md:flex-1">
+                        <app-send-to-tool [hasOutput]="!!firstCompressedImage" [currentRoute]="currentRoute"
+                            [outputData]="firstCompressedImage || ''" [fileName]="firstFileName" [fileType]="'image'">
+                        </app-send-to-tool>
+                    </div>
+                </div>
+                }
+
+                @if (files.length > 0) {
+                <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @for (file of files; track file.id) {
+                    <div
+                        class="group relative bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all overflow-hidden">
+                        <div class="flex gap-4 p-4">
+                            <div class="w-24 h-24 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden relative">
+                                <img [src]="file.compressedUrl || file.previewUrl" class="w-full h-full object-cover"
+                                    alt="preview">
+                                @if (file.status === 'compressing') {
+                                <div
+                                    class="absolute inset-0 bg-black/50 flex items-center justify-center backdrop-blur-sm">
+                                    <i class="fa-solid fa-circle-notch fa-spin text-white text-xl"></i>
+                                </div>
+                                }
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-medium text-gray-800 truncate mb-2">{{ file.name }}</p>
+                                <div class="text-sm text-gray-500 space-y-1">
+                                    <p>Original: <span class="text-gray-700 font-medium">{{
+                                            formatSize(file.originalSize) }}</span></p>
+                                    @if (file.status === 'done') {
+                                    <p>Compressed: <span class="text-green-600 font-bold">{{
+                                            formatSize(file.compressedSize) }}</span></p>
+                                    <p class="text-green-600 font-bold">↓ {{ getSavingsPercent(file) }}% smaller</p>
+                                    }
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                @if (file.status === 'done') {
+                                <button (click)="downloadOne(file)"
+                                    class="px-4 py-2 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center gap-2 text-sm">
+                                    <i class="fa-solid fa-download"></i> Download
+                                </button>
+                                }
+                                <button (click)="removeFile(file.id)"
+                                    class="px-4 py-2 text-red-500 rounded-lg hover:bg-red-50 transition-colors flex items-center justify-center">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

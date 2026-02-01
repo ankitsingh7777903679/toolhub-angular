@@ -1,0 +1,76 @@
+/* Split PDF Component Styles */
+
+.upload-zone {
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: var(--primary, #7C3AED);
+        background-color: rgba(124, 58, 237, 0.05);
+    }
+}
+
+.split-mode-btn {
+    transition: all 0.2s ease;
+
+    &:hover:not(.bg-primary) {
+        background-color: #e5e7eb;
+    }
+}
+
+.page-preview {
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    img {
+        display: block;
+    }
+}
+
+/* Custom scrollbar for preview area */
+.max-h-\[600px\]::-webkit-scrollbar {
+    width: 8px;
+}
+
+.max-h-\[600px\]::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.max-h-\[600px\]::-webkit-scrollbar-thumb {
+    background: #c4b5fd;
+    border-radius: 4px;
+}
+
+.max-h-\[600px\]::-webkit-scrollbar-thumb:hover {
+    background: #7C3AED;
+}
+
+/* Primary color for checkboxes */
+input[type="checkbox"]:checked {
+    background-color: #7C3AED;
+    border-color: #7C3AED;
+}
+
+/* Number input styling */
+input[type="number"] {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+/* Focus states */
+input:focus {
+    outline: none;
+}
+
+/* Disabled state for page previews in certain modes */
+.page-preview.opacity-60 {
+    pointer-events: none;
+}

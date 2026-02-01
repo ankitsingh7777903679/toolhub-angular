@@ -1,0 +1,25 @@
+<a [routerLink]="tool.link"
+    class="group block bg-white rounded-2xl p-6 border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-between">
+
+    <!-- Icon and Arrow -->
+    <div class="flex justify-between items-start mb-6">
+        <div class="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
+            [style.backgroundColor]="tool.bgIconColor">
+            <i [class]="tool.iconClass + ' text-2xl'" [style.color]="tool.iconColor"></i>
+        </div>
+        <div
+            class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-blue-50 transition-colors">
+            <i class="fa-solid fa-arrow-right text-gray-400 group-hover:text-blue-600 text-sm transition-colors"></i>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div>
+        <h3 class="font-bold text-gray-900 text-lg mb-2 group-hover:text-blue-600 transition-colors">
+            {{ tool.name }}
+        </h3>
+        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">
+            {{ tool.description }}
+        </p>
+    </div>
+</a>

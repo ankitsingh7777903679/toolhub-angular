@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts */
+/* Google Fonts - Loaded in index.html for better performance */
+
+/* CSS Variables for theming */
+:root {
+  --bg-primary: #f9fafb;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --border-color: #e5e7eb;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.dark {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3), 0 1px 2px -1px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+}
+
+/* Base styles */
+body {
+  font-family: 'K2D', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode overrides */
+.dark {
+
+  /* Background overrides */
+  .bg-white {
+    background-color: var(--bg-secondary) !important;
+  }
+
+  .bg-blue-50,
+  .bg-gray-50,
+  .bg-gray-100 {
+    background-color: var(--bg-primary) !important;
+  }
+
+  /* Text color overrides - EXCLUDE elements inside colored hero sections */
+  .text-gray-900:not([style*="background"] *),
+  .text-black:not([style*="background"] *) {
+    color: var(--text-primary) !important;
+  }
+
+  /* Hero sections with inline style backgrounds - preserve original text colors */
+  [style*="background-color"] {
+
+    .text-gray-900:not(.bg-white),
+    .text-black:not(.bg-white) {
+      color: #111827 !important;
+    }
+
+    .text-gray-700:not(.bg-white),
+    .text-gray-600:not(.bg-white),
+    .text-gray-800:not(.bg-white) {
+      color: #374151 !important;
+    }
+
+    .text-gray-500,
+    .text-gray-400 {
+      color: #6b7280 !important;
+    }
+  }
+
+  .text-gray-700,
+  .text-gray-600,
+  .text-gray-800 {
+    color: var(--text-secondary) !important;
+  }
+
+  .text-gray-500,
+  .text-gray-400 {
+    color: var(--text-muted) !important;
+  }
+
+  /* White text on colored backgrounds should stay white */
+  .text-white {
+    color: #ffffff !important;
+  }
+
+  /* Border overrides */
+  .border-gray-200,
+  .border-gray-300,
+  .border-gray-100 {
+    border-color: var(--border-color) !important;
+  }
+
+  .divide-gray-200> :not([hidden])~ :not([hidden]) {
+    border-color: var(--border-color) !important;
+  }
+
+  /* Shadow overrides */
+  .shadow-md,
+  .shadow-lg,
+  .shadow-sm {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3) !important;
+  }
+
+  /* Form elements */
+  input,
+  select,
+  textarea {
+    background-color: #1e293b !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+
+    &::placeholder {
+      color: #94a3b8 !important;
+    }
+  }
+
+  /* Hero search bars on dark backgrounds */
+  .bg-slate-800,
+  .bg-gray-800,
+  [class*="bg-slate-"],
+  [class*="bg-gray-8"] {
+    input {
+      background-color: #334155 !important;
+      border-color: #475569 !important;
+      color: #ffffff !important;
+
+      &::placeholder {
+        color: #cbd5e1 !important;
+      }
+    }
+  }
+
+  /* Card and tool card styling */
+  .card,
+  .tool-card {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  /* Hover states */
+  .hover\:bg-gray-50:hover,
+  .hover\:bg-gray-100:hover {
+    background-color: var(--bg-tertiary) !important;
+  }
+
+  /* Light text colors should be darker on light backgrounds in dark mode */
+  /* Orange text */
+  .text-orange-300,
+  .text-orange-400 {
+    color: #c2410c !important;
+    /* orange-700 */
+  }
+
+  /* Red/Pink text */
+  .text-red-300,
+  .text-red-400,
+  .text-pink-300,
+  .text-pink-400 {
+    color: #be123c !important;
+    /* rose-700 */
+  }
+
+  /* Green text */
+  .text-green-300,
+  .text-green-400,
+  .text-emerald-300,
+  .text-emerald-400 {
+    color: #15803d !important;
+    /* green-700 */
+  }
+
+  /* Blue text */
+  .text-blue-300,
+  .text-blue-400,
+  .text-sky-300,
+  .text-sky-400 {
+    color: #1d4ed8 !important;
+    /* blue-700 */
+  }
+
+  /* Purple text */
+  .text-purple-300,
+  .text-purple-400,
+  .text-violet-300,
+  .text-violet-400 {
+    color: #7c3aed !important;
+    /* violet-600 */
+  }
+
+  /* Yellow/Amber text */
+  .text-yellow-300,
+  .text-yellow-400,
+  .text-amber-300,
+  .text-amber-400 {
+    color: #b45309 !important;
+    /* amber-700 */
+  }
+
+  /* Teal/Cyan text */
+  .text-teal-300,
+  .text-teal-400,
+  .text-cyan-300,
+  .text-cyan-400 {
+    color: #0f766e !important;
+    /* teal-700 */
+  }
+}
+
+/* Custom utility classes */
+.btn-primary {
+  @apply bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-purple-500 text-white px-6 py-2 rounded-full hover:bg-purple-600 transition-colors;
+}
+
+.card {
+  @apply bg-white rounded-2xl shadow-lg p-6;
+}
+
+.tool-card {
+  @apply bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition-shadow cursor-pointer;
+}
+
+/* Tailwind primary color extension */
+.bg-primary {
+  background-color: #1a8fe3;
+}
+
+.text-primary {
+  color: #1a8fe3;
+}
+
+.hover\:bg-primary:hover {
+  background-color: #1a8fe3;
+}
+
+.focus\:ring-primary:focus {
+  --tw-ring-color: #1a8fe3;
+}
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Theme toggle button animation */
+.theme-toggle {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: rotate(15deg);
+  }
+}

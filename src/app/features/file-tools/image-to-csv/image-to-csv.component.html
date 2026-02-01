@@ -1,0 +1,166 @@
+<div class="min-h-screen bg-gray-50">
+    <div class="bg-gradient-to-r from-pink-500 to-rose-500 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-wand-magic-sparkles text-2xl text-white"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-white mb-2">Image to CSV</h1>
+            <p class="text-pink-100">Extract table data from images or PDF using AI</p>
+            <span class="inline-block mt-2 bg-white/20 text-white text-xs px-3 py-1 rounded-full">
+                <i class="fa-solid fa-robot mr-1"></i> Powered by AI
+            </span>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        @if (selectedFiles.length === 0) {
+        <div class="upload-area border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all bg-white"
+            [class.border-pink-400]="isDragging" [class.bg-pink-50]="isDragging" [class.border-gray-300]="!isDragging"
+            (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"
+            (click)="fileInput.click()">
+            <input #fileInput type="file" accept="image/*,application/pdf" multiple class="hidden"
+                (change)="onFileSelected($event)">
+            <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-images text-3xl text-pink-500"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Drop images or PDF with table data</h3>
+            <p class="text-gray-500 mb-4">or click to browse</p>
+            <div class="flex justify-center gap-4 text-sm text-gray-400">
+                <span><i class="fa-solid fa-image mr-1"></i> Multiple images</span>
+                <span><i class="fa-solid fa-file-pdf mr-1"></i> Single PDF</span>
+            </div>
+        </div>
+        } @else {
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Files Preview -->
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-semibold text-gray-800">
+                        Source Files
+                        <span class="text-sm font-normal text-gray-500">({{ selectedFiles.length }} files)</span>
+                    </h3>
+                    <button (click)="reset()" class="text-gray-400 hover:text-gray-600 p-2" [disabled]="isProcessing">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-4 max-h-64 overflow-y-auto">
+                    @for (filePreview of selectedFiles; track $index) {
+                    <div class="relative border rounded-xl p-2 group">
+                        @if (filePreview.type === 'image') {
+                        <img [src]="filePreview.preview" alt="Preview" class="w-full h-20 object-cover rounded-lg"
+                            [class.ring-2]="isProcessing && currentProcessingIndex === $index"
+                            [class.ring-pink-500]="isProcessing && currentProcessingIndex === $index">
+                        } @else {
+                        <div class="w-full h-20 bg-red-50 rounded-lg flex items-center justify-center"
+                            [class.ring-2]="isProcessing && currentProcessingIndex === $index"
+                            [class.ring-pink-500]="isProcessing && currentProcessingIndex === $index">
+                            <i class="fa-solid fa-file-pdf text-3xl text-red-500"></i>
+                        </div>
+                        }
+                        <p class="text-xs text-gray-500 truncate mt-1">{{ filePreview.file.name }}</p>
+                        @if (!isProcessing) {
+                        <button (click)="removeFile($index)"
+                            class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <i class="fa-solid fa-times text-xs"></i>
+                        </button>
+                        }
+                        @if (isProcessing && currentProcessingIndex === $index) {
+                        <div class="absolute inset-0 bg-pink-500/20 rounded-xl flex items-center justify-center">
+                            <div
+                                class="w-6 h-6 border-2 border-pink-500 border-t-transparent rounded-full animate-spin">
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <p class="text-sm text-gray-500 mb-4">
+                    Total: {{ formatFileSize(getTotalSize()) }}
+                </p>
+
+                @if (!csvData && !isProcessing) {
+                <button (click)="extractData()"
+                    class="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white py-4 rounded-xl font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Extract Table Data
+                </button>
+                }
+
+                @if (isProcessing) {
+                <div class="text-center py-4">
+                    <div
+                        class="w-12 h-12 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin mx-auto mb-3">
+                    </div>
+                    <p class="text-gray-600">Processing file {{ currentProcessingIndex + 1 }} of {{ selectedFiles.length
+                        }}...</p>
+                </div>
+                }
+            </div>
+
+            <!-- CSV Preview -->
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-semibold text-gray-800">
+                        @if (csvData) {
+                        Extracted Data
+                        <span class="text-sm font-normal text-gray-500 ml-2">{{ rowCount }} rows × {{ columnCount }}
+                            columns</span>
+                        } @else {
+                        Preview
+                        }
+                    </h3>
+                    @if (csvData) {
+                    <button (click)="copyToClipboard()"
+                        class="text-sm text-pink-500 hover:text-pink-600 flex items-center gap-1">
+                        <i class="fa-solid fa-copy"></i> Copy CSV
+                    </button>
+                    }
+                </div>
+
+                @if (!csvData && !isProcessing) {
+                <div class="h-64 flex items-center justify-center border-2 border-dashed border-gray-200 rounded-xl">
+                    <div class="text-center text-gray-400">
+                        <i class="fa-solid fa-table text-4xl mb-2"></i>
+                        <p>Extracted data will appear here</p>
+                    </div>
+                </div>
+                }
+
+                @if (previewData.length > 0) {
+                <div class="overflow-x-auto overflow-y-auto border rounded-xl mb-4" style="max-height: 400px;">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        @for (row of previewData; track $index; let isFirst = $first) {
+                        <tr [class.bg-gray-50]="isFirst" [class.font-semibold]="isFirst">
+                            @for (cell of row; track $index) {
+                            <td class="px-3 py-2 text-sm text-gray-700 border-r last:border-r-0 whitespace-nowrap">
+                                {{ cell || '-' }}
+                            </td>
+                            }
+                        </tr>
+                        }
+                    </table>
+                </div>
+
+                <div class="flex gap-3">
+                    <button (click)="download()"
+                        class="flex-1 bg-gradient-to-r from-pink-500 to-rose-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i>
+                        Download CSV
+                    </button>
+                    <button (click)="reset()"
+                        class="bg-gray-100 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors">
+                        New Files
+                    </button>
+                </div>
+                }
+            </div>
+        </div>
+        }
+
+        @if (error) {
+        <div class="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">{{ error }}</div>
+        }
+    </div>
+</div>

@@ -1,0 +1,149 @@
+<div class="min-h-screen bg-gray-50">
+    <div class="bg-gradient-to-r from-orange-500 to-amber-500 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fa-solid fa-file-code text-2xl text-white"></i>
+            </div>
+            <h1 class="text-3xl font-bold text-white mb-2">Excel to JSON</h1>
+            <p class="text-orange-100">Convert Excel/CSV data to JSON format</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Left: Input -->
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-file-excel text-orange-500"></i>
+                        Input
+                    </h3>
+                    <!-- Input Mode Toggle -->
+                    <div class="bg-gray-100 rounded-lg p-0.5 inline-flex text-sm">
+                        <button (click)="inputMode = 'file'; reset()" [class.bg-white]="inputMode === 'file'"
+                            [class.shadow-sm]="inputMode === 'file'" [class.text-gray-800]="inputMode === 'file'"
+                            [class.text-gray-500]="inputMode !== 'file'"
+                            class="px-3 py-1.5 rounded-md font-medium transition-all">
+                            <i class="fa-solid fa-upload mr-1"></i>File
+                        </button>
+                        <button (click)="inputMode = 'text'; reset()" [class.bg-white]="inputMode === 'text'"
+                            [class.shadow-sm]="inputMode === 'text'" [class.text-gray-800]="inputMode === 'text'"
+                            [class.text-gray-500]="inputMode !== 'text'"
+                            class="px-3 py-1.5 rounded-md font-medium transition-all">
+                            <i class="fa-solid fa-keyboard mr-1"></i>Text
+                        </button>
+                    </div>
+                </div>
+
+                @if (inputMode === 'file') {
+                @if (!selectedFile) {
+                <div class="upload-area border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all h-64 flex flex-col items-center justify-center"
+                    [class.border-orange-400]="isDragging" [class.bg-orange-50]="isDragging"
+                    [class.border-gray-300]="!isDragging" (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" (click)="fileInput.click()">
+                    <input #fileInput type="file" accept=".xlsx,.xls,.csv" class="hidden"
+                        (change)="onFileSelected($event)">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-cloud-arrow-up text-2xl text-orange-500"></i>
+                    </div>
+                    <h4 class="font-medium text-gray-700 mb-1">Drop Excel/CSV file here</h4>
+                    <p class="text-sm text-gray-500">or click to browse</p>
+                </div>
+                } @else {
+                <div class="border rounded-xl p-4 bg-gray-50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="fa-solid fa-file-excel text-orange-500"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-medium text-gray-800 truncate">{{ selectedFile.name }}</p>
+                            <p class="text-sm text-gray-500">{{ formatFileSize(selectedFile.size) }}</p>
+                        </div>
+                        <button (click)="reset()" class="text-gray-400 hover:text-gray-600">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                @if (sheets.length > 1) {
+                <div class="mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Sheet</label>
+                    <div class="flex flex-wrap gap-2">
+                        @for (sheet of sheets; track sheet) {
+                        <button (click)="onSheetChange(sheet)" [class.bg-orange-500]="selectedSheet === sheet"
+                            [class.text-white]="selectedSheet === sheet" [class.bg-gray-100]="selectedSheet !== sheet"
+                            [class.text-gray-700]="selectedSheet !== sheet"
+                            class="px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">
+                            {{ sheet }}
+                        </button>
+                        }
+                    </div>
+                </div>
+                }
+                }
+                } @else {
+                <textarea [(ngModel)]="inputText" rows="10"
+                    class="w-full border border-gray-300 rounded-xl p-4 font-mono text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 resize-none"
+                    placeholder="Paste CSV or tab-separated data here:&#10;&#10;name,email,age&#10;John Doe,john@example.com,30&#10;Jane Smith,jane@example.com,25"></textarea>
+
+                @if (!jsonData) {
+                <button (click)="processText()" [disabled]="!inputText.trim()"
+                    class="w-full mt-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 disabled:opacity-50">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Convert to JSON
+                </button>
+                }
+                }
+
+                @if (jsonData) {
+                <div class="flex gap-3 mt-4">
+                    <button (click)="download()"
+                        class="flex-1 bg-gradient-to-r from-orange-500 to-amber-500 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i>
+                        Download JSON
+                    </button>
+                    <button (click)="reset()"
+                        class="bg-gray-100 text-gray-700 px-4 py-3 rounded-xl font-medium hover:bg-gray-200 transition-colors">
+                        Reset
+                    </button>
+                </div>
+                }
+            </div>
+
+            <!-- Right: Output -->
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-code text-orange-500"></i>
+                        Output
+                        @if (jsonData) {
+                        <span class="text-sm font-normal text-gray-500">({{ jsonData.length }} records)</span>
+                        }
+                    </h3>
+                    @if (jsonString) {
+                    <button (click)="copyToClipboard()"
+                        class="text-sm text-orange-500 hover:text-orange-600 flex items-center gap-1">
+                        <i class="fa-solid fa-copy"></i> Copy
+                    </button>
+                    }
+                </div>
+
+                @if (!jsonData) {
+                <div class="h-80 flex items-center justify-center border-2 border-dashed border-gray-200 rounded-xl">
+                    <div class="text-center text-gray-400">
+                        <i class="fa-solid fa-file-code text-4xl mb-3"></i>
+                        <p>JSON output will appear here</p>
+                    </div>
+                </div>
+                } @else {
+                <pre
+                    class="bg-gray-900 text-green-400 p-4 rounded-xl overflow-auto h-80 text-sm font-mono">{{ jsonString }}</pre>
+                }
+            </div>
+        </div>
+
+        @if (error) {
+        <div class="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">{{ error }}</div>
+        }
+    </div>
+</div>

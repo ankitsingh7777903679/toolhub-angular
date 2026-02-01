@@ -1,0 +1,241 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="py-12 text-center" style="background: linear-gradient(135deg, #F97316 0%, #FB923C 100%);">
+        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-crop text-3xl text-white"></i>
+        </div>
+        <h1 class="text-3xl font-bold text-white mb-2">Crop Image</h1>
+        <p class="text-white/80">Select and crop any portion of your image</p>
+    </div>
+
+    <div class="container mx-auto px-4 max-w-5xl py-12">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-8 md:p-12">
+
+                <!-- Upload Area -->
+                @if (!originalImage) {
+                <div class="border-3 border-dashed border-gray-200 rounded-2xl p-10 text-center transition-all duration-300 hover:border-orange-400 hover:bg-orange-50/50 cursor-pointer"
+                    (dragover)="onDragOver($event)" (drop)="onDrop($event)" (click)="fileInput.click()">
+                    <input #fileInput type="file" accept="image/*" class="hidden" (change)="onFileSelected($event)">
+                    <div class="flex flex-col items-center justify-center space-y-4">
+                        <div
+                            class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center text-orange-500 mb-2">
+                            <i class="fa-solid fa-crop text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Drag & Drop image here</h3>
+                        <p class="text-gray-500">or <span class="text-orange-500 font-semibold hover:underline">browse
+                                files</span> from your computer</p>
+                        <p class="text-xs text-gray-400 mt-2">Supports JPG, PNG, WebP</p>
+                    </div>
+                </div>
+                }
+
+                <!-- Crop Editor -->
+                @if (originalImage) {
+                <div class="space-y-6">
+
+                    <!-- Original Info -->
+                    <div class="bg-gray-50 rounded-xl p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-image text-gray-400"></i>
+                            <span class="font-medium text-gray-700">{{ originalFileName }}</span>
+                        </div>
+                        <span class="text-gray-500">{{ formatDimensions(imageWidth, imageHeight) }}</span>
+                    </div>
+
+                    <!-- Aspect Ratio Presets -->
+                    <div class="bg-orange-50 rounded-xl p-6">
+                        <h3 class="font-bold text-gray-800 mb-4">
+                            <i class="fa-solid fa-crop-simple text-orange-500 mr-2"></i>
+                            Aspect Ratio
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            @for (preset of aspectRatioPresets; track preset.name) {
+                            <button (click)="setAspectRatio(preset.ratio)"
+                                class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                                [class.bg-orange-500]="selectedAspectRatio === preset.ratio"
+                                [class.text-white]="selectedAspectRatio === preset.ratio"
+                                [class.bg-white]="selectedAspectRatio !== preset.ratio"
+                                [class.text-gray-700]="selectedAspectRatio !== preset.ratio"
+                                [class.hover:bg-orange-100]="selectedAspectRatio !== preset.ratio">
+                                {{ preset.name }}
+                            </button>
+                            }
+                        </div>
+                        @if (selectedAspectRatio !== null) {
+                        <p class="text-sm text-orange-600 mt-3">
+                            <i class="fa-solid fa-lock mr-1"></i>
+                            Aspect ratio locked - drag corners to resize while maintaining proportions
+                        </p>
+                        }
+                    </div>
+
+                    <!-- Crop Workspace -->
+                    <div class="crop-workspace">
+
+                        <!-- Crop Area -->
+                        <div class="crop-section">
+                            <h4 class="font-bold text-gray-700 mb-3 text-center">
+                                <i class="fa-solid fa-crop-simple text-orange-500 mr-2"></i>
+                                Select Area
+                            </h4>
+                            <div class="crop-area-container">
+                                <div #imageContainer
+                                    class="relative inline-block bg-gray-100 rounded-lg overflow-hidden"
+                                    [style.width.px]="displayWidth" [style.height.px]="displayHeight">
+
+                                    <!-- Original Image -->
+                                    <img [src]="originalImage" [style.width.px]="displayWidth"
+                                        [style.height.px]="displayHeight" class="block select-none pointer-events-none"
+                                        draggable="false">
+
+                                    <!-- Darkened Overlay -->
+                                    <div class="crop-overlay"
+                                        [style.clipPath]="'polygon(0% 0%, 0% 100%, ' + cropX + 'px 100%, ' + cropX + 'px ' + cropY + 'px, ' + (cropX + cropWidth) + 'px ' + cropY + 'px, ' + (cropX + cropWidth) + 'px ' + (cropY + cropHeight) + 'px, ' + cropX + 'px ' + (cropY + cropHeight) + 'px, ' + cropX + 'px 100%, 100% 100%, 100% 0%)'">
+                                    </div>
+
+                                    <!-- Crop Box -->
+                                    <div class="crop-box" [style.left.px]="cropX" [style.top.px]="cropY"
+                                        [style.width.px]="cropWidth" [style.height.px]="cropHeight"
+                                        (mousedown)="onCropBoxMouseDown($event)"
+                                        (touchstart)="onCropBoxTouchStart($event)">
+
+                                        <!-- Grid Lines -->
+                                        <div class="crop-grid"></div>
+
+                                        <!-- Resize Handles -->
+                                        <div class="handle handle-nw" (mousedown)="onHandleMouseDown($event, 'nw')"
+                                            (touchstart)="onHandleTouchStart($event, 'nw')"></div>
+                                        <div class="handle handle-n" (mousedown)="onHandleMouseDown($event, 'n')"
+                                            (touchstart)="onHandleTouchStart($event, 'n')"></div>
+                                        <div class="handle handle-ne" (mousedown)="onHandleMouseDown($event, 'ne')"
+                                            (touchstart)="onHandleTouchStart($event, 'ne')"></div>
+                                        <div class="handle handle-e" (mousedown)="onHandleMouseDown($event, 'e')"
+                                            (touchstart)="onHandleTouchStart($event, 'e')"></div>
+                                        <div class="handle handle-se" (mousedown)="onHandleMouseDown($event, 'se')"
+                                            (touchstart)="onHandleTouchStart($event, 'se')"></div>
+                                        <div class="handle handle-s" (mousedown)="onHandleMouseDown($event, 's')"
+                                            (touchstart)="onHandleTouchStart($event, 's')"></div>
+                                        <div class="handle handle-sw" (mousedown)="onHandleMouseDown($event, 'sw')"
+                                            (touchstart)="onHandleTouchStart($event, 'sw')"></div>
+                                        <div class="handle handle-w" (mousedown)="onHandleMouseDown($event, 'w')"
+                                            (touchstart)="onHandleTouchStart($event, 'w')"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-3 text-center">
+                                <i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>
+                                Drag to move • Drag corners to resize
+                            </p>
+                            <p class="text-sm text-orange-600 font-medium mt-1 text-center">
+                                Selection: {{ getCropDimensions() }}
+                            </p>
+                        </div>
+
+                        <!-- Preview / Comparison -->
+                        <div class="crop-section">
+                            <h4 class="font-bold text-gray-700 mb-3 text-center">
+                                <i class="fa-solid fa-eye text-orange-500 mr-2"></i>
+                                Cropped Result
+                            </h4>
+                            <div
+                                class="preview-container border border-gray-200 rounded-lg overflow-hidden bg-gray-100 min-h-[280px] flex items-center justify-center p-4">
+                                @if (croppedImage) {
+                                <!-- Cropped Image Preview -->
+                                <img [src]="croppedImage"
+                                    class="max-w-full max-h-[260px] rounded-lg shadow-lg object-contain">
+                                } @else if (isProcessing) {
+                                <div class="text-center">
+                                    <i class="fa-solid fa-circle-notch fa-spin text-orange-500 text-3xl mb-2"></i>
+                                    <p class="text-gray-500">Cropping...</p>
+                                </div>
+                                } @else {
+                                <div class="text-gray-400 text-center">
+                                    <i class="fa-solid fa-crop text-4xl mb-3 opacity-50"></i>
+                                    <p class="text-sm">Adjust selection and click<br>"Crop Image" to preview</p>
+                                </div>
+                                }
+                            </div>
+                            @if (croppedImage) {
+                            <p class="text-sm text-green-600 font-medium mt-2 text-center">
+                                <i class="fa-solid fa-check-circle mr-1"></i>
+                                Cropped: {{ getCropDimensions() }}
+                            </p>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    @if (error) {
+                    <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+                        <i class="fa-solid fa-circle-exclamation mr-2"></i>{{ error }}
+                    </div>
+                    }
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col md:flex-row gap-4 justify-center pt-4 items-center">
+                        @if (!croppedImage) {
+                        <button (click)="cropImage()" [disabled]="isProcessing"
+                            class="px-8 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-bold shadow-lg shadow-orange-200 hover:from-orange-600 hover:to-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-crop"></i>
+                            {{ isProcessing ? 'Cropping...' : 'Crop Image' }}
+                        </button>
+                        }
+
+                        @if (croppedImage) {
+                        <button (click)="downloadCropped()"
+                            class="flex-1 w-full md:w-auto px-8 py-3 bg-green-500 text-white rounded-xl font-bold shadow-lg shadow-green-200 hover:bg-green-600 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-download"></i>
+                            Download Cropped
+                        </button>
+
+                        <button (click)="croppedImage = null"
+                            class="flex-1 w-full md:w-auto px-6 py-3 bg-orange-100 text-orange-700 rounded-xl font-bold hover:bg-orange-200 transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-rotate"></i>
+                            Adjust Selection
+                        </button>
+
+                        <!-- Send to Tool Button -->
+                        <div class="w-full md:w-auto md:flex-1">
+                            <app-send-to-tool [hasOutput]="!!croppedImage" [currentRoute]="currentRoute"
+                                [outputData]="croppedImage || ''" [fileName]="originalFileName" [fileType]="'image'">
+                            </app-send-to-tool>
+                        </div>
+                        }
+
+                        <button (click)="reset()"
+                            class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-xmark"></i>
+                            Start Over
+                        </button>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Info Cards -->
+        <div class="mt-8 grid md:grid-cols-4 gap-4">
+            <div class="bg-white p-5 rounded-xl shadow-sm text-center">
+                <i class="fa-solid fa-hand-pointer text-orange-500 text-2xl mb-2"></i>
+                <h4 class="font-bold text-gray-800">Interactive</h4>
+                <p class="text-gray-500 text-sm">Drag to select area</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm text-center">
+                <i class="fa-solid fa-crop-simple text-orange-500 text-2xl mb-2"></i>
+                <h4 class="font-bold text-gray-800">Aspect Ratios</h4>
+                <p class="text-gray-500 text-sm">1:1, 16:9, 4:3 & more</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm text-center">
+                <i class="fa-solid fa-expand text-orange-500 text-2xl mb-2"></i>
+                <h4 class="font-bold text-gray-800">Resize Handles</h4>
+                <p class="text-gray-500 text-sm">Precise control</p>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm text-center">
+                <i class="fa-solid fa-image text-orange-500 text-2xl mb-2"></i>
+                <h4 class="font-bold text-gray-800">Quality Output</h4>
+                <p class="text-gray-500 text-sm">Original resolution</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<footer class="bg-white border-t mt-16 min-h-[400px]">
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Brand -->
+            <div class="lg:col-span-1">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">ToolHub</h2>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    Free Online Tools to Make Everything Simple. ToolHub provides free online conversion, PDF, and other
+                    handy tools to help you solve problems of all types.
+                </p>
+            </div>
+
+            <!-- Navigate -->
+            <div>
+                <h3 class="font-bold text-gray-900 mb-4">Navigate</h3>
+                <ul class="space-y-2">
+                    <li><a routerLink="/" class="text-gray-600 hover:text-primary text-sm">Home</a></li>
+                    <li><a routerLink="/about" class="text-gray-600 hover:text-primary text-sm">About Us</a></li>
+                    <li><a routerLink="/feedback" class="text-gray-600 hover:text-primary text-sm">Feedback</a></li>
+                    <li><a routerLink="/terms" class="text-gray-600 hover:text-primary text-sm">Terms & Conditions</a>
+                    </li>
+                    <li><a routerLink="/privacy" class="text-gray-600 hover:text-primary text-sm">Privacy Policy</a>
+                    </li>
+                    <li><a routerLink="/contact" class="text-gray-600 hover:text-primary text-sm">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Tools Column 1 -->
+            <div>
+                <h3 class="font-bold text-gray-900 mb-4">Tools</h3>
+                <ul class="space-y-2">
+                    <li><a routerLink="/write/essay" class="text-gray-600 hover:text-primary text-sm">Essay Writer</a>
+                    </li>
+                    <li><a routerLink="/image/ai-generator" class="text-gray-600 hover:text-primary text-sm">AI Image
+                            Generator</a></li>
+                    <li><a routerLink="/pdf/merge" class="text-gray-600 hover:text-primary text-sm">Merge PDF</a></li>
+                    <li><a routerLink="/pdf/split" class="text-gray-600 hover:text-primary text-sm">Split PDF</a></li>
+                </ul>
+            </div>
+
+            <!-- Tools Column 2 -->
+            <div>
+                <h3 class="font-bold text-gray-900 mb-4">More Tools</h3>
+                <ul class="space-y-2">
+                    <li><a routerLink="/write/blog" class="text-gray-600 hover:text-primary text-sm">Blog Post
+                            Generator</a></li>
+                    <li><a routerLink="/write/cold-email" class="text-gray-600 hover:text-primary text-sm">Cold Email
+                            Generator</a></li>
+                    <li><a routerLink="/image/webp-to-jpg" class="text-gray-600 hover:text-primary text-sm">WebP to
+                            JPG</a></li>
+                    <li><a routerLink="/write/summarizer"
+                            class="text-gray-600 hover:text-primary text-sm">Summarizer</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t">
+        <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+            <h3 class="text-xl font-bold text-gray-900">ToolHub</h3>
+            <p class="text-gray-500 text-sm mt-2 md:mt-0">© {{ currentYear }} ToolHub. All rights reserved</p>
+        </div>
+    </div>
+</footer>

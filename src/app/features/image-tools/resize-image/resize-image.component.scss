@@ -1,0 +1,17 @@
+// Resize Image Component Styles
+
+.border-3 {
+    border-width: 3px;
+}
+
+// Number input styling
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}

@@ -1,0 +1,184 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="py-12 text-center" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);">
+        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-droplet text-3xl text-white"></i>
+        </div>
+        <h1 class="text-3xl font-bold text-white mb-2">Add Watermark</h1>
+        <p class="text-white/80">Add text or image watermark to your pictures</p>
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+
+            <!-- Upload Area -->
+            @if (!originalImage) {
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-cyan-500 hover:bg-cyan-50 transition-colors cursor-pointer"
+                    (click)="fileInput.click()" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+                    <input #fileInput type="file" accept="image/*" (change)="onFileSelect($event)" class="hidden">
+                    <i class="fa-solid fa-cloud-arrow-up text-4xl text-gray-400 mb-3"></i>
+                    <p class="text-gray-600 font-medium">Click to upload image</p>
+                    <p class="text-gray-400 text-sm mt-1">Supports JPG, PNG, WebP</p>
+                </div>
+            </div>
+            }
+
+            <!-- Editor -->
+            @if (originalImage) {
+            <div class="grid lg:grid-cols-2 gap-6">
+
+                <!-- Preview -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="font-bold text-gray-800 mb-4">
+                        <i class="fa-solid fa-eye text-cyan-500 mr-2"></i>Preview
+                    </h3>
+                    <div class="bg-gray-100 rounded-lg overflow-hidden"
+                        style="background-image: repeating-conic-gradient(#e5e5e5 0% 25%, #fff 0% 50%); background-size: 16px 16px;">
+                        <img [src]="resultImage || originalImage" class="w-full h-auto max-h-96 object-contain">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2 text-center">{{ originalFileName }}</p>
+                </div>
+
+                <!-- Settings -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="font-bold text-gray-800 mb-4">
+                        <i class="fa-solid fa-sliders text-cyan-500 mr-2"></i>Watermark Settings
+                    </h3>
+
+                    <!-- Type Selector -->
+                    <div class="flex gap-2 mb-6">
+                        <button (click)="watermarkType = 'text'"
+                            [class]="watermarkType === 'text' ? 'flex-1 py-2 px-4 rounded-lg font-medium bg-cyan-500 text-white' : 'flex-1 py-2 px-4 rounded-lg font-medium bg-gray-100 text-gray-600 hover:bg-gray-200'">
+                            <i class="fa-solid fa-font mr-2"></i>Text
+                        </button>
+                        <button (click)="watermarkType = 'image'"
+                            [class]="watermarkType === 'image' ? 'flex-1 py-2 px-4 rounded-lg font-medium bg-cyan-500 text-white' : 'flex-1 py-2 px-4 rounded-lg font-medium bg-gray-100 text-gray-600 hover:bg-gray-200'">
+                            <i class="fa-solid fa-image mr-2"></i>Image
+                        </button>
+                    </div>
+
+                    <!-- Text Watermark Options -->
+                    @if (watermarkType === 'text') {
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Watermark Text</label>
+                            <input type="text" [(ngModel)]="watermarkText"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                                <input type="color" [(ngModel)]="textColor"
+                                    class="w-full h-10 rounded-lg border border-gray-300 cursor-pointer">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Font Size</label>
+                                <input type="number" [(ngModel)]="fontSize" min="12" max="200"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Opacity: {{ textOpacity
+                                }}%</label>
+                            <input type="range" [(ngModel)]="textOpacity" min="10" max="100"
+                                class="w-full accent-cyan-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Position</label>
+                            <select [(ngModel)]="textPosition"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                                <option value="center">Center</option>
+                                <option value="top-left">Top Left</option>
+                                <option value="top-right">Top Right</option>
+                                <option value="bottom-left">Bottom Left</option>
+                                <option value="bottom-right">Bottom Right</option>
+                                <option value="tile">Tile (Repeat)</option>
+                            </select>
+                        </div>
+                    </div>
+                    }
+
+                    <!-- Image Watermark Options -->
+                    @if (watermarkType === 'image') {
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Watermark Image</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-cyan-500 hover:bg-cyan-50 transition-colors"
+                                (click)="wmImageInput.click()">
+                                <input #wmImageInput type="file" accept="image/*"
+                                    (change)="onWatermarkImageSelect($event)" class="hidden">
+                                @if (watermarkImage) {
+                                <img [src]="watermarkImage" class="w-20 h-20 object-contain mx-auto rounded">
+                                } @else {
+                                <i class="fa-solid fa-plus text-2xl text-gray-400 mb-2"></i>
+                                <p class="text-sm text-gray-500">Click to upload logo/watermark</p>
+                                }
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Opacity: {{ imageOpacity
+                                }}%</label>
+                            <input type="range" [(ngModel)]="imageOpacity" min="10" max="100"
+                                class="w-full accent-cyan-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Scale: {{ imageScale }}%</label>
+                            <input type="range" [(ngModel)]="imageScale" min="5" max="100"
+                                class="w-full accent-cyan-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Position</label>
+                            <select [(ngModel)]="imagePosition"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                                <option value="center">Center</option>
+                                <option value="top-left">Top Left</option>
+                                <option value="top-right">Top Right</option>
+                                <option value="bottom-left">Bottom Left</option>
+                                <option value="bottom-right">Bottom Right</option>
+                                <option value="tile">Tile (Repeat)</option>
+                            </select>
+                        </div>
+                    </div>
+                    }
+
+                    <!-- Action Buttons -->
+                    <div class="mt-6 space-y-3">
+                        <button (click)="applyWatermark()" [disabled]="isProcessing"
+                            class="w-full py-3 bg-cyan-500 text-white rounded-lg font-bold hover:bg-cyan-600 transition-colors disabled:opacity-50">
+                            @if (isProcessing) {
+                            <i class="fa-solid fa-spinner fa-spin mr-2"></i>Applying...
+                            } @else {
+                            <i class="fa-solid fa-droplet mr-2"></i>Apply Watermark
+                            }
+                        </button>
+
+                        @if (resultImage) {
+                        <div class="flex gap-3">
+                            <button (click)="downloadResult()"
+                                class="flex-1 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition-colors">
+                                <i class="fa-solid fa-download mr-2"></i>Download
+                            </button>
+                            <app-send-to-tool [hasOutput]="!!resultImage" [currentRoute]="currentRoute"
+                                [outputData]="resultImage" [fileName]="getOutputFileName()" [fileType]="'image'">
+                            </app-send-to-tool>
+                        </div>
+                        }
+
+                        <button (click)="reset()" class="w-full py-2 text-gray-500 hover:text-gray-700 font-medium">
+                            <i class="fa-solid fa-rotate mr-2"></i>Start Over
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+</div>

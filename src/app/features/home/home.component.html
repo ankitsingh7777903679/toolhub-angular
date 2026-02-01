@@ -1,0 +1,264 @@
+<div class="bg-white min-h-screen">
+    <!-- Hero Section -->
+    <!-- Hero Section -->
+    <!-- Hero Section -->
+    <section class="container mx-auto px-4 py-12 md:py-20 text-center relative">
+        <!-- Background Decor (Optional specific glow if needed, else cleaner) -->
+
+        <!-- Badge -->
+        <div
+            class="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-1.5 mb-8 animate-fade-in-up">
+            <span class="relative flex h-2 w-2">
+                <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            <span class="text-blue-600 text-xs md:text-sm font-semibold tracking-wide uppercase">Fast & Secure Online
+                Tools</span>
+        </div>
+
+        <!-- Heading -->
+        <h1
+            class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight tracking-tight">
+            The Ultimate
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">Digital
+                Toolkit</span>
+        </h1>
+
+        <!-- Description -->
+        <p class="text-gray-500 text-base md:text-xl mb-8 md:mb-12 max-w-3xl mx-auto px-4 leading-relaxed">
+            Manage PDFs, edit images, convert videos, and generate AI content. A complete suite of powerful tools
+            designed to boost your productivity.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="w-full max-w-xl mx-auto px-4 md:px-0 relative z-50">
+            <div class="relative w-full">
+                <!-- Search Input Group -->
+                <div
+                    class="flex items-center bg-white rounded-full shadow-lg border border-gray-200 px-4 py-2 relative z-20">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3 text-base"></i>
+                    <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" placeholder="Search"
+                        class="flex-1 outline-none text-gray-700 py-2 bg-transparent text-base min-w-0">
+
+                    @if (searchQuery) {
+                    <button (click)="clearSearch()" class="mr-2 text-gray-400 hover:text-gray-600 transition-colors">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                    }
+
+                    <button (click)="scrollToTools()"
+                        class="bg-blue-500 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-600 transition-all text-sm flex-shrink-0">
+                        search
+                    </button>
+                </div>
+
+                <!-- Dropdown Results -->
+                @if (searchResults.length > 0) {
+                <div
+                    class="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-30 py-2 max-h-[320px] overflow-y-auto custom-scrollbar">
+                    @for (tool of searchResults; track tool._id) {
+                    <button (click)="navigateToTool(tool)"
+                        class="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 transition-colors border-b border-gray-50 last:border-0">
+                        <div
+                            class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-blue-50 text-blue-500">
+                            <i [class]="tool.iconClass"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-gray-900 text-sm">{{ tool.name }}</div>
+                            <div class="text-xs text-gray-500 line-clamp-1">{{ tool.description }}</div>
+                        </div>
+                    </button>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Cards -->
+    <section class="container mx-auto px-4 mb-10 md:mb-16 ">
+        <!-- Mobile: Horizontal Scroll, Desktop: Grid -->
+        <div
+            class="flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 overflow-x-auto pb-4 md:pb-0 snap-x scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 min-h-[200px]">
+            @for (category of categories; track category.id) {
+            <a [routerLink]="category.link"
+                class="min-w-[42vw] sm:min-w-[45vw] md:min-w-0 md:w-auto snap-center flex-shrink-0 group rounded-xl md:rounded-2xl p-5 md:p-5 text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-xl relative overflow-hidden flex flex-col justify-between h-[200px] md:h-auto"
+                [style.backgroundColor]="category.bgColor">
+
+                <!-- Top Row: Icon and Badge -->
+                <div class="flex justify-between items-start mb-3 md:mb-6">
+                    <div
+                        class="w-10 h-10 md:w-12 md:h-12 bg-white/20 backdrop-blur-sm rounded-lg md:rounded-xl flex items-center justify-center">
+                        <i [class]="category.icon + ' text-base md:text-lg text-white'"></i>
+                    </div>
+                    <span
+                        class="bg-white/20 backdrop-blur-sm text-white text-[10px] md:text-xs font-medium px-2 md:px-3 py-0.5 md:py-1 rounded-full">
+                        {{ category.toolCount }}
+                    </span>
+                </div>
+
+                <!-- Title and Subtitle -->
+                <div class="mb-2 md:mb-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-xl md:text-base text-white">{{ category.name }}</h3>
+                        <i
+                            class="fa-solid fa-arrow-right text-white/70 group-hover:text-white group-hover:translate-x-1 transition-all text-xs md:text-sm"></i>
+                    </div>
+                    <p class="text-white/70 text-sm md:text-xs mt-1 line-clamp-1">{{ category.subtitle }}</p>
+                </div>
+
+                <!-- Featured Tool Pills -->
+                <div class="flex flex-wrap gap-1 md:gap-2">
+                    <span
+                        class="bg-white text-gray-600 text-[10px] md:text-xs font-medium px-2 md:px-3 py-1 md:py-1.5 rounded-md">
+                        {{ category.featuredTool }}
+                    </span>
+                    <span class="bg-white font-semibold text-[10px] md:text-xs px-2 md:px-3 py-1 md:py-1.5 rounded-md"
+                        [style.color]="category.color">
+                        {{ category.featuredTool2 }}
+                    </span>
+                </div>
+            </a>
+            }
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="container mx-auto px-4 mb-10 md:mb-16">
+        <div class="bg-gray-50 rounded-xl md:rounded-2xl py-6 md:py-10 px-4 md:px-6">
+            <div class="grid grid-cols-4 gap-2 md:gap-8">
+                <div class="flex flex-col items-center text-center">
+                    <span class="text-xl sm:text-2xl md:text-5xl font-bold text-blue-500">1k</span>
+                    <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium mt-1">Active</p>
+                    <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium">User</p>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <span class="text-xl sm:text-2xl md:text-5xl font-bold text-green-500">10k</span>
+                    <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium mt-1">Files</p>
+                    <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium">Converted</p>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <span class="text-xl sm:text-2xl md:text-5xl font-bold text-orange-500">20k</span>
+                    <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium mt-1">Online</p>
+                    <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium">Tools</p>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <span class="text-xl sm:text-2xl md:text-5xl font-bold text-cyan-500">50k</span>
+                    <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium mt-1">PDFs</p>
+                    <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium">Created</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Most Popular Tools Section -->
+    <section class="bg-blue-50 py-10 md:py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-2 md:mb-3 ">Our Most Popular
+                    Tools</h2>
+                <p class="text-gray-500 text-sm md:text-base">We present the best of the best. All free, no catch</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Tools Section -->
+    <section id="all-tools" class="container mx-auto px-4 py-12 md:py-20">
+        <div class="text-center mb-8 md:mb-10">
+            <h2 class="text-2xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-3">All Tools</h2>
+            <p class="text-gray-500 text-sm md:text-base">Explore our collection of free online tools</p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="overflow-x-auto scrollbar-hide mb-8 md:mb-10 -mx-4 px-4">
+            <div class="flex gap-2 md:gap-3 min-w-max justify-center">
+                <button (click)="setCategory('all')"
+                    class="px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all whitespace-nowrap"
+                    [class]="activeCategory === 'all' ? 'bg-blue-500 text-white shadow-lg shadow-blue-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'">
+                    All Tools
+                </button>
+                @for (category of categories; track category.id) {
+                <button (click)="setCategory(category.id)"
+                    class="px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all flex items-center gap-1.5 md:gap-2 whitespace-nowrap"
+                    [class]="activeCategory === category.id ? 'bg-blue-500 text-white shadow-lg shadow-blue-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'">
+                    <i [class]="category.icon" class="text-xs md:text-sm"></i>
+                    {{ category.name }}
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5">
+            @for (tool of displayedTools; track tool._id) {
+            <app-tool-card [tool]="tool"></app-tool-card>
+            } @empty {
+            <div class="col-span-full text-center py-12 md:py-16">
+                <div
+                    class="w-16 h-16 md:w-20 md:h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fa-solid fa-search text-2xl md:text-3xl text-gray-300"></i>
+                </div>
+                <p class="text-gray-500 font-medium text-sm md:text-base">No tools found matching your search.</p>
+            </div>
+            }
+        </div>
+
+        <!-- Show More Button -->
+        @if (!searchQuery && activeCategory === 'all' && filteredTools.length > 8) {
+        <div class="text-center mt-8 md:mt-12">
+            <button (click)="toggleShowAll()"
+                class="group bg-white border border-gray-200 px-6 md:px-8 py-2.5 md:py-3 rounded-full font-semibold text-sm md:text-base text-gray-700 hover:border-blue-500 hover:text-blue-600 hover:shadow-lg transition-all duration-300 flex items-center gap-2 mx-auto">
+                <span>{{ showAll ? 'Show Less Tools' : 'View All Tools' }}</span>
+                <i class="fa-solid" [class]="showAll ? 'fa-angle-up' : 'fa-angle-down'"></i>
+            </button>
+        </div>
+        }
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="bg-gray-50 py-16 md:py-24 border-t border-gray-100">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+                <p class="text-gray-500 text-base md:text-lg">Everything you need to know about ToolHub.</p>
+            </div>
+
+            <div class="space-y-4">
+                @for (faq of faqs; track $index) {
+                <div
+                    class="bg-white rounded-2xl border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-blue-200 group">
+                    <button (click)="toggleFaq($index)"
+                        class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none">
+                        <span
+                            class="text-base md:text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors">{{
+                            faq.question }}</span>
+                        <div class="w-8 h-8 rounded-full bg-gray-50 group-hover:bg-blue-50 flex items-center justify-center transition-all duration-300"
+                            [class.rotate-180]="faq.isOpen">
+                            <i class="fa-solid fa-chevron-down text-gray-400 group-hover:text-blue-500 text-xs"></i>
+                        </div>
+                    </button>
+                    <!-- Body -->
+                    <div class="overflow-hidden transition-all duration-300 ease-in-out"
+                        [style.max-height]="faq.isOpen ? '500px' : '0px'" [style.opacity]="faq.isOpen ? '1' : '0'">
+                        <div class="p-5 md:p-6 pt-0 text-gray-600 leading-relaxed text-sm md:text-base border-t border-dashed border-gray-100 mt-2"
+                            *ngIf="faq.isOpen">
+                            {{ faq.answer }}
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <div class="text-center mt-12 bg-blue-50 rounded-2xl p-8">
+                <h4 class="font-bold text-gray-900 mb-2">Still have questions?</h4>
+                <p class="text-gray-600 text-sm mb-6">Can't find the answer you're looking for? Please chat to our
+                    friendly team.</p>
+                <a routerLink="/feedback"
+                    class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200 transform hover:-translate-y-0.5">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

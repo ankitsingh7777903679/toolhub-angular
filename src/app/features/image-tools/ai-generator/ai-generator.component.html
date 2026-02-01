@@ -1,0 +1,80 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="py-12 text-center" style="background-color: #D1FAE5;">
+        <div class="w-16 h-16 bg-white/40 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-wand-magic-sparkles text-3xl" style="color: #10B981;"></i>
+        </div>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">AI Image Generator</h1>
+        <p class="text-gray-600">Turn your imagination into reality with our free AI generator</p>
+    </div>
+
+    <div class="container mx-auto px-4 max-w-6xl py-12">
+        <!-- Input Section -->
+        <div class="max-w-3xl mx-auto mb-16">
+            <div
+                class="bg-white p-2 md:p-3 rounded-full shadow-xl shadow-purple-100 border border-purple-50 flex items-center gap-2 md:gap-4 transition-all focus-within:ring-4 focus-within:ring-purple-100">
+                <div class="pl-4 md:pl-6 text-purple-500">
+                    <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                </div>
+                <input type="text" [(ngModel)]="prompt" (keyup.enter)="generateImages()"
+                    placeholder="Describe what you want to see (e.g., 'A futuristic city with flying cars in cyberpunk style')"
+                    class="flex-1 bg-transparent border-none text-gray-800 placeholder-gray-400 focus:ring-0 text-sm md:text-base outline-none h-12">
+
+                <button (click)="generateImages()" [disabled]="isGenerating || !prompt.trim()"
+                    class="bg-gray-900 text-white px-8 py-3 rounded-full font-bold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:shadow-lg shadow-gray-200 flex items-center gap-2">
+                    @if (isGenerating) {
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Generating...
+                    } @else {
+                    Generate
+                    }
+                </button>
+            </div>
+            @if (errorMessage) {
+            <p class="text-red-500 text-sm mt-3 text-center bg-red-50 py-2 rounded-lg border border-red-100">{{
+                errorMessage }}</p>
+            }
+        </div>
+
+        <!-- Output Grid -->
+        <div class="grid grid-cols-1 w-[400px] mx-auto">
+            @for (image of generatedImages; track image.id) {
+            <div
+                class="group relative aspect-square bg-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                <img [src]="image.url" [alt]="image.prompt" class="w-full h-full object-cover">
+
+                <!-- Overlay -->
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                    <p class="text-white text-xs line-clamp-2 mb-3 opacity-90">{{ image.prompt }}</p>
+                    <button (click)="downloadImage(image)"
+                        class="w-full bg-white text-gray-900 py-2 rounded-lg font-bold text-sm hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+            }
+
+            <!-- Loading Skeleton (single image) -->
+            @if (isGenerating) {
+            <div class="aspect-square bg-gray-200 rounded-2xl animate-pulse relative overflow-hidden">
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent w-full h-full shimmer">
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center text-gray-400">
+                    <i class="fa-solid fa-image text-4xl opacity-50"></i>
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Empty State -->
+        @if (!isGenerating && generatedImages.length === 0) {
+        <div class="text-center py-20 opacity-50">
+            <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-regular fa-image text-4xl text-gray-400"></i>
+            </div>
+            <p class="text-gray-500">Your generated images will appear here.</p>
+        </div>
+        }
+    </div>
+</div>
