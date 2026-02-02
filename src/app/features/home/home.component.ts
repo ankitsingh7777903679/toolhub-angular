@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     // FAQ Data
     faqs: FaqItem[] = [
         {
-            question: "Is ToolHub completely free to use?",
+            question: "Is 2olhub completely free to use?",
             answer: "Most of our tools are 100% free and unlimited for everyone. We also offer specific premium tools and features for power users who need advanced capabilities, higher limits, and priority processing.",
             isOpen: true
         },
@@ -133,7 +133,7 @@ export class HomeComponent implements OnInit {
             toolCount: '45+ tools',
             featuredTool: 'Featured Tool :',
             featuredTool2: 'Split Excel',
-            link: '/converter'
+            link: '/file'
         }
     ];
 

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-terms',
-    standalone: true,
-    imports: [CommonModule],
-    template: `
+  selector: 'app-terms',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
     <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 p-8 md:p-12">
         <h1 class="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">Terms and Conditions</h1>
@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 
           <section>
             <h3 class="text-xl font-semibold text-gray-800 mb-3">1. Acceptance of Terms</h3>
-            <p>By accessing and using ToolHub, you accept and agree to be bound by the terms and provision of this agreement.</p>
+            <p>By accessing and using 2olhub, you accept and agree to be bound by the terms and provision of this agreement.</p>
           </section>
 
           <section>
@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
 
           <section>
             <h3 class="text-xl font-semibold text-gray-800 mb-3">4. Limitation of Liability</h3>
-            <p>ToolHub is provided "as is" without any warranties. We shall not be liable for any damages resulting from the use or inability to use our services.</p>
+            <p>2olhub is provided "as is" without any warranties. We shall not be liable for any damages resulting from the use or inability to use our services.</p>
           </section>
 
           <section>

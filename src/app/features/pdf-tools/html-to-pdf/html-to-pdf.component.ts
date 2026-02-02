@@ -191,20 +191,56 @@ export class HtmlToPdfComponent {
         this.cdr.detectChanges();
 
         try {
-            // Use client-side html2pdf.js for FAST generation
-            const element = document.getElementById('pdf-content');
-            if (!element) throw new Error('Preview element not found');
+            // Get original element
+            const originalElement = document.getElementById('pdf-content');
+            if (!originalElement) throw new Error('Preview element not found');
 
-            // Optimized options for faster PDF generation
+            // CLONE STRATEGY: Create a clean container overlay
+            // We place it ON TOP of everything to ensure visibility and 0,0 coordinates
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.left = '0';
+            container.style.top = '0';
+            container.style.width = '100vw'; // Use full viewport width to capture everything
+            container.style.height = '100vh'; // Use full viewport height
+            container.style.zIndex = '9999';
+            container.style.background = '#ffffff';
+            container.style.overflow = 'hidden'; // Hide scrollbars
+            container.className = 'html2pdf-container';
+
+            // Create a wrapper for the content to constrain width to A4-like proportions
+            const contentWrapper = document.createElement('div');
+            contentWrapper.style.width = '800px'; // Force A4-like width
+            contentWrapper.style.margin = '0 auto'; // Center it (optional, but good for debugging)
+            contentWrapper.style.background = '#ffffff';
+            contentWrapper.style.padding = '20px';
+
+            // Clone the content
+            const clone = originalElement.cloneNode(true) as HTMLElement;
+
+            // Ensure clone styling
+            clone.style.width = '100%';
+            clone.style.height = 'auto';
+            clone.style.background = '#ffffff';
+            clone.style.color = '#000000';
+
+            contentWrapper.appendChild(clone);
+            container.appendChild(contentWrapper);
+            document.body.appendChild(container);
+
+            // Optimized options
             const opt = {
                 margin: [10, 10, 10, 10],
                 filename: this.getOutputFileName(),
-                image: { type: 'jpeg', quality: 0.85 },
+                image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: {
-                    scale: 1.5, // Lower scale = faster (was 2)
+                    scale: 2,
                     useCORS: true,
                     logging: false,
-                    letterRendering: false // Faster text rendering
+                    scrollY: 0,
+                    x: 0,
+                    y: 0,
+                    windowWidth: 800 // Match wrapper width
                 },
                 jsPDF: {
                     unit: 'mm',
@@ -212,11 +248,14 @@ export class HtmlToPdfComponent {
                     orientation: 'portrait',
                     compress: true
                 },
-                pagebreak: { mode: 'avoid-all' }
+                pagebreak: { mode: 'avoid-all', after: '.page-break' }
             };
 
-            // Generate PDF blob directly (faster than going through output)
-            this.pdfBlob = await html2pdf().set(opt).from(element).outputPdf('blob');
+            // Generate PDF from the CONTENT WRAPPER
+            this.pdfBlob = await html2pdf().set(opt).from(contentWrapper).outputPdf('blob');
+
+            // Cleanup
+            document.body.removeChild(container);
 
             // Generate data URL for Tool Chain
             const reader = new FileReader();

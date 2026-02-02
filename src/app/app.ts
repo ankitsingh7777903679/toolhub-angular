@@ -25,6 +25,6 @@ import { ConfirmModalComponent } from './shared/components/confirm-modal/confirm
   `]
 })
 export class App {
-  title = 'ToolHub';
+  title = '2olhub';
 }
 

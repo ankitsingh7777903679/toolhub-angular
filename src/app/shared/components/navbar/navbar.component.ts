@@ -14,7 +14,9 @@ import { ThemeService } from '../../../core/services/theme.service';
     <nav class="bg-white shadow-sm sticky top-0 z-50">
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center h-14 md:h-16">
-          <a routerLink="/" class="text-xl md:text-2xl font-bold text-gray-900">ToolHub</a>
+          <a routerLink="/" class="flex items-center gap-2">
+            <img src="assets/logo.png" alt="2olhub" class="h-16 md:h-24 w-auto object-contain">
+          </a>
 
           <div *ngIf="!isAdminRoute()" class="hidden lg:flex items-center gap-8">
             <a routerLink="/pdf" class="text-gray-700 hover:text-blue-500 font-medium">PDF</a>
@@ -70,8 +72,9 @@ import { ThemeService } from '../../../core/services/theme.service';
           <div class="flex flex-col gap-4">
             <a routerLink="/pdf" (click)="isMenuOpen = false" class="text-gray-700 font-medium hover:text-blue-500 transition-colors">PDF Tools</a>
             <a routerLink="/image" (click)="isMenuOpen = false" class="text-gray-700 font-medium hover:text-blue-500 transition-colors">Image Tools</a>
-            <a routerLink="/file-tools" (click)="isMenuOpen = false" class="text-gray-700 font-medium hover:text-blue-500 transition-colors">File Tools</a>
+            <a routerLink="/file" (click)="isMenuOpen = false" class="text-gray-700 font-medium hover:text-blue-500 transition-colors">File Tools</a>
             <a routerLink="/write" (click)="isMenuOpen = false" class="text-gray-700 font-medium hover:text-blue-500 transition-colors">AI Write</a>
+            <a routerLink="/feedback" (click)="isMenuOpen = false" class="text-gray-700 font-medium hover:text-blue-500 transition-colors">Feedback</a>
             <button *ngIf="!authService.isLoggedIn()" (click)="showLogin = true; isMenuOpen = false" class="bg-blue-500 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-600 transition-colors w-fit">
               Sign In
             </button>
@@ -84,7 +87,7 @@ import { ThemeService } from '../../../core/services/theme.service';
     <div *ngIf="showLogin" class="fixed inset-0 bg-black/50 flex items-center justify-center z-[100]" (click)="showLogin = false">
       <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-8" (click)="$event.stopPropagation()">
         <h2 class="text-2xl font-bold text-center text-gray-900 mb-6">
-          {{ isSignup ? 'Create Account' : 'Login to ToolHub' }}
+          {{ isSignup ? 'Create Account' : 'Login to 2olhub' }}
         </h2>
         <form (ngSubmit)="isSignup ? signup() : login()">
           <div *ngIf="isSignup" class="mb-4">
@@ -99,8 +102,9 @@ import { ThemeService } from '../../../core/services/theme.service';
             <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input type="password" [(ngModel)]="loginPassword" name="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-blue-500">
           </div>
-          <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors">
-            {{ isSignup ? 'Create Account' : 'Sign In' }}
+          <button type="submit" [disabled]="isLoading" class="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+            <i *ngIf="isLoading" class="fa-solid fa-spinner fa-spin"></i>
+            {{ isLoading ? 'Please wait...' : (isSignup ? 'Create Account' : 'Sign In') }}
           </button>
         </form>
         <p class="text-center text-gray-600 mt-4">
@@ -126,6 +130,7 @@ export class NavbarComponent {
   loginEmail = '';
   loginPassword = '';
   signupUsername = '';
+  isLoading = false;
 
   isAdminRoute(): boolean {
     return this.router.url.startsWith('/admin');
@@ -142,27 +147,62 @@ export class NavbarComponent {
   }
 
   login(): void {
+    if (this.isLoading) return;
+    this.isLoading = true;
     this.authService.login(this.loginEmail, this.loginPassword).subscribe({
       next: () => {
+        this.isLoading = false;
         this.closeModal();
         this.toastService.success('Welcome back!');
       },
       error: (err) => {
+        this.isLoading = false;
         this.toastService.error(err.error?.error || 'Login failed. Please try again.');
       }
     });
   }
 
   signup(): void {
+    if (this.isLoading) return;
+
+    // Validation
+    if (!this.signupUsername || this.signupUsername.length < 3) {
+      this.toastService.error('Username must be at least 3 characters long');
+      return;
+    }
+
+    if (/\d/.test(this.signupUsername)) {
+      this.toastService.error('Username cannot contain numbers');
+      return;
+    }
+
+    if (!this.loginEmail || !this.isValidEmail(this.loginEmail)) {
+      this.toastService.error('Please enter a valid email address');
+      return;
+    }
+
+    if (!this.loginPassword || this.loginPassword.length < 6) {
+      this.toastService.error('Password must be at least 6 characters long');
+      return;
+    }
+
+    this.isLoading = true;
     this.authService.signup(this.signupUsername, this.loginEmail, this.loginPassword).subscribe({
       next: () => {
+        this.isLoading = false;
         this.closeModal();
         this.toastService.success('Account created successfully!');
       },
       error: (err) => {
+        this.isLoading = false;
         this.toastService.error(err.error?.error || 'Signup failed. Please try again.');
       }
     });
+  }
+
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 
   private closeModal(): void {

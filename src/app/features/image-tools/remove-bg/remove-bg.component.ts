@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 
 declare const saveAs: any;
 
@@ -207,13 +208,16 @@ export class RemoveBgComponent implements OnInit {
     ];
 
     private apiUrl = environment.apiUrl;
-    private workspaceService: WorkspaceService;
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private ngZone: NgZone,
+        private workspaceService: WorkspaceService,
+        private scriptLoader: ScriptLoaderService
+    ) { }
 
-    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, workspaceService: WorkspaceService) {
-        this.workspaceService = workspaceService;
-    }
+    async ngOnInit(): Promise<void> {
+        await this.scriptLoader.load(['file-saver']);
 
-    ngOnInit(): void {
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();
             if (file && file.fileType === 'image') {

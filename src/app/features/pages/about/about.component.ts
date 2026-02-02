@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-about',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
+    selector: 'app-about',
+    standalone: true,
+    imports: [CommonModule],
+    template: `
     <div class="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-300">
       <!-- Decorative Background Elements -->
       <div class="absolute top-0 left-0 w-96 h-96 bg-blue-100 dark:bg-blue-900/20 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
         <!-- Hero Section -->
         <div class="text-center mb-16">
           <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 mb-6 tracking-tight drop-shadow-sm">
-            About ToolHub
+            About 2olhub
           </h1>
           <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
             Empowering your digital workflow with powerful, free, and secure online tools.
