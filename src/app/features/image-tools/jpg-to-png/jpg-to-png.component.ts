@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface ProcessedFile {
     id: string;
@@ -24,6 +25,7 @@ interface ProcessedFile {
 export class JpgToPngComponent implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private workspaceService = inject(WorkspaceService);
+    private analyticsService = inject(AnalyticsService);
     currentRoute = '/image/jpg-to-png';
 
     files: ProcessedFile[] = [];
@@ -149,6 +151,11 @@ export class JpgToPngComponent implements OnInit {
 
         this.isConverting = false;
         this.cdr.detectChanges();
+
+        // Track tool usage
+        if (this.allDone) {
+            this.analyticsService.trackToolUsage('jpg-to-png', 'JPG to PNG', 'image');
+        }
     }
 
     private convertJpgToPng(src: string): Promise<{ dataUrl: string, blob: Blob }> {

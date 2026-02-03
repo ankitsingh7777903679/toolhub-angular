@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface PresetSize {
     name: string;
@@ -27,6 +28,7 @@ export class ResizeImageComponent implements OnInit, AfterViewInit {
     private ngZone = inject(NgZone);
     private apiUrl = environment.apiUrl;
     private workspaceService = inject(WorkspaceService);
+    private analyticsService = inject(AnalyticsService);
 
     currentRoute = '/image/resize';
 
@@ -411,6 +413,7 @@ export class ResizeImageComponent implements OnInit, AfterViewInit {
             this.ngZone.run(() => {
                 this.resizedImage = result;
                 this.isProcessing = false;
+                this.analyticsService.trackToolUsage('resize-image', 'Resize Image', 'image');
                 this.cdr.detectChanges();
             });
         } catch (err: any) {

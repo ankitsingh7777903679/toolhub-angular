@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const saveAs: any;
 
@@ -212,7 +213,8 @@ export class RemoveBgComponent implements OnInit {
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
         private workspaceService: WorkspaceService,
-        private scriptLoader: ScriptLoaderService
+        private scriptLoader: ScriptLoaderService,
+        private analyticsService: AnalyticsService
     ) { }
 
     async ngOnInit(): Promise<void> {
@@ -305,6 +307,7 @@ export class RemoveBgComponent implements OnInit {
             this.ngZone.run(() => {
                 this.processedImage = result.processed;
                 this.isProcessing = false;
+                this.analyticsService.trackToolUsage('remove-bg', 'Remove Background', 'image');
                 this.cdr.detectChanges();
             });
 

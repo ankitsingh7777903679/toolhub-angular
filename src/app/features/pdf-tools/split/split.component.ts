@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const pdfjsLib: any;
 declare const PDFLib: any;
@@ -64,7 +65,8 @@ export class SplitComponent implements OnInit {
         private workspaceService: WorkspaceService,
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
-        private scriptLoader: ScriptLoaderService
+        private scriptLoader: ScriptLoaderService,
+        private analyticsService: AnalyticsService
     ) { }
 
     async ngOnInit(): Promise<void> { // Changed to async
@@ -423,6 +425,7 @@ export class SplitComponent implements OnInit {
             await this.prepareToolChaining(pdfFiles);
 
             this.status.set(`Success! ${pdfFiles.length} PDF(s) ready.`);
+            this.analyticsService.trackToolUsage('pdf-split', 'Split PDF', 'pdf');
         } catch (error) {
             console.error('Error splitting PDF:', error);
             this.status.set('Error splitting PDF. Please try again.');

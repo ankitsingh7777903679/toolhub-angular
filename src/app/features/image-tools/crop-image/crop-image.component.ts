@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface AspectRatioPreset {
     name: string;
@@ -22,6 +23,7 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private cdr = inject(ChangeDetectorRef);
     private workspaceService = inject(WorkspaceService);
+    private analyticsService = inject(AnalyticsService);
 
     currentRoute = '/image/crop';
 
@@ -470,6 +472,7 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
             this.calculateComparisonDimensions(actualWidth, actualHeight);
             this.comparisonSlider = 50;
             this.isProcessing = false;
+            this.analyticsService.trackToolUsage('crop-image', 'Crop Image', 'image');
             this.cdr.detectChanges();
         } catch (err: any) {
             this.error = err.message || 'Failed to crop image';

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface ProcessedFile {
     id: string;
@@ -26,6 +27,7 @@ interface ProcessedFile {
 export class ImageCompressorComponent implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private workspaceService = inject(WorkspaceService);
+    private analyticsService = inject(AnalyticsService);
 
     currentRoute = '/image/compress';
 
@@ -98,6 +100,12 @@ export class ImageCompressorComponent implements OnInit {
 
     get totalSaved(): number {
         return this.files.reduce((sum, f) => sum + (f.originalSize - f.compressedSize), 0);
+    }
+
+    // Linear estimation: Quality % = Size %
+    get estimatedTotalSize(): number {
+        const totalOriginal = this.files.reduce((sum, f) => sum + f.originalSize, 0);
+        return totalOriginal * (this.quality / 100);
     }
 
     onFileSelected(event: Event): void {
@@ -187,6 +195,11 @@ export class ImageCompressorComponent implements OnInit {
 
         this.isCompressing = false;
         this.cdr.detectChanges();
+
+        // Track tool usage (count once per batch)
+        if (this.allDone) {
+            this.analyticsService.trackToolUsage('image-compress', 'Compress Image', 'image');
+        }
     }
 
     private compressImage(src: string, mimeType: string): Promise<{ dataUrl: string, blob: Blob }> {

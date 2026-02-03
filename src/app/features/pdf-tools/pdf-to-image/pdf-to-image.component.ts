@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const pdfjsLib: any;
 declare const saveAs: any;
@@ -111,7 +112,8 @@ export class PdfToImageComponent implements OnInit {
         private ngZone: NgZone,
         private cdr: ChangeDetectorRef,
         workspaceService: WorkspaceService,
-        private scriptLoader: ScriptLoaderService
+        private scriptLoader: ScriptLoaderService,
+        private analyticsService: AnalyticsService
     ) {
         this.workspaceService = workspaceService;
     }
@@ -189,6 +191,7 @@ export class PdfToImageComponent implements OnInit {
             this.ngZone.run(() => {
                 this.images = tempImages;
                 this.isProcessing = false;
+                this.analyticsService.trackToolUsage('pdf-to-image', 'PDF to Image', 'pdf');
                 this.cdr.detectChanges();
             });
         } catch (error) {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const saveAs: any;
 
@@ -43,7 +44,7 @@ export class BlurImageComponent implements OnInit {
     // Preview (for live preview)
     previewImage: string | null = null;
 
-    constructor(cdr: ChangeDetectorRef, workspaceService: WorkspaceService) {
+    constructor(cdr: ChangeDetectorRef, workspaceService: WorkspaceService, private analyticsService: AnalyticsService) {
         this.cdr = cdr;
         this.workspaceService = workspaceService;
     }
@@ -123,6 +124,7 @@ export class BlurImageComponent implements OnInit {
             }
 
             this.resultImage = canvas.toDataURL('image/png');
+            this.analyticsService.trackToolUsage('blur-image', 'Blur Image', 'image');
         } catch (error) {
             console.error('Error applying blur:', error);
             alert('Failed to apply blur effect');

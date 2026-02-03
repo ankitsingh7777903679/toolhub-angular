@@ -30,10 +30,35 @@
 
                 <!-- Quality Slider & Action Bar - only show after files selected -->
                 @if (files.length > 0) {
-                <div class="mt-6 flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
-                    <label class="text-gray-700 font-medium">Quality:</label>
-                    <input type="range" [(ngModel)]="quality" min="10" max="100" class="flex-1 accent-blue-500">
-                    <span class="text-blue-600 font-bold w-12 text-center">{{ quality }}%</span>
+                <div class="mt-6 bg-blue-50 border border-blue-100 rounded-xl p-4">
+                    <div class="flex justify-between items-end mb-2">
+                        <label class="font-bold text-gray-700">Quality Level</label>
+                        <span class="text-xs font-bold px-2 py-1 rounded bg-white text-blue-600 border border-blue-100">
+                            {{ quality }}%
+                        </span>
+                    </div>
+
+                    <!-- Range Slider -->
+                    <div class="relative mb-4">
+                        <input type="range" [(ngModel)]="quality" min="10" max="100" step="5"
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500">
+
+                        <div class="flex justify-between text-xs text-gray-500 mt-2 font-medium">
+                            <span>Smallest Size</span>
+                            <span>Original Quality</span>
+                        </div>
+                    </div>
+
+                    <!-- Size Estimation -->
+                    <div class="flex items-center justify-between pt-3 border-t border-blue-100">
+                        <span class="text-sm text-gray-600">Estimated Size:</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-gray-800 text-lg">{{ formatSize(estimatedTotalSize) }}</span>
+                            <span class="text-[10px] text-green-600 font-bold bg-green-100 px-1.5 py-0.5 rounded-full">
+                                New Size
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div
                     class="mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">

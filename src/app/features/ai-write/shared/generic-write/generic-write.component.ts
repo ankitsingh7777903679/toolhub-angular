@@ -1,4 +1,5 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { AnalyticsService } from '../../../../core/services/analytics.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -112,6 +113,7 @@ export class GenericWriteComponent implements OnInit {
     private route = inject(ActivatedRoute);
     private http = inject(HttpClient);
     private cdr = inject(ChangeDetectorRef);
+    private analyticsService = inject(AnalyticsService);
 
     title = '';
     description = '';
@@ -162,6 +164,11 @@ export class GenericWriteComponent implements OnInit {
             );
 
             this.generatedContent = response.text;
+            this.analyticsService.trackToolUsage(
+                `ai-${this.promptType}`,
+                this.title,
+                'ai-write'
+            );
         } catch (error) {
             console.error('Generation failed', error);
             this.generatedContent = 'Sorry, something went wrong. Please try again.';

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface ProcessedFile {
   id: string;
@@ -24,6 +25,7 @@ interface ProcessedFile {
 export class WebpToJpgComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private workspaceService = inject(WorkspaceService);
+  private analyticsService = inject(AnalyticsService);
   currentRoute = '/image/webp-to-jpg';
 
   files: ProcessedFile[] = [];
@@ -152,6 +154,11 @@ export class WebpToJpgComponent implements OnInit {
 
     this.isConverting = false;
     this.cdr.detectChanges();
+
+    // Track tool usage
+    if (this.allDone) {
+      this.analyticsService.trackToolUsage('webp-to-jpg', 'WebP to JPG', 'image');
+    }
     console.log('🎉 All conversions complete!');
   }
 

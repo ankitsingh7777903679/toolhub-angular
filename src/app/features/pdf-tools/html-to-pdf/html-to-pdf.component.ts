@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const html2pdf: any;
 
@@ -131,7 +132,8 @@ export class HtmlToPdfComponent {
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
         private sanitizer: DomSanitizer,
-        private scriptLoader: ScriptLoaderService
+        private scriptLoader: ScriptLoaderService,
+        private analyticsService: AnalyticsService
     ) {
         this.loadSample();
         this.initScripts();
@@ -264,6 +266,7 @@ export class HtmlToPdfComponent {
                     this.pdfDataUrl = reader.result as string;
                     this.resultReady = true;
                     this.isProcessing = false;
+                    this.analyticsService.trackToolUsage('html-to-pdf', 'HTML to PDF', 'pdf');
                     this.cdr.detectChanges();
                 });
             };

@@ -2,6 +2,7 @@ import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 @Component({
     selector: 'app-excel-to-csv',
@@ -12,6 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class ExcelToCsvComponent {
     private cdr = inject(ChangeDetectorRef);
+    private analyticsService = inject(AnalyticsService);
 
     inputMode: 'file' | 'text' = 'file';
     selectedFile: File | null = null;
@@ -120,6 +122,7 @@ export class ExcelToCsvComponent {
             // Parse for preview (first 10 rows)
             const rows = this.csvData.split('\n').slice(0, 10);
             this.previewRows = rows.map(row => this.parseCSVRow(row));
+            this.analyticsService.trackToolUsage('excel-to-csv', 'Excel to CSV', 'file');
             this.cdr.detectChanges();
         } catch (err) {
             this.error = 'Failed to process sheet';

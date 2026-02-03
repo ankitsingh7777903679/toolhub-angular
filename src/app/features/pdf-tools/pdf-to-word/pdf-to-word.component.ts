@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const pdfjsLib: any;
 declare const saveAs: any;
@@ -128,7 +129,8 @@ export class PdfToWordComponent {
         private http: HttpClient,
         private ngZone: NgZone,
         private cdr: ChangeDetectorRef,
-        private scriptLoader: ScriptLoaderService
+        private scriptLoader: ScriptLoaderService,
+        private analyticsService: AnalyticsService
     ) { }
 
     async ngOnInit(): Promise<void> {
@@ -170,7 +172,7 @@ export class PdfToWordComponent {
         this.error = '';
         this.extractedText = '';
         this.cdr.detectChanges();
-        
+
 
         try {
             // Load PDF.js library
@@ -236,6 +238,7 @@ export class PdfToWordComponent {
                 this.status = 'Complete!';
                 this.progress = 100;
                 this.isProcessing = false;
+                this.analyticsService.trackToolUsage('pdf-to-word', 'PDF OCR', 'pdf');
                 this.cdr.detectChanges();
             });
 

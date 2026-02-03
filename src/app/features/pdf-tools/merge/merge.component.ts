@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const PDFLib: any;
 declare const saveAs: any;
@@ -128,7 +129,8 @@ export class MergeComponent implements OnInit {
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
         private workspaceService: WorkspaceService,
-        private scriptLoader: ScriptLoaderService
+        private scriptLoader: ScriptLoaderService,
+        private analyticsService: AnalyticsService
     ) { }
 
     async ngOnInit(): Promise<void> {
@@ -231,6 +233,7 @@ export class MergeComponent implements OnInit {
                     this.pdfDataUrl = reader.result as string;
                     this.resultReady = true;
                     this.isProcessing = false;
+                    this.analyticsService.trackToolUsage('pdf-merge', 'Merge PDF', 'pdf');
                     this.cdr.detectChanges();
                 });
             };

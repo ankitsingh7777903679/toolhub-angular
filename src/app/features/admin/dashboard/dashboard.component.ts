@@ -11,6 +11,7 @@ interface DashboardStats {
   pdfTools: number;
   aiTools: number;
   imageTools: number;
+  fileTools: number;
 }
 
 @Component({
@@ -100,6 +101,19 @@ interface DashboardStats {
             </div>
           </div>
         </div>
+
+        <!-- File Tools -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
+              <i class="fa-solid fa-file-lines text-yellow-600 text-xl"></i>
+            </div>
+            <div>
+              <p class="text-3xl font-bold text-gray-900">{{ stats().fileTools }}</p>
+              <p class="text-gray-500 text-sm">File Tools</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   `
@@ -110,11 +124,12 @@ export class DashboardComponent implements OnInit {
 
   stats = signal<DashboardStats>({
     totalUsers: 0,
-    totalTools: 11,
-    totalCategories: 3,
-    pdfTools: 4,
-    aiTools: 5,
-    imageTools: 2
+    totalTools: 42,
+    totalCategories: 4,
+    pdfTools: 12,
+    aiTools: 12,
+    imageTools: 12,
+    fileTools: 6
   });
 
   ngOnInit(): void {

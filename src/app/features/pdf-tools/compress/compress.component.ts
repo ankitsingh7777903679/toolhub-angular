@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const PDFLib: any;
 declare const pdfjsLib: any;
@@ -43,7 +44,7 @@ declare const saveAs: any;
                             </div>
                             <div>
                                 <p class="text-gray-700 font-medium">{{ file.name }}</p>
-                                <p class="text-xs text-gray-400">Original: {{ (file.size / 1024 / 1024).toFixed(2) }} MB</p>
+                                <p class="text-xs text-gray-400">Original: {{ originalSizeStr }}</p>
                             </div>
                         </div>
                         <button (click)="file = null" class="text-red-400 hover:text-red-600">
@@ -51,13 +52,43 @@ declare const saveAs: any;
                         </button>
                     </div>
 
-                    <div class="mt-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Compression Level</label>
-                        <select [(ngModel)]="compressionLevel" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-                            <option value="low">Low (Better Quality)</option>
-                            <option value="medium">Medium (Balanced)</option>
-                            <option value="high">High (Smaller Size)</option>
-                        </select>
+                    <div class="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-xl">
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="font-bold text-gray-700">Compression Level</label>
+                            <span class="text-xs font-bold px-2 py-1 rounded bg-white text-blue-600 border border-blue-100">
+                                {{ compressionLevel }}%
+                            </span>
+                        </div>
+                        
+                        <!-- Range Slider -->
+                        <div class="relative mb-6">
+                            <input type="range" 
+                                   min="0" max="100" step="5" 
+                                   [(ngModel)]="compressionLevel" 
+                                   (change)="updateEstimate()"
+                                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                            
+                            <div class="flex justify-between text-xs text-gray-500 mt-2 font-medium">
+                                <span>Smallest Size</span>
+                                <span>Original ({{ originalSizeStr }})</span>
+                            </div>
+                        </div>
+
+                        <!-- Size Estimation -->
+                        <div class="flex items-center justify-between pt-4 border-t border-blue-100">
+                            <span class="text-sm text-gray-600">Estimated Size:</span>
+                            <div class="text-right">
+                                <div *ngIf="isEstimating" class="text-sm text-gray-400">
+                                    <i class="fa-solid fa-spinner fa-spin mr-1"></i> Calculating...
+                                </div>
+                                <div *ngIf="!isEstimating" class="flex flex-col">
+                                    <span class="font-bold text-gray-800 text-lg">{{ estimatedSizeStr || '...' }}</span>
+                                    <span *ngIf="estimatedSizeStr" class="text-[10px] text-green-600 font-bold bg-green-100 px-1.5 py-0.5 rounded-full inline-block ml-auto mt-0.5">
+                                        New Size
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <button (click)="compressPdf()" [disabled]="isProcessing"
@@ -72,7 +103,7 @@ declare const saveAs: any;
                     <div class="text-center mb-4">
                         <i class="fa-solid fa-circle-check text-green-500 text-4xl mb-2"></i>
                         <h3 class="font-bold text-green-800 text-lg">PDF Compressed!</h3>
-                        <p class="text-green-600 text-sm">Reduced from {{ originalSize }} to {{ compressedSize }}</p>
+                        <p class="text-green-600 text-sm">Reduced from {{ originalSizeStr }} to {{ compressedSizeStr }}</p>
                     </div>
                     
                     <div class="flex flex-col md:flex-row gap-3">
@@ -105,18 +136,26 @@ declare const saveAs: any;
 export class CompressComponent implements OnInit {
     file: File | null = null;
     isProcessing = false;
-    compressionLevel = 'medium';
+    isEstimating = false;
+
+    // Compression Settings
+    compressionLevel = 50; // 0-100 slider value
 
     resultReady = false;
     pdfBlob: Blob | null = null;
     pdfDataUrl = '';
-    originalSize = '';
-    compressedSize = '';
+
+    originalSizeStr = '';
+    compressedSizeStr = '';
+    estimatedSizeStr = '';
+
+    private pdfDoc: any = null; // Store parsed PDF for reuse
 
     constructor(
         private cdr: ChangeDetectorRef,
         private workspaceService: WorkspaceService,
-        private scriptLoader: ScriptLoaderService
+        private scriptLoader: ScriptLoaderService,
+        private analyticsService: AnalyticsService
     ) { }
 
     async ngOnInit(): Promise<void> {
@@ -131,14 +170,12 @@ export class CompressComponent implements OnInit {
         }
     }
 
-
-
     private loadPdfFromWorkspace(dataUrl: string, fileName: string): void {
         fetch(dataUrl)
             .then(res => res.blob())
             .then(blob => {
                 this.file = new File([blob], fileName, { type: 'application/pdf' });
-                this.cdr.detectChanges();
+                this.onFileLoaded();
             });
     }
 
@@ -148,7 +185,10 @@ export class CompressComponent implements OnInit {
 
     onFileSelect(event: Event) {
         const input = event.target as HTMLInputElement;
-        if (input.files?.[0]) this.file = input.files[0];
+        if (input.files?.[0]) {
+            this.file = input.files[0];
+            this.onFileLoaded();
+        }
     }
 
     onDragOver(event: DragEvent) { event.preventDefault(); }
@@ -157,30 +197,65 @@ export class CompressComponent implements OnInit {
         event.preventDefault();
         if (event.dataTransfer?.files?.[0]?.type === 'application/pdf') {
             this.file = event.dataTransfer.files[0];
+            this.onFileLoaded();
         }
     }
 
-    async compressPdf() {
+    async onFileLoaded() {
         if (!this.file) return;
-        this.isProcessing = true;
-        this.originalSize = (this.file.size / 1024 / 1024).toFixed(2) + ' MB';
+        this.originalSizeStr = (this.file.size / 1024 / 1024).toFixed(2) + ' MB';
+        this.resultReady = false;
 
         try {
             pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-
             const arrayBuffer = await this.file.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            this.pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
+            this.updateEstimate();
+        } catch (error) {
+            console.error('Error parsing PDF for estimate:', error);
+        }
+
+        this.cdr.detectChanges();
+    }
+
+    async updateEstimate() {
+        if (!this.file) return;
+
+        // Simple Linear Estimation:
+        // 100% = Original Size
+        // 50% = 50% of Original
+        // 0% = 10% of Original (minimum floor)
+
+        const percentage = Math.max(10, this.compressionLevel); // Minimum 10%
+        const estimatedBytes = this.file.size * (percentage / 100);
+
+        this.estimatedSizeStr = (estimatedBytes / 1024 / 1024).toFixed(2) + ' MB';
+        this.cdr.detectChanges();
+    }
+
+    async compressPdf() {
+        if (!this.file || !this.pdfDoc) return;
+        this.isProcessing = true;
+        this.resultReady = false;
+        this.cdr.detectChanges();
+
+        try {
             const { PDFDocument } = PDFLib;
             const newPdf = await PDFDocument.create();
 
-            let quality = 0.5;
-            if (this.compressionLevel === 'low') quality = 0.8;
-            if (this.compressionLevel === 'high') quality = 0.3;
+            // Updated Logic (Must match estimate)
+            const quality = Math.max(0.2, Math.min(0.95, this.compressionLevel / 100));
 
-            for (let i = 1; i <= pdf.numPages; i++) {
-                const page = await pdf.getPage(i);
-                const viewport = page.getViewport({ scale: 1.5 });
+            let scale = 1.5;
+            if (this.compressionLevel >= 85) scale = 2.0;
+            else if (this.compressionLevel >= 50) scale = 1.5;
+            else scale = 1.0;
+
+            for (let i = 1; i <= this.pdfDoc.numPages; i++) {
+                const page = await this.pdfDoc.getPage(i);
+
+                const viewport = page.getViewport({ scale });
                 const canvas = document.createElement('canvas');
                 canvas.width = viewport.width;
                 canvas.height = viewport.height;
@@ -190,8 +265,8 @@ export class CompressComponent implements OnInit {
 
                 const imgDataUrl = canvas.toDataURL('image/jpeg', quality);
                 const jpgImage = await newPdf.embedJpg(imgDataUrl);
-                const pageDims = jpgImage.scale(1 / 1.5);
 
+                const pageDims = jpgImage.scale(1 / scale);
                 const newPage = newPdf.addPage([pageDims.width, pageDims.height]);
                 newPage.drawImage(jpgImage, {
                     x: 0, y: 0,
@@ -201,7 +276,7 @@ export class CompressComponent implements OnInit {
 
             const pdfBytes = await newPdf.save();
             this.pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
-            this.compressedSize = (this.pdfBlob.size / 1024 / 1024).toFixed(2) + ' MB';
+            this.compressedSizeStr = (this.pdfBlob.size / 1024 / 1024).toFixed(2) + ' MB';
 
             // Generate data URL for Tool Chain
             const reader = new FileReader();
@@ -212,6 +287,9 @@ export class CompressComponent implements OnInit {
             reader.readAsDataURL(this.pdfBlob);
 
             this.resultReady = true;
+
+            // Track tool usage
+            this.analyticsService.trackToolUsage('pdf-compress', 'Compress PDF', 'pdf');
         } catch (error) {
             console.error('Error compressing PDF:', error);
             alert('Failed to compress PDF. Please try again.');
@@ -229,10 +307,13 @@ export class CompressComponent implements OnInit {
 
     reset() {
         this.file = null;
+        this.pdfDoc = null;
         this.resultReady = false;
         this.pdfBlob = null;
         this.pdfDataUrl = '';
-        this.originalSize = '';
-        this.compressedSize = '';
+        this.originalSizeStr = '';
+        this.compressedSizeStr = '';
+        this.estimatedSizeStr = '';
+        this.compressionLevel = 50;
     }
 }

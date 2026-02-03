@@ -2,6 +2,7 @@ import { Component, Input, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../../core/services/api.service';
+import { AnalyticsService } from '../../../../core/services/analytics.service';
 
 interface WriterConfig {
     promptType: string;
@@ -146,6 +147,7 @@ export class AiWriterComponent {
     };
 
     private apiService = inject(ApiService);
+    private analyticsService = inject(AnalyticsService);
 
     prompt = '';
     paragraphs = '3';
@@ -173,6 +175,11 @@ export class AiWriterComponent {
                 const text = result.text || result;
                 this.response.set(this.formatResponse(String(text)));
                 this.isLoading.set(false);
+                this.analyticsService.trackToolUsage(
+                    `ai-${this.config.promptType}`,
+                    this.config.title,
+                    'ai-write'
+                );
             },
             error: (err: any) => {
                 this.error.set(err.error?.message || 'Failed to generate content. Please try again.');

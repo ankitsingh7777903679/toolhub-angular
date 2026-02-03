@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
             color: '#6f56ec',
             bgColor: '#6f56ec',
             icon: 'fa-solid fa-file-pdf',
-            toolCount: '45+ tools',
+            toolCount: '10+ tools',
             featuredTool: 'Featured Tool :',
             featuredTool2: 'PDF Creator',
             link: '/pdf'
@@ -94,23 +94,23 @@ export class HomeComponent implements OnInit {
             color: '#F66213',
             bgColor: '#F66213',
             icon: 'fa-solid fa-image',
-            toolCount: '45+ tools',
+            toolCount: '10+ tools',
             featuredTool: 'Featured Tool :',
             featuredTool2: 'Remove BG',
             link: '/image'
         },
-        {
-            id: 'video',
-            name: 'Video Tools',
-            subtitle: 'Solve Your Video Problems',
-            color: '#D61C4E',
-            bgColor: '#D61C4E',
-            icon: 'fa-solid fa-video',
-            toolCount: '45+ tools',
-            featuredTool: 'Featured Tool :',
-            featuredTool2: 'Mute Video',
-            link: '/video'
-        },
+        // {
+        //     id: 'video',
+        //     name: 'Video Tools',
+        //     subtitle: 'Solve Your Video Problems',
+        //     color: '#D61C4E',
+        //     bgColor: '#D61C4E',
+        //     icon: 'fa-solid fa-video',
+        //     toolCount: '45+ tools',
+        //     featuredTool: 'Featured Tool :',
+        //     featuredTool2: 'Mute Video',
+        //     link: '/video'
+        // },
         {
             id: 'write',
             name: 'AI Write',
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit {
             color: '#1C67CA',
             bgColor: '#1C67CA',
             icon: 'fa-solid fa-pen-nib',
-            toolCount: '45+ tools',
+            toolCount: '10+ tools',
             featuredTool: 'Featured Tool :',
             featuredTool2: 'Paragraph Writer',
             link: '/write'
@@ -130,7 +130,7 @@ export class HomeComponent implements OnInit {
             color: '#10B981',
             bgColor: '#10B981',
             icon: 'fa-solid fa-folder',
-            toolCount: '45+ tools',
+            toolCount: '5+ tools',
             featuredTool: 'Featured Tool :',
             featuredTool2: 'Split Excel',
             link: '/file'
@@ -517,9 +517,73 @@ export class HomeComponent implements OnInit {
         }
     ];
 
+    // --- File Tools (6) ---
+    fileTools: Tool[] = [
+        {
+            _id: 'file-1',
+            name: 'Excel to CSV',
+            description: 'Convert Excel files to CSV format',
+            iconClass: 'fa-solid fa-file-csv',
+            iconColor: '#10B981',
+            bgIconColor: '#D1FAE5',
+            link: '/file/excel-to-csv',
+            category: 'file'
+        },
+        {
+            _id: 'file-2',
+            name: 'CSV to Excel',
+            description: 'Convert CSV files to Excel format',
+            iconClass: 'fa-solid fa-file-excel',
+            iconColor: '#22C55E',
+            bgIconColor: '#DCFCE7',
+            link: '/file/csv-to-excel',
+            category: 'file'
+        },
+        {
+            _id: 'file-3',
+            name: 'Excel to JSON',
+            description: 'Convert Excel spreadsheets to JSON data',
+            iconClass: 'fa-solid fa-file-code',
+            iconColor: '#F59E0B',
+            bgIconColor: '#FEF3C7',
+            link: '/file/excel-to-json',
+            category: 'file'
+        },
+        {
+            _id: 'file-4',
+            name: 'JSON to Excel',
+            description: 'Convert JSON data to Excel spreadsheet',
+            iconClass: 'fa-solid fa-table',
+            iconColor: '#0EA5E9',
+            bgIconColor: '#E0F2FE',
+            link: '/file/json-to-excel',
+            category: 'file'
+        },
+        {
+            _id: 'file-5',
+            name: 'Image to CSV',
+            description: 'Extract tables from images to CSV',
+            iconClass: 'fa-solid fa-table-cells',
+            iconColor: '#8B5CF6',
+            bgIconColor: '#EDE9FE',
+            link: '/file/image-to-csv',
+            category: 'file'
+        },
+        {
+            _id: 'file-6',
+            name: 'Image to Excel',
+            description: 'Extract tables from images to Excel',
+            iconClass: 'fa-solid fa-file-invoice',
+            iconColor: '#F97316',
+            bgIconColor: '#FFEDD5',
+            link: '/file/image-to-excel',
+            category: 'file'
+        }
+    ];
+
     ngOnInit(): void {
         // For now, use sample tools. Later, fetch from API
-        this.tools = this.sampleTools;
+        this.tools = [...this.sampleTools, ...this.fileTools];
         this.filterTools(); // Initial filter
 
         // Uncomment when API is ready

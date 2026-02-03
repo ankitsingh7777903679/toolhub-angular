@@ -2,6 +2,7 @@ import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 @Component({
     selector: 'app-json-to-excel',
@@ -12,6 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class JsonToExcelComponent {
     private cdr = inject(ChangeDetectorRef);
+    private analyticsService = inject(AnalyticsService);
 
     inputMode: 'file' | 'text' = 'file';
     selectedFile: File | null = null;
@@ -110,6 +112,7 @@ export class JsonToExcelComponent {
             this.workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(this.workbook, sheet, 'Sheet1');
             this.isReady = true;
+            this.analyticsService.trackToolUsage('json-to-excel', 'JSON to Excel', 'file');
             this.cdr.detectChanges();
         } catch (err) {
             this.error = 'Invalid JSON format. Please check your input.';

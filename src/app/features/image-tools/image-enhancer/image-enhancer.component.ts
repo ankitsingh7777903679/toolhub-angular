@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 declare const saveAs: any;
 
@@ -146,7 +147,7 @@ export class ImageEnhancerComponent implements OnInit {
     private apiUrl = environment.apiUrl;
     private workspaceService: WorkspaceService;
 
-    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, workspaceService: WorkspaceService) {
+    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, workspaceService: WorkspaceService, private analyticsService: AnalyticsService) {
         this.workspaceService = workspaceService;
     }
 
@@ -231,6 +232,7 @@ export class ImageEnhancerComponent implements OnInit {
             this.ngZone.run(() => {
                 this.enhancedImage = result.enhanced;
                 this.isProcessing = false;
+                this.analyticsService.trackToolUsage('image-enhancer', 'AI Image Enhancer', 'image');
                 this.cdr.detectChanges();
             });
 

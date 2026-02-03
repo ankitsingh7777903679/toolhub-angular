@@ -25,6 +25,10 @@ export const ADMIN_ROUTES: Routes = [
             {
                 path: 'deleted-users',
                 loadComponent: () => import('./deleted-users/deleted-users.component').then(m => m.DeletedUsersComponent)
+            },
+            {
+                path: 'analytics',
+                loadComponent: () => import('./tool-analytics/tool-analytics.component').then(m => m.ToolAnalyticsComponent)
             }
         ]
     }

@@ -42,6 +42,13 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
             <i class="fa-solid fa-trash-can"></i>
             Deleted Users
           </a>
+          <a 
+            routerLink="analytics" 
+            routerLinkActive="bg-primary text-white"
+            class="flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100 transition-colors">
+            <i class="fa-solid fa-chart-simple"></i>
+            Tool Analytics
+          </a>
         </nav>
       </aside>
 

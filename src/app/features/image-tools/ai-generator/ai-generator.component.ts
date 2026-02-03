@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface GeneratedImage {
   id: string;
@@ -21,6 +22,7 @@ interface GeneratedImage {
 export class AiGeneratorComponent {
   private http = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
+  private analyticsService = inject(AnalyticsService);
 
   prompt = '';
   isGenerating = false;
@@ -61,6 +63,7 @@ export class AiGeneratorComponent {
         }));
 
         console.log('✅ Generated images:', this.generatedImages);
+        this.analyticsService.trackToolUsage('ai-generator', 'AI Image Generator', 'image');
       } else {
         throw new Error('No images generated');
       }

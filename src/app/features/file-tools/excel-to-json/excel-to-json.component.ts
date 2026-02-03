@@ -2,6 +2,7 @@ import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 @Component({
     selector: 'app-excel-to-json',
@@ -12,6 +13,7 @@ import * as XLSX from 'xlsx';
 })
 export class ExcelToJsonComponent {
     private cdr = inject(ChangeDetectorRef);
+    private analyticsService = inject(AnalyticsService);
 
     inputMode: 'file' | 'text' = 'file';
     selectedFile: File | null = null;
@@ -133,6 +135,7 @@ export class ExcelToJsonComponent {
             const sheet = workbook.Sheets[this.selectedSheet];
             this.jsonData = XLSX.utils.sheet_to_json(sheet);
             this.jsonString = JSON.stringify(this.jsonData, null, 2);
+            this.analyticsService.trackToolUsage('excel-to-json', 'Excel to JSON', 'file');
             this.cdr.detectChanges();
         } catch (err) {
             this.error = 'Failed to process sheet';

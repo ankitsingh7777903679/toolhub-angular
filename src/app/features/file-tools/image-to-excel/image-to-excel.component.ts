@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import * as XLSX from 'xlsx';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface FilePreview {
     file: File;
@@ -20,6 +21,7 @@ interface FilePreview {
 export class ImageToExcelComponent {
     private http = inject(HttpClient);
     private cdr = inject(ChangeDetectorRef);
+    private analyticsService = inject(AnalyticsService);
 
     selectedFiles: FilePreview[] = [];
     previewData: string[][] = [];
@@ -147,6 +149,7 @@ export class ImageToExcelComponent {
                 const sheet = XLSX.utils.json_to_sheet(allData);
                 this.workbook = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(this.workbook, sheet, 'Sheet1');
+                this.analyticsService.trackToolUsage('image-to-excel', 'Image to Excel', 'file');
             } else {
                 this.error = 'No table data found in the uploaded files';
             }

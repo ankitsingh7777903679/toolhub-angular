@@ -2,6 +2,7 @@ import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 interface FilePreview {
     file: File;
@@ -19,6 +20,7 @@ interface FilePreview {
 export class ImageToCsvComponent {
     private http = inject(HttpClient);
     private cdr = inject(ChangeDetectorRef);
+    private analyticsService = inject(AnalyticsService);
 
     selectedFiles: FilePreview[] = [];
     csvData: string | null = null;
@@ -152,6 +154,7 @@ export class ImageToCsvComponent {
                 ).join(',')).join('\n');
                 this.rowCount = allRows.length;
                 this.columnCount = Math.max(...allRows.map(r => r.length));
+                this.analyticsService.trackToolUsage('image-to-csv', 'Image to CSV', 'file');
             } else {
                 this.error = 'No table data found in the uploaded files';
             }
