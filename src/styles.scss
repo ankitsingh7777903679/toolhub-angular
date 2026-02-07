@@ -154,6 +154,45 @@ body {
     background-color: var(--bg-tertiary) !important;
   }
 
+  /* Buttons with light backgrounds - keep dark text visible */
+  .bg-gray-100,
+  .bg-gray-200 {
+    background-color: #334155 !important; /* slate-700 */
+    
+    &.text-gray-700,
+    &.text-gray-600,
+    & .text-gray-700,
+    & .text-gray-600 {
+      color: #e2e8f0 !important; /* slate-200 */
+    }
+  }
+
+  /* Select/option elements */
+  select option {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+  }
+
+  /* Fix prose text colors in dark mode */
+  .prose,
+  article.prose {
+    color: var(--text-secondary) !important;
+
+    strong,
+    b {
+      color: var(--text-primary) !important;
+    }
+
+    h3 {
+      color: var(--text-primary) !important;
+    }
+  }
+
+  /* File name truncation - ensure parent has max-width */
+  .truncate {
+    max-width: 200px;
+  }
+
   /* Light text colors should be darker on light backgrounds in dark mode */
   /* Orange text */
   .text-orange-300,

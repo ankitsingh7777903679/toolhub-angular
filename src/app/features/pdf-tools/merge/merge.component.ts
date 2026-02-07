@@ -5,6 +5,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const PDFLib: any;
 declare const saveAs: any;
@@ -46,7 +47,7 @@ declare const saveAs: any;
                             <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-red-500 shrink-0">
                                 <span class="font-bold text-xs">PDF</span>
                             </div>
-                            <span class="text-gray-700 truncate font-medium">{{ file.name }}</span>
+                            <span class="text-gray-700 truncate font-medium max-w-[200px]">{{ file.name }}</span>
                             <span class="text-xs text-gray-400">({{ (file.size / 1024 / 1024).toFixed(2) }} MB)</span>
                         </div>
                         <div class="flex items-center gap-2">
@@ -111,9 +112,46 @@ declare const saveAs: any;
                     </div>
                 </div>
 
+                </div>
             </div>
+
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Merge PDF Files Online for Free</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Combine multiple PDF files into one single document in seconds. Our free PDF merger is secure, fast, and works on any device. 
+                    Whether you need to join PDF pages for work, school, or personal use, 2olhub makes it simple.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Merge PDF Files?</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Upload Files:</strong> Click "Select Files" or drag & drop your PDFs into the box.</li>
+                    <li><strong>Reorder:</strong> Arrange the files in the order you want them to appear.</li>
+                    <li><strong>Merge:</strong> Click the "Merge PDF" button to combine them.</li>
+                    <li><strong>Download:</strong> Save your new merged PDF file instantly.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use our PDF Merger?</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>100% Free:</strong> No hidden costs, no watermarks, and no registration required.</li>
+                    <li><strong>Secure Processing:</strong> Your files are processed safely and deleted automatically (or processed client-side).</li>
+                    <li><strong>Unlimited:</strong> Merge as many files as you want without limits.</li>
+                    <li><strong>Universal:</strong> Works on Windows, Mac, Linux, iPhone, and Android.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is it safe to merge PDFs online?</h3>
+                        <p class="text-gray-600">Yes! We use HTTPS encryption and your files are never stored permanently on our servers.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I merge PDF files on mobile?</h3>
+                        <p class="text-gray-600">Absolutely. Our tool is fully responsive and works great on iOS and Android devices.</p>
+                    </div>
+                </div>
+            </article>
         </div>
-    </div>
   `
 })
 export class MergeComponent implements OnInit {
@@ -130,10 +168,18 @@ export class MergeComponent implements OnInit {
         private ngZone: NgZone,
         private workspaceService: WorkspaceService,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) { }
 
     async ngOnInit(): Promise<void> {
+        this.seoService.updateSeo({
+            title: 'Merge PDF',
+            description: 'Combine multiple PDF files into one document instantly. Fast, secure, and free online PDF merger.',
+            keywords: 'merge pdf, combine pdf, join pdfs, online pdf merger, free pdf tool',
+            url: 'https://2olhub.netlify.app/pdf/merge'
+        });
+
         await this.scriptLoader.load(['pdf-lib', 'file-saver']);
 
         // Check if there's a PDF from another tool

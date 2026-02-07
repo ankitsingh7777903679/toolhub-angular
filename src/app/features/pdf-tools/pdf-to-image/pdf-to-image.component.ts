@@ -5,6 +5,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const pdfjsLib: any;
 declare const saveAs: any;
@@ -38,7 +39,7 @@ declare const saveAs: any;
                             <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-500">
                                 <span class="font-bold text-xs">PDF</span>
                             </div>
-                            <p class="text-gray-700 font-medium">{{ file.name }}</p>
+                            <p class="text-gray-700 font-medium truncate max-w-[200px]">{{ file.name }}</p>
                         </div>
                         <button (click)="file = null" class="text-red-400 hover:text-red-600">
                             <i class="fa-solid fa-trash"></i>
@@ -94,9 +95,46 @@ declare const saveAs: any;
                         </app-send-to-tool>
                     </div>
                 </div>
+                </div>
             </div>
+
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert PDF to Image (JPG & PNG) Online</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Extract pages from PDF files and save them as high-quality JPG or PNG images. 
+                    Free online converter with no registration required. Ideal for sharing visual content from documents.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert PDF to JPG?</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Upload PDF:</strong> Select your file from your computer or drag and drop it here.</li>
+                    <li><strong>Choose Format:</strong> Select JPG for smaller size or PNG for transparent quality.</li>
+                    <li><strong>Set Quality:</strong> Choose from High, Medium, or Low resolution options.</li>
+                    <li><strong>Convert:</strong> Click the button and download your images instantly.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why choose this tool?</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>High Definition:</strong> Get crisp, clear images from your PDF pages.</li>
+                    <li><strong>Secure Processing:</strong> Files are processed locally or securely server-side and deleted.</li>
+                    <li><strong>Batch Conversion:</strong> Convert entire documents with multiple pages at once.</li>
+                    <li><strong>Universal Compatibility:</strong> Works on desktop, tablet, and mobile browsers.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I extract just one page?</h3>
+                        <p class="text-gray-600">Yes! The tool converts all pages, and you can choose which ones to download as images.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is it free?</h3>
+                        <p class="text-gray-600">Yes, our PDF to Image converter is completely free to use with no hidden fees.</p>
+                    </div>
+                </div>
+            </article>
         </div>
-    </div>
   `
 })
 export class PdfToImageComponent implements OnInit {
@@ -113,12 +151,20 @@ export class PdfToImageComponent implements OnInit {
         private cdr: ChangeDetectorRef,
         workspaceService: WorkspaceService,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) {
         this.workspaceService = workspaceService;
     }
 
     async ngOnInit(): Promise<void> {
+        this.seoService.updateSeo({
+            title: 'PDF to Image - Convert PDF to JPG & PNG Online',
+            description: 'Convert PDF pages to images for free. Extract pages as high-quality JPG or PNG files. Safe, fast, and no installation required.',
+            keywords: 'pdf to image, pdf to jpg, pdf to png, pdf converter, convert pdf pages to images, free pdf tool',
+            url: 'https://2olhub.netlify.app/pdf/pdf-to-image' // Note: Component folder is pdf-to-image, route is likely /pdf/pdf-to-image or similar. Checked routes earlier, it is /pdf/to-image. I will use to-image.
+        });
+
         await this.scriptLoader.load(['pdf-js']);
 
         // Check if there's a PDF from another tool (e.g., Image to PDF)

@@ -1,0 +1,151 @@
+<div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="py-12 text-center" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+        <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-rotate text-3xl text-white"></i>
+        </div>
+        <h1 class="text-3xl font-bold text-white mb-2">Rotate Image</h1>
+        <p class="text-white/80">Rotate images to any angle or flip them</p>
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+
+            <!-- Upload Area -->
+            @if (!originalImage) {
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-amber-500 hover:bg-amber-50 transition-colors cursor-pointer"
+                    (click)="fileInput.click()" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+                    <input #fileInput type="file" accept="image/*" (change)="onFileSelect($event)" class="hidden">
+                    <i class="fa-solid fa-cloud-arrow-up text-4xl text-gray-400 mb-3"></i>
+                    <p class="text-gray-600 font-medium">Click to upload image</p>
+                    <p class="text-gray-400 text-sm mt-1">Supports JPG, PNG, WebP</p>
+                </div>
+            </div>
+            }
+
+            <!-- Editor -->
+            @if (originalImage) {
+            <div class="bg-white rounded-xl shadow-lg p-6">
+
+                <!-- Preview -->
+                <div class="text-center mb-6">
+                    <h3 class="font-bold text-gray-800 mb-4">
+                        <i class="fa-solid fa-eye text-amber-500 mr-2"></i>Preview
+                    </h3>
+                    <div class="bg-gray-100 rounded-lg overflow-hidden inline-block"
+                        style="background-image: repeating-conic-gradient(#e5e5e5 0% 25%, #fff 0% 50%); background-size: 16px 16px;">
+                        <img [src]="rotatedImage || originalImage" class="max-w-full max-h-96 object-contain">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">{{ originalFileName }}</p>
+                </div>
+
+                <!-- Rotation Controls -->
+                <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                    <h4 class="font-bold text-gray-800 mb-4 text-center">
+                        <i class="fa-solid fa-sliders text-amber-500 mr-2"></i>Rotation Controls
+                    </h4>
+
+                    <!-- Quick Rotate Buttons -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-4">
+                        <button (click)="rotate(-90)"
+                            class="px-4 py-2 bg-amber-100 text-amber-700 rounded-lg font-medium hover:bg-amber-200 transition-colors">
+                            <i class="fa-solid fa-rotate-left mr-1"></i> 90° Left
+                        </button>
+                        <button (click)="rotate(90)"
+                            class="px-4 py-2 bg-amber-100 text-amber-700 rounded-lg font-medium hover:bg-amber-200 transition-colors">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> 90° Right
+                        </button>
+                        <button (click)="rotate(180)"
+                            class="px-4 py-2 bg-amber-100 text-amber-700 rounded-lg font-medium hover:bg-amber-200 transition-colors">
+                            <i class="fa-solid fa-arrows-rotate mr-1"></i> 180°
+                        </button>
+                    </div>
+
+                    <!-- Custom Angle Slider -->
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2 text-center">
+                            Custom Angle: <span class="text-amber-600 font-bold">{{ rotationAngle }}°</span>
+                        </label>
+                        <input type="range" [ngModel]="rotationAngle" (ngModelChange)="setRotation($event)" min="0"
+                            max="359" step="1" class="w-full accent-amber-500">
+                    </div>
+
+                    <!-- Flip Buttons -->
+                    <div class="flex justify-center gap-2">
+                        <button (click)="toggleFlipHorizontal()"
+                            [class]="flipHorizontal ? 'px-4 py-2 bg-amber-500 text-white rounded-lg font-medium' : 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors'">
+                            <i class="fa-solid fa-arrows-left-right mr-1"></i> Flip Horizontal
+                        </button>
+                        <button (click)="toggleFlipVertical()"
+                            [class]="flipVertical ? 'px-4 py-2 bg-amber-500 text-white rounded-lg font-medium' : 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors'">
+                            <i class="fa-solid fa-arrows-up-down mr-1"></i> Flip Vertical
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button (click)="downloadRotated()"
+                        class="px-6 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition-colors flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-download"></i> Download
+                    </button>
+
+                    <app-send-to-tool *ngIf="rotatedImage" [hasOutput]="!!rotatedImage" [currentRoute]="currentRoute"
+                        [outputData]="rotatedImage" [fileName]="getOutputFileName()" [fileType]="'image'">
+                    </app-send-to-tool>
+
+                    <button (click)="resetTransform()"
+                        class="px-4 py-3 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-rotate-left"></i> Reset
+                    </button>
+
+                    <button (click)="reset()"
+                        class="px-4 py-3 bg-gray-100 text-gray-600 rounded-lg font-medium hover:bg-gray-200 transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-xmark"></i> New Image
+                    </button>
+                </div>
+            </div>
+            }
+
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Rotate Image - Flip & Rotate Photos Free</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Rotate images to any angle, flip horizontally or vertically, and fix photo orientation.
+                    Perfect for correcting sideways photos or creating mirror effects.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Rotate Images?</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Upload Image:</strong> Drag and drop or click to browse.</li>
+                    <li><strong>Rotate:</strong> Use quick buttons or slider for custom angle.</li>
+                    <li><strong>Flip:</strong> Mirror horizontally or vertically if needed.</li>
+                    <li><strong>Download:</strong> Save your rotated image as PNG.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Rotation Options</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Quick Rotate:</strong> 90° left, 90° right, or 180° buttons.</li>
+                    <li><strong>Custom Angle:</strong> Rotate from 0° to 359° precisely.</li>
+                    <li><strong>Flip:</strong> Mirror horizontally or vertically.</li>
+                    <li><strong>Privacy First:</strong> All processing in your browser.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I rotate to any custom angle?</h3>
+                        <p class="text-gray-600">Yes! Use the slider to rotate from 0° to 359° with precision.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is image quality preserved?</h3>
+                        <p class="text-gray-600">Yes! We use high-quality canvas rendering to preserve image quality.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</div>

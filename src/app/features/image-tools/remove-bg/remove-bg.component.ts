@@ -179,6 +179,43 @@ declare const saveAs: any;
                     </div>
                 </div>
 
+                <!-- SEO Content -->
+                <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Remove Background - AI Background Remover Free</h1>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Automatically remove backgrounds from photos with AI. Perfect for product photos, 
+                        portraits, and creating transparent PNGs for any purpose.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Remove Background?</h2>
+                    <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                        <li><strong>Upload Image:</strong> Drag and drop or click to browse.</li>
+                        <li><strong>Process:</strong> Click to let AI remove the background.</li>
+                        <li><strong>Customize:</strong> Add a custom background color if needed.</li>
+                        <li><strong>Download:</strong> Save as transparent PNG or with new background.</li>
+                    </ol>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Use Our Tool?</h2>
+                    <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                        <li><strong>Automatic:</strong> No manual selection or editing needed.</li>
+                        <li><strong>Custom Colors:</strong> Add any background color after removal.</li>
+                        <li><strong>High Quality:</strong> Preserves fine details like hair.</li>
+                        <li><strong>AI Powered:</strong> Advanced neural network for accuracy.</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Does it work with complex backgrounds?</h3>
+                            <p class="text-gray-600">Yes! Our AI handles complex backgrounds, hair, and transparent objects.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Can I add a custom background?</h3>
+                            <p class="text-gray-600">Yes! Choose from preset colors or pick any custom color after processing.</p>
+                        </div>
+                    </div>
+                </article>
+
             </div>
         </div>
     </div>

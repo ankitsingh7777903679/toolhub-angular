@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { SeoService } from '../../../core/services/seo.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -105,4 +106,14 @@ import { CommonModule } from '@angular/common';
     </div>
   `
 })
-export class AboutComponent { }
+export class AboutComponent implements OnInit {
+    private seoService = inject(SeoService);
+
+    ngOnInit() {
+        this.seoService.updateSeo({
+            title: 'About Us - 2olhub',
+            description: 'Learn about 2olhub mission to provide free, secure, and powerful online tools for everyone.',
+            url: 'https://2olhub.netlify.app/about'
+        });
+    }
+}

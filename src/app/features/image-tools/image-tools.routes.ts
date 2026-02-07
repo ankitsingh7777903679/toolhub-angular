@@ -52,5 +52,9 @@ export const IMAGE_ROUTES: Routes = [
     {
         path: 'blur',
         loadComponent: () => import('./blur-image/blur-image.component').then(m => m.BlurImageComponent)
+    },
+    {
+        path: 'rotate',
+        loadComponent: () => import('./rotate-image/rotate-image.component').then(m => m.RotateImageComponent)
     }
 ];

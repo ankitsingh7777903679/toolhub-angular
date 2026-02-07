@@ -4,6 +4,7 @@ import { RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToolCardComponent, Tool } from '../../shared/components/tool-card/tool-card.component';
 import { ApiService } from '../../core/services/api.service';
+import { SeoService } from '../../core/services/seo.service';
 
 interface Category {
     id: string;
@@ -34,6 +35,7 @@ interface FaqItem {
 export class HomeComponent implements OnInit {
     private apiService = inject(ApiService);
     private router = inject(Router);
+    private seoService = inject(SeoService);
 
     searchQuery = '';
     activeCategory = 'all';
@@ -174,7 +176,7 @@ export class HomeComponent implements OnInit {
         {
             _id: 'pdf-4',
             name: 'HTML to PDF',
-            description: 'Convert web pages or HTML to PDF',
+            description: 'Convert web pages or HTML to PDF documents',
             iconClass: 'fa-solid fa-code',
             iconColor: '#14B8A6',
             bgIconColor: '#CCFBF1',
@@ -582,6 +584,12 @@ export class HomeComponent implements OnInit {
     ];
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: '2olhub - Free Online Tools to Make Everything Simple',
+            description: 'Free online tools for everyone. Merge PDF, Remove Background, AI Writing, and more. 100% free and unlimited options available.',
+            keywords: 'free online tools, pdf tools, image editor, ai writer, 2olhub, student learning platform'
+        });
+
         // For now, use sample tools. Later, fetch from API
         this.tools = [...this.sampleTools, ...this.fileTools];
         this.filterTools(); // Initial filter

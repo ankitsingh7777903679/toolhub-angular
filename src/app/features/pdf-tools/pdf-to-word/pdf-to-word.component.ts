@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const pdfjsLib: any;
 declare const saveAs: any;
@@ -38,7 +39,7 @@ declare const saveAs: any;
                             <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-500">
                                 <span class="font-bold text-xs">PDF</span>
                             </div>
-                            <p class="text-gray-700 font-medium">{{ file.name }}</p>
+                            <p class="text-gray-700 font-medium truncate max-w-[200px]">{{ file.name }}</p>
                         </div>
                         <button (click)="clearFile()" class="text-red-400 hover:text-red-600">
                             <i class="fa-solid fa-trash"></i>
@@ -108,9 +109,48 @@ declare const saveAs: any;
                         {{ error }}
                     </p>
                 </div>
+                </div>
             </div>
+
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">PDF OCR - Extract Text from Scanned PDF Online</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Convert scanned PDF documents and images into editable text formats. 
+                    Our AI-powered OCR tool recognizes text from images and scanned pages with high accuracy.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Extract Text from PDF?</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Upload File:</strong> Select your scanned PDF or image containing text.</li>
+                    <li><strong>Process:</strong> Our AI engine analyzes the document and identifies character patterns.</li>
+                    <li><strong>Review:</strong> See the extracted text on the screen instantly.</li>
+                    <li><strong>Download:</strong> Save the result as a TXT or Word file.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use this OCR Tool?</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>AI Accuracy:</strong> Uses advanced machine learning (Llama 4 Scout) for superior text recognition.</li>
+                    <li><strong>Multi-Language Support:</strong> Capable of recognizing text in various languages.</li>
+                    <li><strong>Editable Output:</strong> Convert unreadable scans into fully editable Word documents.</li>
+                    <li><strong>100% Free:</strong> No subscription required for basic OCR tasks.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can it read handwriting?</h3>
+                        <p class="text-gray-600">It performs best with printed text, but clear handwriting can sometimes be recognized depending on quality.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Are my documents stored?</h3>
+                        <p class="text-gray-600">No, files are processed temporarily and are not permanently stored on our servers.</p>
+                    </div>
+                </div>
+            </article>
         </div>
-    </div>
+    
+    
   `
 })
 export class PdfToWordComponent {
@@ -130,10 +170,18 @@ export class PdfToWordComponent {
         private ngZone: NgZone,
         private cdr: ChangeDetectorRef,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) { }
 
     async ngOnInit(): Promise<void> {
+        this.seoService.updateSeo({
+            title: 'PDF OCR - Extract Text from Scanned PDF Online',
+            description: 'Extract text from scanned PDF files and images using free online OCR. Convert scanned documents to editable Word or Text files. AI-powered text recognition.',
+            keywords: 'pdf ocr, extract text from pdf, scanned pdf to text, image to text, online ocr, free ocr tool',
+            url: 'https://2olhub.netlify.app/pdf/pdf-to-word'
+        });
+
         await this.scriptLoader.load(['pdf-js', 'file-saver']);
     }
 

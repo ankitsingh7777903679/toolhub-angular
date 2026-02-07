@@ -5,7 +5,7 @@
                 <i class="fa-solid fa-wand-magic-sparkles text-2xl text-white"></i>
             </div>
             <h1 class="text-3xl font-bold text-white mb-2">Image to CSV</h1>
-            <p class="text-pink-100">Extract table data from images or PDF using AI</p>
+            <p class="text-pink-100">Extract table data from images using AI</p>
             <span class="inline-block mt-2 bg-white/20 text-white text-xs px-3 py-1 rounded-full">
                 <i class="fa-solid fa-robot mr-1"></i> Powered by AI
             </span>
@@ -18,16 +18,14 @@
             [class.border-pink-400]="isDragging" [class.bg-pink-50]="isDragging" [class.border-gray-300]="!isDragging"
             (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"
             (click)="fileInput.click()">
-            <input #fileInput type="file" accept="image/*,application/pdf" multiple class="hidden"
-                (change)="onFileSelected($event)">
+            <input #fileInput type="file" accept="image/*" multiple class="hidden" (change)="onFileSelected($event)">
             <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i class="fa-solid fa-images text-3xl text-pink-500"></i>
             </div>
-            <h3 class="text-lg font-semibold text-gray-700 mb-2">Drop images or PDF with table data</h3>
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Drop images with table data</h3>
             <p class="text-gray-500 mb-4">or click to browse</p>
             <div class="flex justify-center gap-4 text-sm text-gray-400">
-                <span><i class="fa-solid fa-image mr-1"></i> Multiple images</span>
-                <span><i class="fa-solid fa-file-pdf mr-1"></i> Single PDF</span>
+                <span><i class="fa-solid fa-image mr-1"></i> JPG, PNG, WebP, BMP</span>
             </div>
         </div>
         } @else {
@@ -162,5 +160,163 @@
         @if (error) {
         <div class="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">{{ error }}</div>
         }
+    </div>
+
+    <!-- SEO Content Section -->
+    <div class="container mx-auto px-4 py-12 max-w-5xl">
+        <div class="prose prose-lg max-w-none">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">AI-Powered Image to CSV Converter - Extract Table Data
+                with OCR</h2>
+            <p class="text-gray-600 mb-8">Convert photos, screenshots, and scanned documents to CSV format using
+                advanced AI. Extract tabular data from images with smart table recognition technology.</p>
+
+            <!-- How to Steps -->
+            <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">How to Extract Tables from Images</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center p-4 border border-gray-100 rounded-xl">
+                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-pink-600 font-bold text-lg">1</span>
+                        </div>
+                        <h4 class="font-medium text-gray-800 mb-2">Upload Image</h4>
+                        <p class="text-gray-500 text-sm">Upload photos or screenshots containing table data</p>
+                    </div>
+                    <div class="text-center p-4 border border-gray-100 rounded-xl">
+                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-pink-600 font-bold text-lg">2</span>
+                        </div>
+                        <h4 class="font-medium text-gray-800 mb-2">AI Extracts Data</h4>
+                        <p class="text-gray-500 text-sm">Our AI recognizes tables and extracts text automatically</p>
+                    </div>
+                    <div class="text-center p-4 border border-gray-100 rounded-xl">
+                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-pink-600 font-bold text-lg">3</span>
+                        </div>
+                        <h4 class="font-medium text-gray-800 mb-2">Download CSV</h4>
+                        <p class="text-gray-500 text-sm">Get clean, structured CSV ready for import</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-brain text-pink-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">AI-Powered OCR</h4>
+                    <p class="text-gray-500 text-sm">Advanced machine learning detects and extracts table data.</p>
+                </div>
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-pencil text-pink-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Handwriting Support</h4>
+                    <p class="text-gray-500 text-sm">Extract data from handwritten tables and registers.</p>
+                </div>
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-images text-pink-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Multiple Images</h4>
+                    <p class="text-gray-500 text-sm">Process multiple images and combine into one CSV file.</p>
+                </div>
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-bolt text-pink-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Fast Processing</h4>
+                    <p class="text-gray-500 text-sm">Get results in seconds with optimized AI processing.</p>
+                </div>
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-table text-pink-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Structure Preserved</h4>
+                    <p class="text-gray-500 text-sm">Maintains rows and columns exactly as in the original.</p>
+                </div>
+                <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                    <div class="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-copy text-pink-500"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Copy to Clipboard</h4>
+                    <p class="text-gray-500 text-sm">One-click copy for quick paste into spreadsheets.</p>
+                </div>
+            </div>
+
+            <!-- Use Cases -->
+            <div class="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl p-6 mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                    <i class="fa-solid fa-lightbulb text-pink-500 mr-2"></i>What Can You Extract?
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-start gap-2">
+                        <i class="fa-solid fa-check-circle text-pink-500 mt-0.5"></i>
+                        <span class="text-gray-600"><strong>Receipts & Invoices:</strong> Extract line items for
+                            accounting</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <i class="fa-solid fa-check-circle text-pink-500 mt-0.5"></i>
+                        <span class="text-gray-600"><strong>Spreadsheet Screenshots:</strong> Convert image data back to
+                            editable</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <i class="fa-solid fa-check-circle text-pink-500 mt-0.5"></i>
+                        <span class="text-gray-600"><strong>Scanned Documents:</strong> Digitize old paper
+                            records</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <i class="fa-solid fa-check-circle text-pink-500 mt-0.5"></i>
+                        <span class="text-gray-600"><strong>Attendance Registers:</strong> Convert handwritten sheets to
+                            data</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                    <i class="fa-solid fa-circle-question text-pink-500 mr-2"></i>Frequently Asked Questions
+                </h3>
+                <div class="space-y-4">
+                    <details class="group border-b border-gray-100 pb-4">
+                        <summary class="font-medium text-gray-700 cursor-pointer flex justify-between items-center">
+                            What image formats are supported?
+                            <i
+                                class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="mt-3 text-gray-600 text-sm">We support JPG, PNG, WebP, and BMP image formats for table
+                            extraction.</p>
+                    </details>
+                    <details class="group border-b border-gray-100 pb-4">
+                        <summary class="font-medium text-gray-700 cursor-pointer flex justify-between items-center">
+                            Can it read handwritten tables?
+                            <i
+                                class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="mt-3 text-gray-600 text-sm">Yes! Our AI can extract data from clear handwritten
+                            tables. Accuracy depends on handwriting clarity and image quality.</p>
+                    </details>
+                    <details class="group border-b border-gray-100 pb-4">
+                        <summary class="font-medium text-gray-700 cursor-pointer flex justify-between items-center">
+                            How accurate is the extraction?
+                            <i
+                                class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="mt-3 text-gray-600 text-sm">Accuracy is typically 95%+ for clear, well-formatted
+                            tables. Blurry images or complex layouts may reduce accuracy.</p>
+                    </details>
+                    <details class="group pb-4">
+                        <summary class="font-medium text-gray-700 cursor-pointer flex justify-between items-center">
+                            Is my data kept private?
+                            <i
+                                class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="mt-3 text-gray-600 text-sm">Images are processed securely and deleted after
+                            extraction. We do not store your data.</p>
+                    </details>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const pdfjsLib: any;
 declare const PDFLib: any;
@@ -66,10 +67,18 @@ export class SplitComponent implements OnInit {
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) { }
 
     async ngOnInit(): Promise<void> { // Changed to async
+        this.seoService.updateSeo({
+            title: 'Split PDF - Extract Pages from PDF Online for Free',
+            description: 'Split PDF files online. Extract pages, separate PDF documents, or select specific pages to save as new PDF files. Free, secure, and easy to use.',
+            keywords: 'split pdf, extract pdf pages, separate pdf, cut pdf, split pdf online, free pdf splitter',
+            url: 'https://2olhub.netlify.app/pdf/split'
+        });
+
         // Load required scripts dynamically
         await this.scriptLoader.load(['pdf-lib', 'pdf-js', 'jszip', 'file-saver']);
 

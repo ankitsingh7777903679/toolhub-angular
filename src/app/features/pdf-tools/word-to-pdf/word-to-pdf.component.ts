@@ -1,4 +1,5 @@
-import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, ChangeDetectorRef, NgZone, OnInit } from '@angular/core';
+import { SeoService } from '../../../core/services/seo.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
@@ -35,7 +36,7 @@ import { SendToToolComponent } from '../../../shared/components/send-to-tool/sen
                                 <i class="fa-solid fa-file-word"></i>
                             </div>
                             <div>
-                                <p class="text-gray-700 font-medium">{{ file.name }}</p>
+                                <p class="text-gray-700 font-medium truncate max-w-[200px]">{{ file.name }}</p>
                                 <p class="text-gray-400 text-xs">{{ formatFileSize(file.size) }}</p>
                             </div>
                         </div>
@@ -93,11 +94,46 @@ import { SendToToolComponent } from '../../../shared/components/send-to-tool/sen
                     </p>
                 </div>
             </div>
+
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert Word to PDF (Doc, Docx) Online</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Transform your Microsoft Word documents into professional PDF files with our free online converter.
+                    Preserve your original formatting, fonts, and layout accurately.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert Word to PDF?</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Upload Field:</strong> Select your .doc or .docx file from your device.</li>
+                    <li><strong>Convert:</strong> Click the button to start the conversion process.</li>
+                    <li><strong>Download:</strong> Get your high-quality PDF file instantly.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use our Converter?</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Format Preservation:</strong> Visual elements, tables, and text styles remain intact.</li>
+                    <li><strong>Wide Compatibility:</strong> Supports both legacy (.doc) and modern (.docx) World formats.</li>
+                    <li><strong>Secure & Private:</strong> Your documents are encrypted during transfer and deleted after processing.</li>
+                    <li><strong>Universal Access:</strong> Use it on any device, including Mobile, Tablet, and Desktop.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is it compatible with Office 365?</h3>
+                        <p class="text-gray-600">Yes, it fully supports documents created with minimal Microsoft Office versions, including Office 365.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does it support large files?</h3>
+                        <p class="text-gray-600">We optimize for standard document sizes. Very large files with many high-res images may take longer.</p>
+                    </div>
+                </div>
+            </article>
         </div>
-    </div>
   `
 })
-export class WordToPdfComponent {
+export class WordToPdfComponent implements OnInit {
     file: File | null = null;
     isProcessing = false;
     errorMessage = '';
@@ -114,8 +150,18 @@ export class WordToPdfComponent {
     constructor(
         private http: HttpClient,
         private cdr: ChangeDetectorRef,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private seoService: SeoService
     ) { }
+
+    ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Word to PDF - Convert Doc & Docx to PDF Online',
+            description: 'Convert Word documents to PDF online for free. accurate DOC and DOCX to PDF conversion. Keep your formatting intact.',
+            keywords: 'word to pdf, doc to pdf, docx to pdf, convert word to pdf, microsoft word to pdf, office to pdf',
+            url: 'https://2olhub.netlify.app/pdf/word-to-pdf'
+        });
+    }
 
     onFileSelect(event: Event) {
         const input = event.target as HTMLInputElement;

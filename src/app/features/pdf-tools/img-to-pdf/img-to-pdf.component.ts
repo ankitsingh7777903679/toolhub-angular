@@ -5,6 +5,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const PDFLib: any;
 declare const saveAs: any;
@@ -127,9 +128,46 @@ declare const saveAs: any;
                     </div>
                 </div>
 
+                </div>
             </div>
+
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert Images to PDF Online for Free</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Turn your photos, screenshots, and graphics into professional PDF documents. Supports JPG, PNG, and other image formats.
+                    Perfect for creating portfolios, reports, or archiving receipts.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert Images to PDF?</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Upload Images:</strong> Select your JPG or PNG files. You can upload multiple images at once.</li>
+                    <li><strong>Arrange:</strong> Drag and drop images to reorder them as needed.</li>
+                    <li><strong>Customize:</strong> Choose "Fit to A4" or "Add Margin" for better formatting.</li>
+                    <li><strong>Convert:</strong> Click "Convert to PDF" and download your document.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Key Features</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Multiple Formats:</strong> Works with JPG, PNG, and more.</li>
+                    <li><strong>Custom Formatting:</strong> Options to fit images to A4 pages automatically.</li>
+                    <li><strong>High Quality:</strong> Preserves the resolution of your original images.</li>
+                    <li><strong>Secure & Private:</strong> Files are processed securely and deleted automatically.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I combine multiple images into one PDF?</h3>
+                        <p class="text-gray-600">Yes! You can upload 20+ images and merge them all into a single PDF file in seconds.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does it support screenshots?</h3>
+                        <p class="text-gray-600">Absolutely. It's the best way to turn mobile or desktop screenshots into a shareable document.</p>
+                    </div>
+                </div>
+            </article>
         </div>
-    </div>
   `
 })
 export class ImgToPdfComponent implements OnInit {
@@ -154,12 +192,20 @@ export class ImgToPdfComponent implements OnInit {
         private ngZone: NgZone,
         workspaceService: WorkspaceService,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) {
         this.workspaceService = workspaceService;
     }
 
     async ngOnInit(): Promise<void> {
+        this.seoService.updateSeo({
+            title: 'Image to PDF - Convert JPG & PNG to PDF Online',
+            description: 'Convert images to PDF for free. Turn JPG, PNG, and other image files into a single PDF document. Fast, secure, and easy to use.',
+            keywords: 'image to pdf, jpg to pdf, png to pdf, convert photos to pdf, picture to pdf, online converter',
+            url: 'https://2olhub.netlify.app/pdf/img-to-pdf'
+        });
+
         await this.scriptLoader.load(['pdf-lib', 'file-saver']);
 
         // Check if there's an image from another tool

@@ -5,6 +5,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const PDFLib: any;
 declare const saveAs: any;
@@ -41,7 +42,7 @@ declare const saveAs: any;
                             <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-500">
                                 <span class="font-bold text-xs">PDF</span>
                             </div>
-                            <p class="text-gray-700 font-medium">{{ file.name }}</p>
+                            <p class="text-gray-700 font-medium truncate max-w-[200px]">{{ file.name }}</p>
                         </div>
                         <button (click)="file = null" class="text-red-400 hover:text-red-600">
                             <i class="fa-solid fa-trash"></i>
@@ -97,9 +98,46 @@ declare const saveAs: any;
                         </button>
                     </div>
                 </div>
+                </div>
             </div>
+
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Rotate PDF Pages Permanently Online</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Correct the orientation of your PDF files. Rotate individual pages or the entire document by 90, 180, or 270 degrees.
+                    Save your changes effectively and free of charge.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Rotate PDF Files?</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Upload PDF:</strong> Select your file or drag and drop it into the tool.</li>
+                    <li><strong>Choose Angle:</strong> Click buttons to rotate 90°, 180°, or 270° clockwise.</li>
+                    <li><strong>Apply:</strong> Click "Rotate PDF" to apply the changes to all pages.</li>
+                    <li><strong>Download:</strong> Save your permanently rotated PDF file.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Features</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Permanent Rotation:</strong> The file is saved with the new orientation (not just a view setting).</li>
+                    <li><strong>Secure & Private:</strong> Files are processed on your device or securely deleted after processing.</li>
+                    <li><strong>Easy to Use:</strong> Simple interface to fix upside-down or sideways scanned documents.</li>
+                    <li><strong>Fast Processing:</strong> Rotate large documents in seconds.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I rotate specific pages only?</h3>
+                        <p class="text-gray-600">Currently, this tool rotates the entire document. Use our "Split PDF" tool first if you need to rotate only specific pages.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does this affect document quality?</h3>
+                        <p class="text-gray-600">No, the rotation is a metadata change, so the quality of your text and images remains exactly the same.</p>
+                    </div>
+                </div>
+            </article>
         </div>
-    </div>
   `
 })
 export class RotateComponent implements OnInit {
@@ -117,10 +155,18 @@ export class RotateComponent implements OnInit {
         private ngZone: NgZone,
         private workspaceService: WorkspaceService,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) { }
 
     async ngOnInit(): Promise<void> {
+        this.seoService.updateSeo({
+            title: 'Rotate PDF - Rotate PDF Pages Online for Free',
+            description: 'Rotate PDF files online. Turn PDF pages 90, 180, or 270 degrees. Fix upside down or sideways PDF documents permanently.',
+            keywords: 'rotate pdf, turn pdf, rotate pdf pages, fix pdf orientation, free pdf rotator, online tools',
+            url: 'https://2olhub.netlify.app/pdf/rotate'
+        });
+
         await this.scriptLoader.load(['pdf-lib', 'file-saver']);
 
         // Check if there's a PDF from another tool

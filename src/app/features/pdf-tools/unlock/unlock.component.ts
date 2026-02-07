@@ -5,6 +5,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 import { environment } from '../../../../environments/environment';
 
 declare const PDFLib: any;
@@ -42,7 +43,7 @@ declare const saveAs: any;
                             <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-500">
                                 <span class="font-bold text-xs">PDF</span>
                             </div>
-                            <p class="text-gray-700 font-medium">{{ file.name }}</p>
+                            <p class="text-gray-700 font-medium truncate max-w-[200px]">{{ file.name }}</p>
                         </div>
                         <button (click)="file = null" class="text-red-400 hover:text-red-600">
                             <i class="fa-solid fa-trash"></i>
@@ -97,8 +98,45 @@ declare const saveAs: any;
                     </div>
                 </div>
             </div>
+
+            <!-- SEO Content -->
+                <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Unlock PDF - Remove Password Online for Free</h1>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Remove password security from your PDF files instantly. 
+                        If you have the password but want to remove it for easier access, this free tool is the perfect solution.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Unlock PDF?</h2>
+                    <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                        <li><strong>Upload PDF:</strong> Select your password-protected file.</li>
+                        <li><strong>Enter Password:</strong> Input the current correct password to authorize the removal.</li>
+                        <li><strong>Unlock:</strong> Click the button to strip the security settings permanently.</li>
+                        <li><strong>Download:</strong> Get your new, unlocked PDF file.</li>
+                    </ol>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use our PDF Unlocker?</h2>
+                    <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                        <li><strong>Permanent Removal:</strong> The file will no longer require a password to open.</li>
+                        <li><strong>Secure Processing:</strong> Your password and file are processed securely via SSL.</li>
+                        <li><strong>Fast & Easy:</strong> Remove restrictions in seconds.</li>
+                        <li><strong>All Devices:</strong> Works on Windows, Mac, Linux, and mobile devices.</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Can I remove a password I don't know?</h3>
+                            <p class="text-gray-600">No, for legal and ethical reasons, you must know the password to remove it. This tool is for owners who want to remove known passwords.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Is the file copying safe?</h3>
+                            <p class="text-gray-600">We do not store your passwords or files. Everything is deleted immediately after processing.</p>
+                        </div>
+                    </div>
+                </article>
         </div>
-    </div>
+    </div>    
   `
 })
 export class UnlockComponent implements OnInit {
@@ -116,10 +154,19 @@ export class UnlockComponent implements OnInit {
         private ngZone: NgZone,
         private workspaceService: WorkspaceService,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) { }
 
     async ngOnInit(): Promise<void> {
+        // Initialize SEO and load scripts
+        this.seoService.updateSeo({
+            title: 'Unlock PDF - Remove Password from PDF Online',
+            description: 'Remove password protection from PDF files online. Unlock secured PDFs instantly if you know the password. Free and secure PDF unlocker.',
+            keywords: 'unlock pdf, remove pdf password, pdf password remover, decrypt pdf, open secured pdf, free pdf tool',
+            url: 'https://2olhub.netlify.app/pdf/unlock'
+        });
+
         await this.scriptLoader.load(['file-saver']);
 
         // Check if there's a PDF from another tool

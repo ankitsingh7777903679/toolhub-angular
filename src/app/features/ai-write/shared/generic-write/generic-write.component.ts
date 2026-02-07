@@ -97,6 +97,82 @@ import { environment } from '../../../../../environments/environment';
                 </div>
             </div>
         </div>
+
+        <!-- SEO Content Section -->
+        <div *ngIf="seoTitle" class="container mx-auto px-4 py-12 max-w-5xl">
+            <div class="prose prose-lg max-w-none">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ seoTitle }}</h2>
+                <p *ngIf="seoIntro" class="text-gray-600 mb-8">{{ seoIntro }}</p>
+                
+                <!-- How to Steps -->
+                <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">How It Works</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center p-4 border border-gray-100 rounded-xl">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" [style.backgroundColor]="headerBgColor">
+                                <span class="font-bold text-lg" [style.color]="iconColor">1</span>
+                            </div>
+                            <h4 class="font-medium text-gray-800 mb-2">Enter Text</h4>
+                            <p class="text-gray-500 text-sm">Provide your content or topic</p>
+                        </div>
+                        <div class="text-center p-4 border border-gray-100 rounded-xl">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" [style.backgroundColor]="headerBgColor">
+                                <span class="font-bold text-lg" [style.color]="iconColor">2</span>
+                            </div>
+                            <h4 class="font-medium text-gray-800 mb-2">AI Processes</h4>
+                            <p class="text-gray-500 text-sm">Gemini AI works its magic</p>
+                        </div>
+                        <div class="text-center p-4 border border-gray-100 rounded-xl">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" [style.backgroundColor]="headerBgColor">
+                                <span class="font-bold text-lg" [style.color]="iconColor">3</span>
+                            </div>
+                            <h4 class="font-medium text-gray-800 mb-2">Copy Result</h4>
+                            <p class="text-gray-500 text-sm">Use the content anywhere</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Grid -->
+                <div *ngIf="features.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div *ngFor="let feature of features" class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3" [style.backgroundColor]="headerBgColor">
+                            <i [class]="feature.icon" [style.color]="iconColor"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">{{ feature.title }}</h4>
+                        <p class="text-gray-500 text-sm">{{ feature.description }}</p>
+                    </div>
+                </div>
+
+                <!-- Use Cases -->
+                <div *ngIf="useCases.length" class="rounded-xl p-6 mb-8" [style.backgroundColor]="headerBgColor">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fa-solid fa-lightbulb mr-2" [style.color]="iconColor"></i>Perfect For
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div *ngFor="let useCase of useCases" class="flex items-start gap-2">
+                            <i class="fa-solid fa-check-circle mt-0.5" [style.color]="iconColor"></i>
+                            <span class="text-gray-600">{{ useCase }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div *ngIf="faqs.length" class="bg-white rounded-xl p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fa-solid fa-circle-question mr-2" [style.color]="iconColor"></i>Frequently Asked Questions
+                    </h3>
+                    <div class="space-y-4">
+                        <details *ngFor="let faq of faqs; let last = last" class="group pb-4" [class.border-b]="!last" [class.border-gray-100]="!last">
+                            <summary class="font-medium text-gray-700 cursor-pointer flex justify-between items-center">
+                                {{ faq.question }}
+                                <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <p class="mt-3 text-gray-600 text-sm">{{ faq.answer }}</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   `,
     styles: [`
@@ -126,6 +202,13 @@ export class GenericWriteComponent implements OnInit {
     iconColor = '#3B82F6';
     iconClass = 'fa-solid fa-pen';
 
+    // SEO Content
+    seoTitle = '';
+    seoIntro = '';
+    features: { icon: string; title: string; description: string }[] = [];
+    useCases: string[] = [];
+    faqs: { question: string; answer: string }[] = [];
+
     userText = '';
     generatedContent = '';
     isGenerating = false;
@@ -142,6 +225,13 @@ export class GenericWriteComponent implements OnInit {
             if (data['headerBgColor']) this.headerBgColor = data['headerBgColor'];
             if (data['iconColor']) this.iconColor = data['iconColor'];
             if (data['iconClass']) this.iconClass = data['iconClass'];
+
+            // SEO Content
+            if (data['seoTitle']) this.seoTitle = data['seoTitle'];
+            if (data['seoIntro']) this.seoIntro = data['seoIntro'];
+            if (data['features']) this.features = data['features'];
+            if (data['useCases']) this.useCases = data['useCases'];
+            if (data['faqs']) this.faqs = data['faqs'];
 
             // Clear state on route change
             this.userText = '';

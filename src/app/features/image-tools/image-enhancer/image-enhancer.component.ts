@@ -131,6 +131,43 @@ declare const saveAs: any;
                     </div>
                 </div>
 
+                <!-- SEO Content -->
+                <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-6">AI Image Enhancer - Upscale & Deblur Photos Free</h1>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Enhance blurry images and upscale photos with AI-powered Real-ESRGAN technology. 
+                        Restore old photos, improve low-resolution images, and sharpen details instantly.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Enhance Images?</h2>
+                    <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                        <li><strong>Upload Image:</strong> Drag and drop or click to browse.</li>
+                        <li><strong>Enhance:</strong> Click the enhance button to start AI processing.</li>
+                        <li><strong>Compare:</strong> View original vs enhanced side by side.</li>
+                        <li><strong>Download:</strong> Save your enhanced high-resolution image.</li>
+                    </ol>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Use AI Enhancement?</h2>
+                    <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                        <li><strong>4x Upscale:</strong> Increase resolution up to 4 times.</li>
+                        <li><strong>Deblur:</strong> Remove blur and sharpen details.</li>
+                        <li><strong>Photo Restoration:</strong> Restore old or damaged photos.</li>
+                        <li><strong>AI Powered:</strong> Uses Real-ESRGAN neural network.</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">How long does enhancement take?</h3>
+                            <p class="text-gray-600">Usually 30-60 seconds depending on image size and server load.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">What image formats are supported?</h3>
+                            <p class="text-gray-600">JPG, PNG, and WebP formats are fully supported.</p>
+                        </div>
+                    </div>
+                </article>
+
             </div>
         </div>
     </div>

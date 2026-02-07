@@ -109,7 +109,7 @@ export class PdfToolsComponent {
     },
     {
       name: 'HTML to PDF',
-      description: 'Convert web pages or HTML to PDF',
+      description: 'Convert web pages or HTML to PDF documents',
       icon: 'fa-solid fa-code',
       iconColor: '#14B8A6',
       bgColor: '#CCFBF1',

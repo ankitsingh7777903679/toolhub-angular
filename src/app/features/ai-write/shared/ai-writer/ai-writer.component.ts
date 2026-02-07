@@ -4,6 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../../core/services/api.service';
 import { AnalyticsService } from '../../../../core/services/analytics.service';
 
+interface SeoFeature {
+    icon: string;
+    title: string;
+    description: string;
+}
+
+interface SeoFaq {
+    question: string;
+    answer: string;
+}
+
 interface WriterConfig {
     promptType: string;
     title: string;
@@ -13,6 +24,12 @@ interface WriterConfig {
     iconClass: string;
     iconColor: string;
     bgColor: string;
+    // SEO Content
+    seoTitle?: string;
+    seoIntro?: string;
+    features?: SeoFeature[];
+    useCases?: string[];
+    faqs?: SeoFaq[];
 }
 
 @Component({
@@ -120,6 +137,82 @@ interface WriterConfig {
                                 <p class="text-sm mt-1">Enter a prompt and click Generate</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content Section -->
+        <div *ngIf="config.seoTitle" class="container mx-auto px-4 py-12 max-w-5xl">
+            <div class="prose prose-lg max-w-none">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ config.seoTitle }}</h2>
+                <p *ngIf="config.seoIntro" class="text-gray-600 mb-8">{{ config.seoIntro }}</p>
+                
+                <!-- How to Steps -->
+                <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">How It Works</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center p-4 border border-gray-100 rounded-xl">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" [style.backgroundColor]="config.bgColor">
+                                <span class="font-bold text-lg" [style.color]="config.iconColor">1</span>
+                            </div>
+                            <h4 class="font-medium text-gray-800 mb-2">Enter Prompt</h4>
+                            <p class="text-gray-500 text-sm">Describe what you want to create</p>
+                        </div>
+                        <div class="text-center p-4 border border-gray-100 rounded-xl">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" [style.backgroundColor]="config.bgColor">
+                                <span class="font-bold text-lg" [style.color]="config.iconColor">2</span>
+                            </div>
+                            <h4 class="font-medium text-gray-800 mb-2">AI Generates</h4>
+                            <p class="text-gray-500 text-sm">Gemini AI creates your content</p>
+                        </div>
+                        <div class="text-center p-4 border border-gray-100 rounded-xl">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3" [style.backgroundColor]="config.bgColor">
+                                <span class="font-bold text-lg" [style.color]="config.iconColor">3</span>
+                            </div>
+                            <h4 class="font-medium text-gray-800 mb-2">Copy & Use</h4>
+                            <p class="text-gray-500 text-sm">Copy the result and use anywhere</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Grid -->
+                <div *ngIf="config.features?.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div *ngFor="let feature of config.features" class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3" [style.backgroundColor]="config.bgColor">
+                            <i [class]="feature.icon" [style.color]="config.iconColor"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">{{ feature.title }}</h4>
+                        <p class="text-gray-500 text-sm">{{ feature.description }}</p>
+                    </div>
+                </div>
+
+                <!-- Use Cases -->
+                <div *ngIf="config.useCases?.length" class="rounded-xl p-6 mb-8" [style.backgroundColor]="config.bgColor">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fa-solid fa-lightbulb mr-2" [style.color]="config.iconColor"></i>Perfect For
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div *ngFor="let useCase of config.useCases" class="flex items-start gap-2">
+                            <i class="fa-solid fa-check-circle mt-0.5" [style.color]="config.iconColor"></i>
+                            <span class="text-gray-600">{{ useCase }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div *ngIf="config.faqs?.length" class="bg-white rounded-xl p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fa-solid fa-circle-question mr-2" [style.color]="config.iconColor"></i>Frequently Asked Questions
+                    </h3>
+                    <div class="space-y-4">
+                        <details *ngFor="let faq of config.faqs; let last = last" class="group pb-4" [class.border-b]="!last" [class.border-gray-100]="!last">
+                            <summary class="font-medium text-gray-700 cursor-pointer flex justify-between items-center">
+                                {{ faq.question }}
+                                <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <p class="mt-3 text-gray-600 text-sm">{{ faq.answer }}</p>
+                        </details>
                     </div>
                 </div>
             </div>

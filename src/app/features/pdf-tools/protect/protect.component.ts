@@ -5,6 +5,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 import { environment } from '../../../../environments/environment';
 
 declare const PDFLib: any;
@@ -42,7 +43,7 @@ declare const saveAs: any;
                             <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-500">
                                 <span class="font-bold text-xs">PDF</span>
                             </div>
-                            <p class="text-gray-700 font-medium">{{ file.name }}</p>
+                            <p class="text-gray-700 font-medium truncate max-w-[200px]">{{ file.name }}</p>
                         </div>
                         <button (click)="file = null" class="text-red-400 hover:text-red-600">
                             <i class="fa-solid fa-trash"></i>
@@ -104,9 +105,47 @@ declare const saveAs: any;
                         </button>
                     </div>
                 </div>
+                </div>
             </div>
+
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Protect PDF - Encrypt PDF with Password Online</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Secure your PDF documents with military-grade encryption. Add a password to prevent unauthorized access, copying, or printing.
+                    Protect your sensitive data instantly for free.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Password Protect a PDF?</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Upload PDF:</strong> Select the document you want to secure.</li>
+                    <li><strong>Set Password:</strong> Enter a strong password of your choice.</li>
+                    <li><strong>Confirm:</strong> Re-enter the password to avoid typos.</li>
+                    <li><strong>Encrypt:</strong> Click "Protect PDF" to apply the security settings.</li>
+                    <li><strong>Download:</strong> Save your newly encrypted PDF file.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Key Security Features</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Strong Encryption:</strong> Uses standard encryption methods compatible with all PDF readers.</li>
+                    <li><strong>Full Security:</strong> Prevents opening the file without the correct password.</li>
+                    <li><strong>Private Processing:</strong> Files are processed securely via SSL and deleted after use.</li>
+                    <li><strong>Cross-Platform:</strong> Protected files work on Windows, Mac, iOS, and Android.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I recover a lost password?</h3>
+                        <p class="text-gray-600">No, for security reasons, if you forget the password, the file cannot be opened. Please remember your password!</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is the encryption strong?</h3>
+                        <p class="text-gray-600">Yes, we use industry-standard encryption algorithms to ensure your document remains confidential.</p>
+                    </div>
+                </div>
+            </article>
         </div>
-    </div>
   `
 })
 export class ProtectComponent implements OnInit {
@@ -125,10 +164,18 @@ export class ProtectComponent implements OnInit {
         private ngZone: NgZone,
         private workspaceService: WorkspaceService,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) { }
 
     async ngOnInit(): Promise<void> {
+        this.seoService.updateSeo({
+            title: 'Protect PDF - Encrypt & Lock PDF Online',
+            description: 'Password protect PDF files online. Encrypt your PDF documents with a strong password. Secure sensitive data for free.',
+            keywords: 'protect pdf, lock pdf, encrypt pdf, password protect pdf, secure pdf, pdf security tool',
+            url: 'https://2olhub.netlify.app/pdf/protect'
+        });
+
         await this.scriptLoader.load(['file-saver']);
 
         // Check if there's a PDF from another tool

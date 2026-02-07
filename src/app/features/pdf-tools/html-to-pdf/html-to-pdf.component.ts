@@ -5,6 +5,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const html2pdf: any;
 
@@ -98,6 +99,42 @@ declare const html2pdf: any;
                     </div>
                 </div>
             </div>
+            <!-- SEO Content -->
+            <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert HTML to PDF Online (Free & Fast)</h1>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Transform your web pages, HTML code, or raw text into professional PDF documents instantly. 
+                    Ideal for developers, students, and professionals who need to save web content as PDF.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How it Works</h2>
+                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Enter HTML:</strong> Type or paste your HTML code into the editor.</li>
+                    <li><strong>Preview:</strong> See a real-time preview of how your PDF will look.</li>
+                    <li><strong>Generate:</strong> Click "Generate PDF" to create your document.</li>
+                    <li><strong>Download:</strong> Save the file instantly to your device.</li>
+                </ol>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use our Converter?</h2>
+                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
+                    <li><strong>Client-Side Processing:</strong> Your code is converted directly in your browser.</li>
+                    <li><strong>Real-Time Preview:</strong> Fix layout issues before downloading.</li>
+                    <li><strong>Supports CSS:</strong> Styles and formatting are preserved in the PDF.</li>
+                    <li><strong>Free Forever:</strong> No usage limits or watermarks.</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I convert a live URL?</h3>
+                        <p class="text-gray-600">Currently, we support raw HTML input. To convert a URL, view the page source, copy it, and paste it here.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is my code safe?</h3>
+                        <p class="text-gray-600">Yes! The conversion happens on your device, so your code never leaves your computer.</p>
+                    </div>
+                </div>
+            </article>
         </div>
     </div>
   `,
@@ -133,8 +170,15 @@ export class HtmlToPdfComponent {
         private ngZone: NgZone,
         private sanitizer: DomSanitizer,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) {
+        this.seoService.updateSeo({
+            title: 'HTML to PDF - Convert HTML Code to PDF Online',
+            description: 'Convert HTML to PDF online for free. Type or paste HTML code and save it as a high-quality PDF document. Features real-time preview and CSS support.',
+            keywords: 'html to pdf, convert html to pdf, save web page as pdf, html converter, code to pdf, free online tool',
+            url: 'https://2olhub.netlify.app/pdf/html-to-pdf'
+        });
         this.loadSample();
         this.initScripts();
     }
