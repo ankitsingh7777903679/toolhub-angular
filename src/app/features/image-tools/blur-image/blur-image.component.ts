@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const saveAs: any;
 
@@ -44,12 +45,24 @@ export class BlurImageComponent implements OnInit {
     // Preview (for live preview)
     previewImage: string | null = null;
 
-    constructor(cdr: ChangeDetectorRef, workspaceService: WorkspaceService, private analyticsService: AnalyticsService) {
+    constructor(
+        cdr: ChangeDetectorRef,
+        workspaceService: WorkspaceService,
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
+    ) {
         this.cdr = cdr;
         this.workspaceService = workspaceService;
     }
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Blur Image Online - Face Blur & Privacy Tool',
+            description: 'Blur images online to hide details or create artistic effects. Blur faces, backgrounds, or sensitive information easily.',
+            keywords: 'blur image, online blur tool, blur face, privacy blur, image blur effect, free photo blur',
+            url: 'https://2olhub.netlify.app/image/blur'
+        });
+
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();
             if (file && file.fileType === 'image') {

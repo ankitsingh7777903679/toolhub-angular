@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { SeoService } from '../../../core/services/seo.service';
 import { AiWriterComponent } from '../shared/ai-writer/ai-writer.component';
 
 @Component({
@@ -10,6 +11,17 @@ import { AiWriterComponent } from '../shared/ai-writer/ai-writer.component';
     `
 })
 export class SummarizerComponent {
+  private seoService = inject(SeoService);
+
+  constructor() {
+    this.seoService.updateSeo({
+      title: 'Free AI Text Summarizer - Summarize Articles & Documents Instantly',
+      description: 'Turn long articles, research papers, and documents into concise summaries. Save hours of reading time with AI-powered summarization.',
+      keywords: 'ai text summarizer, text summarization ai, ai summarizer, summarize articles, summarize documents, condense text, extract key points, summary generator, free ai summarizer',
+      url: 'https://2olhub.netlify.app/write/summarizer'
+    });
+  }
+
   config = {
     promptType: 'summarize',
     title: 'AI Content Summarizer',

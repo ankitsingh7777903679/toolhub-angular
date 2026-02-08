@@ -145,6 +145,11 @@
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>https://2olhub.netlify.app/image/png-to-webp</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>https://2olhub.netlify.app/image/to-base64</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { SeoService } from '../../../core/services/seo.service';
 import { AiWriterComponent } from '../shared/ai-writer/ai-writer.component';
 
 @Component({
@@ -10,6 +11,17 @@ import { AiWriterComponent } from '../shared/ai-writer/ai-writer.component';
     `
 })
 export class BlogComponent {
+  private seoService = inject(SeoService);
+
+  constructor() {
+    this.seoService.updateSeo({
+      title: 'Free AI Blog Post Generator - Write SEO Articles in Minutes',
+      description: 'Generate high-quality, SEO-optimized blog posts and articles with our free AI blog writer. Scale your content marketing and rank higher on search engines.',
+      keywords: 'ai blog post generator, ai article writer, seo content generator, ai content creation tool, blog structure generator, automated blog writing, free content writer, seo article generator',
+      url: 'https://2olhub.netlify.app/write/blog'
+    });
+  }
+
   config = {
     promptType: 'blogPost',
     title: 'AI Blog Post Generator',

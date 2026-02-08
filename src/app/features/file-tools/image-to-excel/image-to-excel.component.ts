@@ -1,9 +1,11 @@
-import { Component, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import * as XLSX from 'xlsx';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
+import { WorkspaceService } from '../../../shared/services/workspace.service';
 
 interface FilePreview {
     file: File;
@@ -18,10 +20,11 @@ interface FilePreview {
     templateUrl: './image-to-excel.component.html',
     styleUrls: ['./image-to-excel.component.scss']
 })
-export class ImageToExcelComponent {
+export class ImageToExcelComponent implements OnInit {
     private http = inject(HttpClient);
     private cdr = inject(ChangeDetectorRef);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
 
     selectedFiles: FilePreview[] = [];
     previewData: string[][] = [];
@@ -32,6 +35,39 @@ export class ImageToExcelComponent {
     columnCount = 0;
     currentProcessingIndex = 0;
     private workbook: XLSX.WorkBook | null = null;
+
+    private workspaceService = inject(WorkspaceService); // Inject WorkspaceService
+
+    ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Convert Image & PDF to Excel Online - Free Table Extractor',
+            description: 'Extract tables from images (JPG, PNG) and PDF documents to Excel (XLSX) automatically. AI-powered OCR for accurate data extraction. Free, fast, and secure.',
+            keywords: 'image to excel, pdf to excel, extract table from pdf, screenshot to excel, ocr to excel, convert pdf to excel table, free online converter',
+            url: 'https://2olhub.netlify.app/file/image-to-excel'
+        });
+
+        // Tool Chaining - Handle incoming files
+        if (this.workspaceService.hasFile()) {
+            const file = this.workspaceService.getFile();
+            if (file) {
+                this.loadImageFromWorkspace(file.data, file.fileName, file.fileType);
+            }
+        }
+    }
+
+    private async loadImageFromWorkspace(data: string, fileName: string, fileType: 'image' | 'pdf'): Promise<void> {
+        try {
+            // Convert base64 to Blob/File
+            const response = await fetch(data);
+            const blob = await response.blob();
+            const file = new File([blob], fileName, { type: blob.type });
+
+            // Add to selected files
+            this.handleFiles([file]);
+        } catch (error) {
+            console.error('Failed to load file from workspace:', error);
+        }
+    }
 
     onDragOver(event: DragEvent): void {
         event.preventDefault();

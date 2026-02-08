@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { SeoService } from '../../../core/services/seo.service';
 import { AiWriterComponent } from '../shared/ai-writer/ai-writer.component';
 
 @Component({
@@ -10,6 +11,17 @@ import { AiWriterComponent } from '../shared/ai-writer/ai-writer.component';
     `
 })
 export class EssayComponent {
+  private seoService = inject(SeoService);
+
+  constructor() {
+    this.seoService.updateSeo({
+      title: 'Free AI Essay Writer - Generate High-Quality Essays Instantly',
+      description: 'Write well-structured essays, research papers, and assignments with our free AI essay generator. Perfect for students and professionals looking to overcome writer\'s block.',
+      keywords: 'ai essay writer, free ai essay generator, essay writing ai, ai academic writing, ai paper writer, plagiarism-free essay, essay outline generator, automated essay writer',
+      url: 'https://2olhub.netlify.app/write/essay'
+    });
+  }
+
   config = {
     promptType: 'essay',
     title: 'AI Essay Writer',

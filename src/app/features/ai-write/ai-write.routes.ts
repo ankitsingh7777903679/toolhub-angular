@@ -38,7 +38,8 @@ export const WRITE_ROUTES: Routes = [
             iconColor: '#3B82F6',
             iconClass: 'fa-solid fa-paragraph',
             seoTitle: 'Free AI Paragraph Generator - Write Any Paragraph Instantly',
-            seoIntro: 'Generate well-written, coherent paragraphs on any topic in seconds. Perfect for essays, articles, and content creation.',
+            seoIntro: 'Generate well-written, coherent paragraphs on any topic in seconds using our free AI paragraph writer. Perfect for essays, articles, and content creation.',
+            keywords: 'free ai paragraph generator, ai paragraph writer free, online paragraph generator, ai text generator free, paragraph creator ai, ai writing assistant, free paragraph maker',
             features: [
                 { icon: 'fa-solid fa-feather', title: 'Natural Flow', description: 'Smooth, readable sentences that connect logically.' },
                 { icon: 'fa-solid fa-bullseye', title: 'On Topic', description: 'Stays focused on your specified subject.' },
@@ -69,6 +70,7 @@ export const WRITE_ROUTES: Routes = [
             iconClass: 'fa-solid fa-rotate',
             seoTitle: 'Free AI Article Rewriter - Paraphrase Text Instantly',
             seoIntro: 'Rewrite articles, essays, and content while maintaining the original meaning. Create unique versions for SEO, avoid plagiarism, and improve readability.',
+            keywords: 'paraphrasing tool, article rewriter, content rewriter, unique content generator, ai rewriter, sentence rewriter, text rewriter, free article spinner, avoid plagiarism tool',
             features: [
                 { icon: 'fa-solid fa-shuffle', title: 'Smart Paraphrasing', description: 'Changes words and structure while keeping meaning.' },
                 { icon: 'fa-solid fa-shield-check', title: 'Plagiarism-Free', description: 'Creates unique content safe from detection.' },
@@ -98,7 +100,8 @@ export const WRITE_ROUTES: Routes = [
             iconColor: '#22C55E',
             iconClass: 'fa-solid fa-spell-check',
             seoTitle: 'Free AI Grammar Checker - Fix Errors Instantly',
-            seoIntro: 'Check and correct grammar, spelling, and punctuation errors. Get polished, error-free text in seconds.',
+            seoIntro: 'Check and correct grammar, spelling, and punctuation errors. Get polished, error-free text in seconds with our online grammar checker.',
+            keywords: 'grammar checker, online grammar checker, spell checker, punctuation checker, grammar fix, correct my grammar, free grammar check, writing assistant, proofreading tool',
             features: [
                 { icon: 'fa-solid fa-spell-check', title: 'Grammar Fix', description: 'Corrects subject-verb agreement and more.' },
                 { icon: 'fa-solid fa-text-slash', title: 'Spelling Check', description: 'Catches typos and misspellings.' },
@@ -128,7 +131,8 @@ export const WRITE_ROUTES: Routes = [
             iconColor: '#EF4444',
             iconClass: 'fa-solid fa-sliders',
             seoTitle: 'Free AI Tone Changer - Adjust Writing Style Instantly',
-            seoIntro: 'Transform your writing tone from casual to professional, friendly to formal, or any style you need. Perfect for adapting content for different audiences.',
+            seoIntro: 'Transform your writing tone from casual to professional, friendly to formal, or any style you need using our AI tone changer. Perfect for adapting content.',
+            keywords: 'ai tone changer, change writing tone, rewrite text tone, formal to casual converter, professional tone rewriter, tone of voice ai, adjust writing style, emotional tone changer',
             features: [
                 { icon: 'fa-solid fa-user-tie', title: 'Professional', description: 'Make text business-appropriate.' },
                 { icon: 'fa-solid fa-smile', title: 'Friendly', description: 'Add warmth and approachability.' },
@@ -158,7 +162,8 @@ export const WRITE_ROUTES: Routes = [
             iconColor: '#0EA5E9',
             iconClass: 'fa-solid fa-box',
             seoTitle: 'Free AI Product Description Generator - Write Descriptions That Sell',
-            seoIntro: 'Create compelling product descriptions for e-commerce, Amazon, Shopify, and marketplaces. Convert browsers into buyers with persuasive copy.',
+            seoIntro: 'Create compelling, SEO-friendly product descriptions for e-commerce, Amazon, Shopify, and marketplaces. Convert browsers into buyers with persuasive AI copy.',
+            keywords: 'ai product description generator, seo product descriptions, ecommerce content generator, amazon product description writer, shopify product descriptions, auto product description writer, free product description tool',
             features: [
                 { icon: 'fa-solid fa-cart-shopping', title: 'Sales-Focused', description: 'Copy designed to convert shoppers.' },
                 { icon: 'fa-solid fa-bullseye', title: 'Benefit Highlights', description: 'Emphasizes what customers care about.' },
@@ -188,7 +193,8 @@ export const WRITE_ROUTES: Routes = [
             iconColor: '#7C3AED',
             iconClass: 'fa-solid fa-hashtag',
             seoTitle: 'Free AI Social Media Post Generator - Create Viral Content',
-            seoIntro: 'Generate engaging posts for Twitter, LinkedIn, Instagram, and Facebook. Get likes, shares, and engagement with AI-crafted social content.',
+            seoIntro: 'Generate engaging social media posts for Twitter, LinkedIn, Instagram, and Facebook. Get likes, shares, and engagement with AI-crafted captions and hashtags.',
+            keywords: 'ai social media post generator, social media content creator, ai caption generator, instagram post generator, linkedin post writer, twitter post generator, social media automation, ai content marketing',
             features: [
                 { icon: 'fa-brands fa-twitter', title: 'Twitter/X Ready', description: 'Optimal length with hooks.' },
                 { icon: 'fa-brands fa-linkedin', title: 'LinkedIn Pro', description: 'Professional thought leadership.' },
@@ -218,7 +224,8 @@ export const WRITE_ROUTES: Routes = [
             iconColor: '#D946EF',
             iconClass: 'fa-solid fa-book',
             seoTitle: 'Free AI Story Generator - Create Stories on Any Topic',
-            seoIntro: 'Generate creative stories, short fiction, and narratives instantly. Perfect for writers, students, and anyone who loves storytelling.',
+            seoIntro: 'Generate creative stories, short fiction, and narratives instantly using our free AI story generator. Perfect for writers, students, and anyone who loves storytelling.',
+            keywords: 'ai story generator, ai story writer, story generator ai, ai plot generator, creative writing ai, short story generator, free ai story generator, ai novel writer',
             features: [
                 { icon: 'fa-solid fa-wand-magic-sparkles', title: 'Creative Plots', description: 'Unique storylines and twists.' },
                 { icon: 'fa-solid fa-users', title: 'Rich Characters', description: 'Memorable, developed personas.' },

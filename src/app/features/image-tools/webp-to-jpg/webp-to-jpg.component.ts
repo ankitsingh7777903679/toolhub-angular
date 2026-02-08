@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 interface ProcessedFile {
   id: string;
@@ -26,6 +27,7 @@ export class WebpToJpgComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private workspaceService = inject(WorkspaceService);
   private analyticsService = inject(AnalyticsService);
+  private seoService = inject(SeoService);
   currentRoute = '/image/webp-to-jpg';
 
   files: ProcessedFile[] = [];
@@ -41,6 +43,13 @@ export class WebpToJpgComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.seoService.updateSeo({
+      title: 'Convert WebP to JPG Online - Free Image Converter',
+      description: 'Convert WebP images to JPG format online. Fast and free WebP to JPG converter. Maintain image quality while changing format.',
+      keywords: 'webp to jpg, convert webp to jpg, image converter, online jpg converter, free image converter, webp converter',
+      url: 'https://2olhub.netlify.app/image/webp-to-jpg'
+    });
+
     if (this.workspaceService.hasFile()) {
       const file = this.workspaceService.getFile();
       if (file && file.fileType === 'image') {

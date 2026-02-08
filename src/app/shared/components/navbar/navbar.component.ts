@@ -15,7 +15,7 @@ import { ThemeService } from '../../../core/services/theme.service';
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center h-14 md:h-16">
           <a routerLink="/" class="flex items-center gap-2">
-            <img src="assets/logo.png" alt="2olhub" class="h-16 md:h-24 w-auto object-contain" fetchpriority="high">
+            <img src="assets/logo.webp" alt="2olhub" class="h-16 md:h-24 w-auto object-contain" fetchpriority="high" height="64" width="200">
           </a>
 
           <div *ngIf="!isAdminRoute()" class="hidden lg:flex items-center gap-8">

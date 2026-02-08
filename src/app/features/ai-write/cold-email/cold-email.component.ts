@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { SeoService } from '../../../core/services/seo.service';
 import { AiWriterComponent } from '../shared/ai-writer/ai-writer.component';
 
 @Component({
@@ -10,6 +11,17 @@ import { AiWriterComponent } from '../shared/ai-writer/ai-writer.component';
     `
 })
 export class ColdEmailComponent {
+    private seoService = inject(SeoService);
+
+    constructor() {
+        this.seoService.updateSeo({
+            title: 'Free AI Cold Email Generator - Write High-Converting Outreach Emails',
+            description: 'Generate personalized cold emails for sales, jobs, and networking. Boost your open rates and responses with our free AI cold email writer.',
+            keywords: 'cold email generator, ai email writer, cold email outreach, sales outreach automation, personalized cold emails, automated email campaigns, email marketing tool, free cold email template',
+            url: 'https://2olhub.netlify.app/write/cold-email'
+        });
+    }
+
     config = {
         promptType: 'coldEmail',
         title: 'AI Cold Email Generator',

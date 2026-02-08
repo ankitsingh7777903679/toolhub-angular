@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 interface PresetSize {
     name: string;
@@ -29,6 +30,7 @@ export class ResizeImageComponent implements OnInit, AfterViewInit {
     private apiUrl = environment.apiUrl;
     private workspaceService = inject(WorkspaceService);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
 
     currentRoute = '/image/resize';
 
@@ -85,6 +87,13 @@ export class ResizeImageComponent implements OnInit, AfterViewInit {
     ];
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Resize Image Online - Free Image Resizer',
+            description: 'Resize images online for free. Change dimensions of JPG, PNG, and WebP images. Crop or resize for Instagram, Facebook, and more.',
+            keywords: 'resize image, online image resizer, photo resizer, change image size, crop image, resize for instagram',
+            url: 'https://2olhub.netlify.app/image/resize'
+        });
+
         // Check if there's an image from another tool
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();

@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { AnalyticsService } from '../../../../core/services/analytics.service';
+import { SeoService } from '../../../../core/services/seo.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -190,6 +191,7 @@ export class GenericWriteComponent implements OnInit {
     private http = inject(HttpClient);
     private cdr = inject(ChangeDetectorRef);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
 
     title = '';
     description = '';
@@ -208,6 +210,7 @@ export class GenericWriteComponent implements OnInit {
     features: { icon: string; title: string; description: string }[] = [];
     useCases: string[] = [];
     faqs: { question: string; answer: string }[] = [];
+    keywords = '';
 
     userText = '';
     generatedContent = '';
@@ -232,6 +235,15 @@ export class GenericWriteComponent implements OnInit {
             if (data['features']) this.features = data['features'];
             if (data['useCases']) this.useCases = data['useCases'];
             if (data['faqs']) this.faqs = data['faqs'];
+            if (data['keywords']) this.keywords = data['keywords'];
+
+            // Update SEO Metadata
+            this.seoService.updateSeo({
+                title: this.seoTitle || this.title,
+                description: this.seoIntro || this.description,
+                keywords: this.keywords,
+                url: `https://2olhub.netlify.app/write/${this.promptType}`
+            });
 
             // Clear state on route change
             this.userText = '';

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 interface ProcessedFile {
     id: string;
@@ -28,6 +29,7 @@ export class ImageCompressorComponent implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private workspaceService = inject(WorkspaceService);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
 
     currentRoute = '/image/compress';
 
@@ -47,6 +49,13 @@ export class ImageCompressorComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Compress Image Online - Reduce Image Size Free',
+            description: 'Compress JPG, PNG, and WebP images online for free. Reduce file size without losing quality. Optimize images for web and speed.',
+            keywords: 'compress image, reduce image size, image optimizer, online image compressor, shrink image size, free photo compressor',
+            url: 'https://2olhub.netlify.app/image/compress'
+        });
+
         // Check if there's an image from another tool
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const saveAs: any;
 
@@ -43,12 +44,23 @@ export class WatermarkComponent implements OnInit {
     resultImage: string | null = null;
     isProcessing = false;
 
-    constructor(cdr: ChangeDetectorRef, workspaceService: WorkspaceService) {
+    constructor(
+        cdr: ChangeDetectorRef,
+        workspaceService: WorkspaceService,
+        private seoService: SeoService
+    ) {
         this.cdr = cdr;
         this.workspaceService = workspaceService;
     }
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Add Watermark to Image Online - Protect Your Photos',
+            description: 'Add watermark to images online for free. Protect your photos with text or logo watermarks. Customizable position, opacity, and size.',
+            keywords: 'add watermark to image, watermark photo, online watermark tool, protect images, free image watermarker, text watermark',
+            url: 'https://2olhub.netlify.app/image/watermark'
+        });
+
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();
             if (file && file.fileType === 'image') {

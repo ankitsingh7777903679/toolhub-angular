@@ -54,6 +54,7 @@ export class WorkspaceService {
         { name: 'Image to PDF', route: '/pdf/img-to-pdf', icon: 'fa-solid fa-file-pdf', category: 'pdf', acceptsType: 'image', outputType: 'pdf' },
         { name: 'PDF to Image', route: '/pdf/to-image', icon: 'fa-solid fa-image', category: 'pdf', acceptsType: 'pdf', outputType: 'image' },
         { name: 'Word to PDF', route: '/pdf/word-to-pdf', icon: 'fa-solid fa-file-word', category: 'pdf', acceptsType: 'both', outputType: 'pdf' },
+        { name: 'Image to Excel', route: '/file/image-to-excel', icon: 'fa-solid fa-file-excel', category: 'image', acceptsType: 'both', outputType: 'text' },
     ];
 
     constructor(private router: Router) { }

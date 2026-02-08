@@ -5,6 +5,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const saveAs: any;
 
@@ -33,10 +34,18 @@ export class RotateImageComponent implements OnInit {
         private cdr: ChangeDetectorRef,
         private workspaceService: WorkspaceService,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) { }
 
     async ngOnInit(): Promise<void> {
+        this.seoService.updateSeo({
+            title: 'Rotate Image Online - Free Photo Rotator',
+            description: 'Rotate images online for free. Rotate JPG, PNG, and WebP images 90 degrees left or right. Fix image orientation instantly.',
+            keywords: 'rotate image, online photo rotator, rotate picture, change image orientation, free image rotator, flip image',
+            url: 'https://2olhub.netlify.app/image/rotate'
+        });
+
         await this.scriptLoader.load(['file-saver']);
 
         if (this.workspaceService.hasFile()) {

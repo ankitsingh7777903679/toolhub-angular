@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 interface AspectRatioPreset {
     name: string;
@@ -24,6 +25,7 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
     private cdr = inject(ChangeDetectorRef);
     private workspaceService = inject(WorkspaceService);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
 
     currentRoute = '/image/crop';
 
@@ -90,6 +92,13 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
     private boundTouchEnd = this.onTouchEnd.bind(this);
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Crop Image Online - Free Photo Cropper',
+            description: 'Crop images online to exact dimensions or aspect ratios. Easy to use photo cropper for social media, passports, and more.',
+            keywords: 'crop image, online photo cropper, image cropper, resize and crop, free image cropper',
+            url: 'https://2olhub.netlify.app/image/crop'
+        });
+
         // Check if there's an image from another tool
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();

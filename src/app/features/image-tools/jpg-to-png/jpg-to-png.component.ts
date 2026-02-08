@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 interface ProcessedFile {
     id: string;
@@ -26,6 +27,7 @@ export class JpgToPngComponent implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private workspaceService = inject(WorkspaceService);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
     currentRoute = '/image/jpg-to-png';
 
     files: ProcessedFile[] = [];
@@ -41,6 +43,13 @@ export class JpgToPngComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Convert JPG to PNG Online - Free Image Converter',
+            description: 'Convert JPG images to PNG format online. High-quality conversion with transparency support. Free, fast, and secure JPG to PNG converter.',
+            keywords: 'jpg to png, convert jpg to png, image converter, online png converter, free image converter, change image format',
+            url: 'https://2olhub.netlify.app/image/jpg-to-png'
+        });
+
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();
             if (file && file.fileType === 'image') {

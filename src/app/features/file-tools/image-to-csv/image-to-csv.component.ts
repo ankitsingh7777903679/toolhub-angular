@@ -1,8 +1,9 @@
-import { Component, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 interface FilePreview {
     file: File;
@@ -17,10 +18,11 @@ interface FilePreview {
     templateUrl: './image-to-csv.component.html',
     styleUrls: ['./image-to-csv.component.scss']
 })
-export class ImageToCsvComponent {
+export class ImageToCsvComponent implements OnInit {
     private http = inject(HttpClient);
     private cdr = inject(ChangeDetectorRef);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
 
     selectedFiles: FilePreview[] = [];
     csvData: string | null = null;
@@ -31,6 +33,15 @@ export class ImageToCsvComponent {
     rowCount = 0;
     columnCount = 0;
     currentProcessingIndex = 0;
+
+    ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Convert Image to CSV Online - Free Table Extractor',
+            description: 'Convert images (JPG, PNG) containing tables to CSV format online. Extract tabular data from images using OCR. Free image to CSV converter.',
+            keywords: 'image to csv, extract table from image, ocr table, image converter, online csv converter, table extraction',
+            url: 'https://2olhub.netlify.app/file/image-to-csv'
+        });
+    }
 
     onDragOver(event: DragEvent): void {
         event.preventDefault();
@@ -68,13 +79,6 @@ export class ImageToCsvComponent {
             if (file.type.startsWith('image/')) {
                 const preview = await this.readFileAsDataURL(file);
                 this.selectedFiles.push({ file, preview, type: 'image' });
-            } else if (file.type === 'application/pdf') {
-                // For PDF, we'll show a PDF icon and process it on backend
-                this.selectedFiles.push({
-                    file,
-                    preview: '',
-                    type: 'pdf'
-                });
             }
         }
 
@@ -111,18 +115,10 @@ export class ImageToCsvComponent {
                 this.cdr.detectChanges();
 
                 const filePreview = this.selectedFiles[i];
-                let base64: string;
-                let mimeType: string;
+                if (filePreview.type !== 'image') continue;
 
-                if (filePreview.type === 'image') {
-                    base64 = filePreview.preview.split(',')[1];
-                    mimeType = filePreview.file.type;
-                } else {
-                    // PDF - read as base64
-                    const pdfBase64 = await this.readFileAsBase64(filePreview.file);
-                    base64 = pdfBase64;
-                    mimeType = 'application/pdf';
-                }
+                const base64 = filePreview.preview.split(',')[1];
+                const mimeType = filePreview.file.type;
 
                 const response = await this.http.post<{
                     success: boolean;

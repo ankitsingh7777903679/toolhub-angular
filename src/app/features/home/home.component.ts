@@ -306,6 +306,16 @@ export class HomeComponent implements OnInit {
             category: 'image'
         },
         {
+            _id: 'img-14',
+            name: 'PNG to WebP',
+            description: 'Convert PNG images to WebP format',
+            iconClass: 'fa-solid fa-file-image',
+            iconColor: '#2563EB',
+            bgIconColor: '#DBEAFE',
+            link: '/image/png-to-webp',
+            category: 'image'
+        },
+        {
             _id: 'img-5',
             name: 'PNG to JPG',
             description: 'Convert PNG images to JPG format',

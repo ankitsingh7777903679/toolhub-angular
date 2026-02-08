@@ -1,10 +1,11 @@
-import { Component, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 interface GeneratedImage {
   id: string;
@@ -19,10 +20,11 @@ interface GeneratedImage {
   templateUrl: './ai-generator.component.html',
   styleUrl: './ai-generator.component.scss'
 })
-export class AiGeneratorComponent {
+export class AiGeneratorComponent implements OnInit {
   private http = inject(HttpClient);
   private cdr = inject(ChangeDetectorRef);
   private analyticsService = inject(AnalyticsService);
+  private seoService = inject(SeoService);
 
   prompt = '';
   isGenerating = false;
@@ -30,6 +32,15 @@ export class AiGeneratorComponent {
   errorMessage = '';
 
   private readonly API_URL = environment.apiUrl.replace('/api', ''); // Remove /api since some endpoints might use base URL
+
+  ngOnInit(): void {
+    this.seoService.updateSeo({
+      title: 'Free AI Image Generator - Text to Image Online',
+      description: 'Generate unique images from text descriptions using AI. Create art, illustrations, and photos instantly with our free AI image generator.',
+      keywords: 'ai image generator, text to image, free ai art generator, online image generator, create images with ai',
+      url: 'https://2olhub.netlify.app/image/ai-generator'
+    });
+  }
 
   async generateImages(): Promise<void> {
     if (!this.prompt.trim() || this.isGenerating) return;

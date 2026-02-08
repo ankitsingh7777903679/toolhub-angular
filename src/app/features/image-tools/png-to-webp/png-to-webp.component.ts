@@ -17,44 +17,41 @@ interface ProcessedFile {
 }
 
 @Component({
-    selector: 'app-png-to-jpg',
+    selector: 'app-png-to-webp',
     standalone: true,
     imports: [CommonModule, FormsModule, SendToToolComponent],
-    templateUrl: './png-to-jpg.component.html',
-    styleUrl: './png-to-jpg.component.scss'
+    templateUrl: './png-to-webp.component.html',
+    styleUrl: './png-to-webp.component.scss'
 })
-export class PngToJpgComponent implements OnInit {
+export class PngToWebpComponent implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private workspaceService = inject(WorkspaceService);
     private analyticsService = inject(AnalyticsService);
     private seoService = inject(SeoService);
-
-    currentRoute = '/image/png-to-jpg';
+    currentRoute = '/image/png-to-webp';
 
     files: ProcessedFile[] = [];
     isConverting = false;
     progress = 0;
-    quality = 90;
 
-    // For tool chain
     get firstConvertedImage(): string | null {
         const done = this.files.find(f => f.status === 'done');
         return done?.convertedUrl || null;
     }
-
     get firstFileName(): string {
-        const done = this.files.find(f => f.status === 'done');
-        return done?.name || 'converted.jpg';
+        return this.files.find(f => f.status === 'done')?.name || 'converted.webp';
     }
 
     ngOnInit(): void {
+        // SEO Metadata
         this.seoService.updateSeo({
-            title: 'Convert PNG to JPG Online - Free Image Converter',
-            description: 'Convert PNG images to JPG format online. Reduce file size while maintaining quality. Free, fast, and secure PNG to JPG converter.',
-            keywords: 'png to jpg, convert png to jpg, image converter, online jpg converter, free image converter, change image format',
-            url: 'https://2olhub.netlify.app/image/png-to-jpg'
+            title: 'Convert PNG to WebP Online - Free Image Converter',
+            description: 'Convert PNG images to WebP format online. Reduce file size while maintaining transparency. Fast and free PNG to WebP converter.',
+            keywords: 'png to webp, convert png to webp, image converter, online webp converter, free image converter, png converter, reduce image size',
+            url: 'https://2olhub.netlify.app/image/png-to-webp'
         });
 
+        // Tool Chaining - Handle incoming files
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();
             if (file && file.fileType === 'image') {
@@ -63,20 +60,19 @@ export class PngToJpgComponent implements OnInit {
         }
     }
 
+    // Handle image load from Workspace (Tool Chaining)
     private loadImageFromWorkspace(dataUrl: string, fileName: string): void {
-        fetch(dataUrl)
-            .then(res => res.blob())
-            .then(blob => {
-                this.files.push({
-                    id: Math.random().toString(36).substring(7),
-                    file: new File([blob], fileName, { type: blob.type }),
-                    name: fileName.replace(/\.[^.]+$/i, '.jpg'),
-                    previewUrl: dataUrl,
-                    convertedUrl: null,
-                    status: 'pending'
-                });
-                this.cdr.detectChanges();
+        fetch(dataUrl).then(r => r.blob()).then(blob => {
+            this.files.push({
+                id: Math.random().toString(36).substring(7),
+                file: new File([blob], fileName, { type: blob.type }),
+                name: fileName.replace(/\.[^.]+$/i, '.webp'),
+                previewUrl: dataUrl,
+                convertedUrl: null,
+                status: 'pending'
             });
+            this.cdr.detectChanges();
+        });
     }
 
     get allDone(): boolean {
@@ -88,7 +84,7 @@ export class PngToJpgComponent implements OnInit {
         if (input.files) {
             this.handleFiles(Array.from(input.files));
         }
-        input.value = '';
+        input.value = ''; // Reset input
     }
 
     onDragOver(event: DragEvent): void {
@@ -104,10 +100,13 @@ export class PngToJpgComponent implements OnInit {
     onDrop(event: DragEvent): void {
         event.preventDefault();
         event.stopPropagation();
+
         if (event.dataTransfer?.files) {
+            // Filter for PNG images (or generic images if preferred, but filtering is safer)
             const droppedFiles = Array.from(event.dataTransfer.files).filter(file =>
                 file.type === 'image/png' || file.name.toLowerCase().endsWith('.png')
             );
+
             if (droppedFiles.length > 0) {
                 this.handleFiles(droppedFiles);
             }
@@ -121,12 +120,12 @@ export class PngToJpgComponent implements OnInit {
                 this.files.push({
                     id: Math.random().toString(36).substring(7),
                     file: file,
-                    name: file.name.replace(/\.png$/i, '.jpg'),
+                    name: file.name.replace(/\.png$/i, '.webp'),
                     previewUrl: e.target?.result as string,
                     convertedUrl: null,
                     status: 'pending'
                 });
-                this.cdr.detectChanges();
+                this.cdr.detectChanges(); // Force UI update
             };
             reader.readAsDataURL(file);
         });
@@ -151,10 +150,11 @@ export class PngToJpgComponent implements OnInit {
             this.cdr.detectChanges();
 
             try {
-                const result = await this.convertPngToJpg(fileItem.previewUrl);
+                const result = await this.convertPngToWebp(fileItem.previewUrl);
                 fileItem.convertedUrl = result.dataUrl;
                 fileItem.blob = result.blob;
                 fileItem.status = 'done';
+                console.log('✅ File converted:', fileItem.name);
             } catch (error) {
                 console.error('Conversion failed for', fileItem.name, error);
                 fileItem.status = 'error';
@@ -170,11 +170,11 @@ export class PngToJpgComponent implements OnInit {
 
         // Track tool usage
         if (this.allDone) {
-            this.analyticsService.trackToolUsage('png-to-jpg', 'PNG to JPG', 'image');
+            this.analyticsService.trackToolUsage('png-to-webp', 'PNG to WebP', 'image');
         }
     }
 
-    private convertPngToJpg(src: string): Promise<{ dataUrl: string, blob: Blob }> {
+    private convertPngToWebp(src: string): Promise<{ dataUrl: string, blob: Blob }> {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.crossOrigin = 'anonymous';
@@ -184,32 +184,37 @@ export class PngToJpgComponent implements OnInit {
                     const canvas = document.createElement('canvas');
                     canvas.width = img.width;
                     canvas.height = img.height;
+
                     const ctx = canvas.getContext('2d');
                     if (!ctx) {
                         reject(new Error('Canvas context not supported'));
                         return;
                     }
-                    // Fill white background for transparency
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    // Draw image
                     ctx.drawImage(img, 0, 0);
 
-                    const qualityValue = this.quality / 100;
-                    const dataUrl = canvas.toDataURL('image/jpeg', qualityValue);
+                    // Convert to WebP with 0.8 quality
+                    const dataUrl = canvas.toDataURL('image/webp', 0.8);
+
                     canvas.toBlob((blob) => {
                         if (blob) {
                             resolve({ dataUrl, blob });
                         } else {
                             reject(new Error('Blob creation failed'));
                         }
-                    }, 'image/jpeg', qualityValue);
+                    }, 'image/webp', 0.8);
+
                 } catch (error) {
                     reject(error);
                 }
             };
 
-            img.onerror = () => reject(new Error('Failed to load image'));
-            if (src.startsWith('data:')) img.crossOrigin = '';
+            img.onerror = (error) => reject(new Error('Failed to load image'));
+
+            if (src.startsWith('data:')) {
+                img.crossOrigin = '';
+            }
             img.src = src;
         });
     }
@@ -227,9 +232,11 @@ export class PngToJpgComponent implements OnInit {
         }
     }
 
-    downloadAll(): void {
+    downloadZip(): void {
         this.files.forEach(file => {
-            if (file.status === 'done') this.downloadOne(file);
+            if (file.status === 'done') {
+                this.downloadOne(file);
+            }
         });
     }
 

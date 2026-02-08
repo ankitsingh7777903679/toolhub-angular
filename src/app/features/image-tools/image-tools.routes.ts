@@ -54,6 +54,10 @@ export const IMAGE_ROUTES: Routes = [
         loadComponent: () => import('./blur-image/blur-image.component').then(m => m.BlurImageComponent)
     },
     {
+        path: 'png-to-webp',
+        loadComponent: () => import('./png-to-webp/png-to-webp.component').then(m => m.PngToWebpComponent)
+    },
+    {
         path: 'rotate',
         loadComponent: () => import('./rotate-image/rotate-image.component').then(m => m.RotateImageComponent)
     }

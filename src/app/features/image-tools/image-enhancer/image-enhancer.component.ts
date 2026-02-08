@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const saveAs: any;
 
@@ -184,11 +185,24 @@ export class ImageEnhancerComponent implements OnInit {
     private apiUrl = environment.apiUrl;
     private workspaceService: WorkspaceService;
 
-    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, workspaceService: WorkspaceService, private analyticsService: AnalyticsService) {
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private ngZone: NgZone,
+        workspaceService: WorkspaceService,
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
+    ) {
         this.workspaceService = workspaceService;
     }
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'AI Image Enhancer - Upscale & Restore Photos',
+            description: 'Enhance image quality with AI. Upscale low-resolution photos, unblur images, and restore old photos instantly for free.',
+            keywords: 'image enhancer, ai image upscaler, photo restoration, unblur image, improve photo quality, online photo enhancer',
+            url: 'https://2olhub.netlify.app/image/enhance'
+        });
+
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();
             if (file && file.fileType === 'image') {

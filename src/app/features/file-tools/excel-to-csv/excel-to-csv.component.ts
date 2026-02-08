@@ -1,8 +1,9 @@
-import { Component, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
     selector: 'app-excel-to-csv',
@@ -11,9 +12,10 @@ import { AnalyticsService } from '../../../core/services/analytics.service';
     templateUrl: './excel-to-csv.component.html',
     styleUrls: ['./excel-to-csv.component.scss']
 })
-export class ExcelToCsvComponent {
+export class ExcelToCsvComponent implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
 
     inputMode: 'file' | 'text' = 'file';
     selectedFile: File | null = null;
@@ -25,6 +27,15 @@ export class ExcelToCsvComponent {
     isDragging = false;
     isProcessing = false;
     error: string | null = null;
+
+    ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Convert Excel to CSV Online - Free Data Converter',
+            description: 'Convert Excel (XLSX, XLS) files to CSV format online. Extract data from spreadsheets easily. Free and fast Excel to CSV converter.',
+            keywords: 'excel to csv, convert xlsx to csv, excel converter, online csv converter, free data converter, xls to csv',
+            url: 'https://2olhub.netlify.app/file/excel-to-csv'
+        });
+    }
 
     onDragOver(event: DragEvent): void {
         event.preventDefault();

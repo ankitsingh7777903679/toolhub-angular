@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 interface ProcessedFile {
     id: string;
@@ -22,6 +23,7 @@ interface ProcessedFile {
 export class ImageToBase64Component implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private workspaceService = inject(WorkspaceService);
+    private seoService = inject(SeoService);
 
     files: ProcessedFile[] = [];
     isConverting = false;
@@ -29,6 +31,12 @@ export class ImageToBase64Component implements OnInit {
     includeDataUri = true;
 
     ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Image to Base64 Converter - Online Encoding Tool',
+            description: 'Convert images to Base64 strings online. Encode JPG, PNG, GIF files to Base64 format for HTML and CSS use.',
+            keywords: 'image to base64, base64 encoder, convert image to text, online base64 converter, data uri generator',
+            url: 'https://2olhub.netlify.app/image/to-base64'
+        });
         this.checkWorkspace();
     }
 

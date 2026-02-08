@@ -1,8 +1,9 @@
-import { Component, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
     selector: 'app-json-to-excel',
@@ -11,9 +12,10 @@ import { AnalyticsService } from '../../../core/services/analytics.service';
     templateUrl: './json-to-excel.component.html',
     styleUrls: ['./json-to-excel.component.scss']
 })
-export class JsonToExcelComponent {
+export class JsonToExcelComponent implements OnInit {
     private cdr = inject(ChangeDetectorRef);
     private analyticsService = inject(AnalyticsService);
+    private seoService = inject(SeoService);
 
     inputMode: 'file' | 'text' = 'file';
     selectedFile: File | null = null;
@@ -26,6 +28,15 @@ export class JsonToExcelComponent {
     isReady = false;
     error: string | null = null;
     private workbook: XLSX.WorkBook | null = null;
+
+    ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Convert JSON to Excel Online - Free Data Converter',
+            description: 'Convert JSON data to Excel (XLSX) format online. Transform structured JSON into spreadsheets. Free and fast JSON to Excel converter.',
+            keywords: 'json to excel, convert json to xlsx, json converter, online excel converter, data transformation, json to xls',
+            url: 'https://2olhub.netlify.app/file/json-to-excel'
+        });
+    }
 
     onDragOver(event: DragEvent): void {
         event.preventDefault();

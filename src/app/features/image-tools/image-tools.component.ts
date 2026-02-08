@@ -121,6 +121,15 @@ export class ImageToolsComponent {
       isWorking: true
     },
     {
+      name: 'PNG to WebP',
+      description: 'Convert PNG images to WebP format',
+      icon: 'fa-solid fa-file-image',
+      iconColor: '#2563EB',
+      bgColor: '#DBEAFE',
+      link: 'png-to-webp',
+      isWorking: true
+    },
+    {
       name: 'PNG to JPG',
       description: 'Convert PNG images to JPG format',
       icon: 'fa-solid fa-image',

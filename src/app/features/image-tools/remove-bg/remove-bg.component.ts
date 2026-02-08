@@ -6,6 +6,7 @@ import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
 import { ScriptLoaderService } from '../../../core/services/script-loader.service';
 import { AnalyticsService } from '../../../core/services/analytics.service';
+import { SeoService } from '../../../core/services/seo.service';
 
 declare const saveAs: any;
 
@@ -251,10 +252,18 @@ export class RemoveBgComponent implements OnInit {
         private ngZone: NgZone,
         private workspaceService: WorkspaceService,
         private scriptLoader: ScriptLoaderService,
-        private analyticsService: AnalyticsService
+        private analyticsService: AnalyticsService,
+        private seoService: SeoService
     ) { }
 
     async ngOnInit(): Promise<void> {
+        this.seoService.updateSeo({
+            title: 'Remove Background from Image Free - Online Background Remover',
+            description: 'Remove background from images instantly with our free AI background remover. Download transparent PNGs or add custom backgrounds.',
+            keywords: 'remove background, background remover, transparent background, free background remover, ai background removal, online photo editor',
+            url: 'https://2olhub.netlify.app/image/remove-bg'
+        });
+
         await this.scriptLoader.load(['file-saver']);
 
         if (this.workspaceService.hasFile()) {
