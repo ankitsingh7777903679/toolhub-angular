@@ -11,22 +11,22 @@
         loaded = true;
 
         // Google Analytics
-        // const gtagScript = document.createElement('script');
-        // gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-7VK811G06C";
-        // gtagScript.async = true;
-        // document.head.appendChild(gtagScript);
+        const gtagScript = document.createElement('script');
+        gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-7VK811G06C";
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
 
-        // window.dataLayer = window.dataLayer || [];
-        // function gtag() { dataLayer.push(arguments); }
-        // gtag('js', new Date());
-        // gtag('config', 'G-7VK811G06C');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-7VK811G06C');
 
-        // // Google AdSense
-        // const adSenseScript = document.createElement('script');
-        // adSenseScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4050151342920127";
-        // adSenseScript.async = true;
-        // adSenseScript.crossOrigin = "anonymous";
-        // document.head.appendChild(adSenseScript);
+        // Google AdSense
+        const adSenseScript = document.createElement('script');
+        adSenseScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4050151342920127";
+        adSenseScript.async = true;
+        adSenseScript.crossOrigin = "anonymous";
+        document.head.appendChild(adSenseScript);
       };
 
       // Load on interaction or delay

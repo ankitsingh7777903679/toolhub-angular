@@ -1,4 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:3000/api' // Replace with your actual Render URL after deployment
+    apiUrl: 'https://toolhub-api-oiui.onrender.com/api'
+
+    // apiUrl: 'http://localhost:3000/api' // Replace with your actual Render URL after deployment
 };
