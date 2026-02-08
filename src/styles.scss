@@ -48,7 +48,10 @@ body {
 
   .bg-blue-50,
   .bg-gray-50,
-  .bg-gray-100 {
+  .bg-gray-100,
+  .bg-purple-50,
+  .bg-green-50,
+  .bg-red-50 {
     background-color: var(--bg-primary) !important;
   }
 
@@ -157,13 +160,15 @@ body {
   /* Buttons with light backgrounds - keep dark text visible */
   .bg-gray-100,
   .bg-gray-200 {
-    background-color: #334155 !important; /* slate-700 */
-    
+    background-color: #334155 !important;
+    /* slate-700 */
+
     &.text-gray-700,
     &.text-gray-600,
     & .text-gray-700,
     & .text-gray-600 {
-      color: #e2e8f0 !important; /* slate-200 */
+      color: #e2e8f0 !important;
+      /* slate-200 */
     }
   }
 
@@ -254,6 +259,29 @@ body {
     color: #0f766e !important;
     /* teal-700 */
   }
+
+  /* Invert dark text colors for dark mode (700 -> 300 equivalent) */
+  .text-purple-700 {
+    color: #d8b4fe !important;
+  }
+
+  .text-green-700 {
+    color: #86efac !important;
+  }
+
+  .text-red-700 {
+    color: #fca5a5 !important;
+  }
+
+  .text-blue-700 {
+    color: #93c5fd !important;
+  }
+
+  .text-gray-700 {
+    color: #d1d5db !important;
+  }
+
+  /* gray-300 */
 }
 
 /* Custom utility classes */

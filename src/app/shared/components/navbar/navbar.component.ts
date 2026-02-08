@@ -15,7 +15,7 @@ import { ThemeService } from '../../../core/services/theme.service';
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center h-14 md:h-16">
           <a routerLink="/" class="flex items-center gap-2">
-            <img src="assets/logo.png" alt="2olhub" class="h-16 md:h-24 w-auto object-contain">
+            <img src="assets/logo.png" alt="2olhub" class="h-16 md:h-24 w-auto object-contain" fetchpriority="high">
           </a>
 
           <div *ngIf="!isAdminRoute()" class="hidden lg:flex items-center gap-8">
@@ -31,12 +31,13 @@ import { ThemeService } from '../../../core/services/theme.service';
             <button 
               (click)="themeService.toggleTheme()" 
               class="theme-toggle w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors"
-              [title]="themeService.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+              [title]="themeService.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+              [attr.aria-label]="themeService.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
               <i class="fa-solid" [class]="themeService.isDarkMode() ? 'fa-sun text-yellow-500' : 'fa-moon'"></i>
             </button>
             <ng-container *ngIf="authService.isLoggedIn(); else loginBtn">
               <div class="relative group">
-                <button class="w-8 h-8 md:w-10 md:h-10 bg-blue-500 text-white rounded-full font-bold flex items-center justify-center text-sm md:text-base">
+                <button class="w-8 h-8 md:w-10 md:h-10 bg-blue-500 text-white rounded-full font-bold flex items-center justify-center text-sm md:text-base" aria-label="User menu">
                   {{ getUserInitial() }}
                 </button>
                 <div class="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
@@ -61,7 +62,8 @@ import { ThemeService } from '../../../core/services/theme.service';
               </button>
             </ng-template>
 
-            <button (click)="isMenuOpen = !isMenuOpen" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            <button (click)="isMenuOpen = !isMenuOpen" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              [attr.aria-label]="isMenuOpen ? 'Close menu' : 'Open menu'" [attr.aria-expanded]="isMenuOpen">
               <i [class.fa-bars]="!isMenuOpen" [class.fa-xmark]="isMenuOpen" class="fa-solid text-lg text-gray-700 dark:text-gray-200"></i>
             </button>
           </div>

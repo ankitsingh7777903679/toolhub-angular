@@ -37,17 +37,19 @@
                 <!-- Search Input Group -->
                 <div
                     class="flex items-center bg-white rounded-full shadow-lg border border-gray-200 px-4 py-2 relative z-20">
-                    <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3 text-base"></i>
+                    <i class="fa-solid fa-magnifying-glass text-gray-400 mr-3 text-base" aria-hidden="true"></i>
                     <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" placeholder="Search"
+                        aria-label="Search tools"
                         class="flex-1 outline-none text-gray-700 py-2 bg-transparent text-base min-w-0">
 
                     @if (searchQuery) {
-                    <button (click)="clearSearch()" class="mr-2 text-gray-400 hover:text-gray-600 transition-colors">
-                        <i class="fa-solid fa-xmark text-lg"></i>
+                    <button (click)="clearSearch()" class="mr-2 text-gray-400 hover:text-gray-600 transition-colors"
+                        aria-label="Clear search">
+                        <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
                     </button>
                     }
 
-                    <button (click)="scrollToTools()"
+                    <button (click)="scrollToTools()" aria-label="Search"
                         class="bg-blue-500 text-white px-5 py-2 rounded-full font-medium hover:bg-blue-600 transition-all text-sm flex-shrink-0">
                         search
                     </button>
@@ -79,6 +81,7 @@
     <!-- Category Cards -->
     <section class="container mx-auto px-4 mb-10 md:mb-16 ">
         <!-- Mobile: Horizontal Scroll, Desktop: Grid -->
+        <h2 class="sr-only">Tool Categories</h2>
         <div
             class="flex md:grid md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 overflow-x-auto pb-4 md:pb-0 snap-x scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 min-h-[200px]">
             @for (category of categories; track category.id) {
@@ -144,7 +147,7 @@
                     <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium">Tools</p>
                 </div>
                 <div class="flex flex-col items-center text-center">
-                    <span class="text-xl sm:text-2xl md:text-5xl font-bold text-cyan-500">50k</span>
+                    <span class="text-xl sm:text-2xl md:text-5xl font-bold text-cyan-600">50k</span>
                     <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium mt-1">PDFs</p>
                     <p class="text-gray-500 text-[10px] sm:text-xs md:text-sm font-medium">Created</p>
                 </div>
@@ -228,7 +231,8 @@
                 @for (faq of faqs; track $index) {
                 <div
                     class="bg-white rounded-2xl border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-md hover:border-blue-200 group">
-                    <button (click)="toggleFaq($index)"
+                    <button (click)="toggleFaq($index)" [attr.aria-expanded]="faq.isOpen"
+                        [attr.aria-controls]="'faq-answer-' + $index"
                         class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none">
                         <span
                             class="text-base md:text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors">{{
@@ -239,7 +243,7 @@
                         </div>
                     </button>
                     <!-- Body -->
-                    <div class="overflow-hidden transition-all duration-300 ease-in-out"
+                    <div [id]="'faq-answer-' + $index" class="overflow-hidden transition-all duration-300 ease-in-out"
                         [style.max-height]="faq.isOpen ? '500px' : '0px'" [style.opacity]="faq.isOpen ? '1' : '0'">
                         <div class="p-5 md:p-6 pt-0 text-gray-600 leading-relaxed text-sm md:text-base border-t border-dashed border-gray-100 mt-2"
                             *ngIf="faq.isOpen">
