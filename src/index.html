@@ -3,39 +3,19 @@
 
 <head>
   <!-- Lazy Load Analytics & AdSense -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7VK811G06C"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      let loaded = false;
-      const loadScripts = () => {
-        if (loaded) return;
-        loaded = true;
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-        // Google Analytics
-        const gtagScript = document.createElement('script');
-        gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-7VK811G06C";
-        gtagScript.async = true;
-        document.head.appendChild(gtagScript);
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-7VK811G06C');
-
-        // Google AdSense
-        const adSenseScript = document.createElement('script');
-        adSenseScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4050151342920127";
-        adSenseScript.async = true;
-        adSenseScript.crossOrigin = "anonymous";
-        document.head.appendChild(adSenseScript);
-      };
-
-      // Load on interaction or delay
-      ['mousemove', 'touchstart', 'scroll', 'keydown', 'click'].forEach(evt =>
-        window.addEventListener(evt, loadScripts, { once: true, passive: true })
-      );
-      setTimeout(loadScripts, 4000); // Fallback delay
-    });
+    gtag('config', 'G-7VK811G06C');
   </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4050151342920127"
+    crossorigin="anonymous"></script>
   <meta name="google-adsense-account" content="ca-pub-4050151342920127">
   <meta charset="utf-8">
   <title>2olhub - Free Online Tools</title>

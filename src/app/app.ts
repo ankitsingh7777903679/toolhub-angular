@@ -4,6 +4,7 @@ import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { ToastComponent } from './shared/components/toast/toast.component';
 import { ConfirmModalComponent } from './shared/components/confirm-modal/confirm-modal.component';
+import { GoogleAnalyticsService } from './core/services/google-analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -26,5 +27,7 @@ import { ConfirmModalComponent } from './shared/components/confirm-modal/confirm
 })
 export class App {
   title = '2olhub';
+
+  constructor(private googleAnalyticsService: GoogleAnalyticsService) { }
 }
 
