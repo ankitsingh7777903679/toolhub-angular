@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { SeoService } from '../../../core/services/seo.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-about',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterModule],
     template: `
     <div class="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-300">
       <!-- Decorative Background Elements -->
@@ -19,87 +20,141 @@ import { CommonModule } from '@angular/common';
             About 2olhub
           </h1>
           <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
-            Empowering your digital workflow with powerful, free, and secure online tools.
+            A bunch of useful tools, all in one place. No signup, no tricks.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <!-- Mission Card -->
-            <div class="md:col-span-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 dark:border-slate-800 p-8 hover:shadow-2xl transition-all duration-300">
-                <div class="flex items-start space-x-6">
-                    <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400">
-                        <i class="fa-solid fa-rocket text-2xl"></i>
+        <!-- Our Story -->
+        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 dark:border-slate-800 p-8 md:p-10 mb-8 transition-all duration-300 hover:shadow-2xl">
+            <div class="flex items-start space-x-5">
+                <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400">
+                    <i class="fa-solid fa-rocket text-2xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">The Short Version</h2>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg mb-4">
+                        You know the drill — you need to merge two PDFs, so you google it, click the first result, and suddenly there's a signup form, a file size limit, and a watermark unless you pay. We've been there. It's annoying. So we built 2olhub to be the opposite of that.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
+                        It's a collection of 40+ tools for PDFs, images, file conversions, and AI writing. Most of them run right in your browser, which means your files never even leave your computer. Open a tool, drop your file in, grab the result. That's it. No account needed.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- What We Offer -->
+        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-sm border border-white/20 dark:border-slate-800 p-8 md:p-10 mb-8 transition-all duration-300 hover:shadow-md">
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6">What's In The Toolbox?</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center text-red-600 dark:text-red-400 mt-0.5">
+                        <i class="fa-solid fa-file-pdf"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">Our Mission</h2>
-                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
-                            We believe that powerful digital tools should be accessible to everyone. Our mission is to provide a comprehensive suite of high-quality, free online tools to simplify your daily tasks—whether you're working with PDFs, images, videos, or AI-generated content.
-                        </p>
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">PDF Tools</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm">Merge, split, compress, rotate, watermark, protect, unlock — basically anything you'd ever need to do with a PDF.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-xl flex items-center justify-center text-emerald-600 dark:text-emerald-400 mt-0.5">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Image Tools</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm">Resize for social media, compress for email, remove backgrounds for product shots, convert between PNG/JPG/WebP, and more.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-violet-100 dark:bg-violet-900/30 rounded-xl flex items-center justify-center text-violet-600 dark:text-violet-400 mt-0.5">
+                        <i class="fa-solid fa-pen-fancy"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">AI Writing</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm">Need a first draft? Our AI can write blog posts, essays, cold emails, summaries, product descriptions — you name it.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-400 mt-0.5">
+                        <i class="fa-solid fa-file-export"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">File Converters</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm">CSV to Excel, Excel to JSON, image tables to spreadsheets — the kind of boring-but-essential conversions that save you an hour.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4 sm:col-span-2">
+                    <div class="flex-shrink-0 w-10 h-10 bg-cyan-100 dark:bg-cyan-900/30 rounded-xl flex items-center justify-center text-cyan-600 dark:text-cyan-400 mt-0.5">
+                        <i class="fa-solid fa-link"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 mb-1">Tool Chain</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm">Done with one tool? Send the result straight to the next one. Merge PDFs, then compress, then add a watermark — no re-uploading between steps.</p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Feature 1 -->
-            <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg rounded-3xl p-8 border border-white/10 dark:border-slate-800 hover:bg-white/80 dark:hover:bg-slate-900/80 transition-all duration-300">
-                <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center text-green-600 dark:text-green-400 mb-6">
-                    <i class="fa-solid fa-gem text-xl"></i>
+        <!-- Key Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg rounded-3xl p-7 border border-white/10 dark:border-slate-800 hover:bg-white/80 dark:hover:bg-slate-900/80 transition-all duration-300 text-center">
+                <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center text-green-600 dark:text-green-400 mb-4 mx-auto">
+                    <i class="fa-solid fa-gift text-xl"></i>
                 </div>
-                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Free & Premium</h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Get started with our core tools for free. Upgrade anytime to unlock higher limits and advanced features.
+                <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2">90%+ Free</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">
+                    No signup, no hidden limits, no watermarks. Most tools just work — open and use. We actually mean it when we say free.
                 </p>
             </div>
 
-             <!-- Feature 2 -->
-             <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg rounded-3xl p-8 border border-white/10 dark:border-slate-800 hover:bg-white/80 dark:hover:bg-slate-900/80 transition-all duration-300">
-                <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-6">
+            <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg rounded-3xl p-7 border border-white/10 dark:border-slate-800 hover:bg-white/80 dark:hover:bg-slate-900/80 transition-all duration-300 text-center">
+                <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 mx-auto">
                     <i class="fa-solid fa-shield-alt text-xl"></i>
                 </div>
-                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Secure & Private</h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Your files are processed securely and generally client-side. We prioritize your data privacy.
+                <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2">Your Files, Your Device</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">
+                    Most tools process everything in your browser. Your documents never touch our servers. We literally couldn't look at them even if we wanted to.
                 </p>
             </div>
 
-             <!-- Feature 3 -->
-             <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg rounded-3xl p-8 border border-white/10 dark:border-slate-800 hover:bg-white/80 dark:hover:bg-slate-900/80 transition-all duration-300">
-                <div class="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center text-amber-600 dark:text-amber-400 mb-6">
-                    <i class="fa-solid fa-bolt text-xl"></i>
+            <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg rounded-3xl p-7 border border-white/10 dark:border-slate-800 hover:bg-white/80 dark:hover:bg-slate-900/80 transition-all duration-300 text-center">
+                <div class="w-12 h-12 bg-cyan-100 dark:bg-cyan-900/30 rounded-xl flex items-center justify-center text-cyan-600 dark:text-cyan-400 mb-4 mx-auto">
+                    <i class="fa-solid fa-link text-xl"></i>
                 </div>
-                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Fast & Efficient</h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Optimized algorithms for lightning-fast processing, saving you valuable time on every task.
+                <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2">Tool Chain</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">
+                    Finished with one tool? Send the output straight to the next. Merge → Compress → Watermark, all in one flow — zero re-uploads.
                 </p>
             </div>
+        </div>
 
-             <!-- Feature 4 -->
-             <div class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg rounded-3xl p-8 border border-white/10 dark:border-slate-800 hover:bg-white/80 dark:hover:bg-slate-900/80 transition-all duration-300">
-                <div class="w-10 h-10 bg-pink-100 dark:bg-pink-900/30 rounded-xl flex items-center justify-center text-pink-600 dark:text-pink-400 mb-6">
-                    <i class="fa-solid fa-heart text-xl"></i>
+        <!-- Who Uses This -->
+        <div class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl shadow-sm border border-white/20 dark:border-slate-800 p-8 md:p-10 mb-8 transition-all duration-300 hover:shadow-md">
+            <div class="flex items-start space-x-5">
+                <div class="flex-shrink-0 w-12 h-12 bg-sky-100 dark:bg-sky-900/30 rounded-2xl flex items-center justify-center text-sky-600 dark:text-sky-400">
+                    <i class="fa-solid fa-users text-xl"></i>
                 </div>
-                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Open Feedback</h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Built for the community. We listen to your requests and continuously add new tools.
-                </p>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">Who Actually Uses This?</h2>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
+                        Honestly? A bit of everyone. Students use the AI writer when they need a rough draft at 2 AM. Office workers merge contracts and compress reports ten minutes before a deadline. Freelancers batch-compress product photos for their Etsy shop or remove backgrounds for cleaner listings.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                        The common thread is that people come here when they've got a specific job to do and don't want to spend fifteen minutes signing up for yet another tool. We get it, because we've been there ourselves. That's literally why we built this thing.
+                    </p>
+                </div>
             </div>
         </div>
 
         <!-- Contact Section -->
         <div class="text-center bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800 rounded-3xl p-10 border border-slate-200 dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">Got Questions or Suggestions?</h2>
+            <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-4">Want to Say Something?</h2>
             <p class="text-slate-600 dark:text-slate-400 mb-8 max-w-2xl mx-auto">
-                We'd love to hear from you. Visit our feedback page to share your thoughts publicly or reach out to us directly.
+                Found a bug? Have an idea for a tool we should build? Or just want to tell us the PDF merger saved your project? We read everything.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="/feedback" class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-xl shadow-lg text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200">
-                    <i class="fa-regular fa-comments mr-2"></i>
-                    Visit Feedback Page
-                </a>
-               <!-- <a href="mailto:support@toolhub.com" class="inline-flex items-center justify-center px-6 py-3 border border-slate-300 dark:border-slate-600 rounded-xl shadow-sm text-base font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200">
-                    <i class="fa-regular fa-envelope mr-2"></i>
-                    Contact Support
-                </a> -->
-            </div>
+            <a routerLink="/feedback" class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-xl shadow-lg text-base font-medium text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200 transform hover:-translate-y-0.5">
+                <i class="fa-regular fa-comments mr-2"></i>
+                Drop Us Feedback
+            </a>
         </div>
 
       </div>
@@ -112,7 +167,7 @@ export class AboutComponent implements OnInit {
     ngOnInit() {
         this.seoService.updateSeo({
             title: 'About Us - 2olhub',
-            description: 'Learn about 2olhub mission to provide free, secure, and powerful online tools for everyone.',
+            description: 'Learn about 2olhub — free, fast, and private online tools for PDFs, images, file conversion, and AI writing. 40+ tools, no signup required.',
             url: 'https://2olhub.netlify.app/about'
         });
     }

@@ -134,37 +134,45 @@ declare const saveAs: any;
 
                 <!-- SEO Content -->
                 <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                    <h1 class="text-3xl font-bold text-gray-900 mb-6">AI Image Enhancer - Upscale & Deblur Photos Free</h1>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">AI Image Enhancer — Bring Blurry Photos Back to Life</h2>
                     <p class="text-gray-600 mb-8 leading-relaxed">
-                        Enhance blurry images and upscale photos with AI-powered Real-ESRGAN technology. 
-                        Restore old photos, improve low-resolution images, and sharpen details instantly.
+                        We've all got that one photo — taken in bad lighting, zoomed in too far, or downloaded as a tiny thumbnail that looked fine on a phone but falls apart on a bigger screen. Regular upscaling just stretches the pixels and makes things look worse. This tool does something fundamentally different: it uses a neural network (Real-ESRGAN) to actually reconstruct detail that isn't there anymore.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        The AI was trained on millions of image pairs — low-res and high-res versions of the same content — so it's learned how to fill in textures, sharpen edges, and clean up noise in ways that look natural. Upload a blurry vacation photo, a grainy screenshot, or a faded family picture, and you'll typically see a noticeable improvement. It won't create detail that was never captured, but it's remarkably good at pulling out detail that was hidden by blur, noise, or low resolution.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Enhance Images?</h2>
-                    <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                        <li><strong>Upload Image:</strong> Drag and drop or click to browse.</li>
-                        <li><strong>Enhance:</strong> Click the enhance button to start AI processing.</li>
-                        <li><strong>Compare:</strong> View original vs enhanced side by side.</li>
-                        <li><strong>Download:</strong> Save your enhanced high-resolution image.</li>
-                    </ol>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">What It's Good At (And What It's Not)</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        The enhancer works best on photos that are blurry, low-resolution, noisy, or faded. It can push a 500×500 image up to 2000×2000 while keeping it sharp — try doing that with normal scaling and you'll see the difference immediately. It's also great at cleaning up JPEG compression artifacts, the kind of blocky weirdness you see in heavily compressed web images. Where it won't help much is photos that are completely out of focus or severely motion-blurred. There's a limit to what any AI can reconstruct from very little data.
+                    </p>
 
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Use AI Enhancement?</h2>
-                    <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                        <li><strong>4x Upscale:</strong> Increase resolution up to 4 times.</li>
-                        <li><strong>Deblur:</strong> Remove blur and sharpen details.</li>
-                        <li><strong>Photo Restoration:</strong> Restore old or damaged photos.</li>
-                        <li><strong>AI Powered:</strong> Uses Real-ESRGAN neural network.</li>
-                    </ul>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How it Works</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Upload your image, hit Enhance, and wait about 30–60 seconds. The image gets sent to our AI server for processing (this one can't run in-browser — the model is too large). Once it's done, you'll see the original and enhanced versions side by side so you can compare. If it looks good, download the enhanced version as a high-quality PNG. Your image is processed in memory and deleted immediately after — nothing is stored.
+                    </p>
 
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                     <div class="space-y-4">
                         <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                            <h3 class="font-bold text-gray-900 mb-2">How long does enhancement take?</h3>
-                            <p class="text-gray-600">Usually 30-60 seconds depending on image size and server load.</p>
+                            <h3 class="font-bold text-gray-900 mb-2">Why does it take 30–60 seconds?</h3>
+                            <p class="text-gray-600">The AI model is doing heavy computation — analyzing every region of your image and reconstructing detail pixel by pixel. Larger images naturally take longer since there's more data to process. It's not instant, but the results are worth the wait.</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                            <h3 class="font-bold text-gray-900 mb-2">What image formats are supported?</h3>
-                            <p class="text-gray-600">JPG, PNG, and WebP formats are fully supported.</p>
+                            <h3 class="font-bold text-gray-900 mb-2">Can this fix a completely out-of-focus photo?</h3>
+                            <p class="text-gray-600">It depends on how severe the blur is. Mild softness and camera shake get improved significantly. Heavy defocus blur — where the subject is just a shapeless blob — is harder. The AI can sharpen it somewhat, but it can't invent detail that was never captured by the camera.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Is this good for restoring old family photos?</h3>
+                            <p class="text-gray-600">Yes — that's actually one of its strongest use cases. Old scanned photos that are faded, grainy, or low-resolution tend to respond really well to enhancement. The AI fills in detail, reduces grain, and improves overall sharpness noticeably.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">What formats can I upload?</h3>
+                            <p class="text-gray-600">JPG, PNG, and WebP. The enhanced image always downloads as a PNG to preserve maximum quality from the enhancement process.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Is my image stored on your server?</h3>
+                            <p class="text-gray-600">No. The image is sent to our AI server for processing, but it's handled entirely in memory and deleted as soon as the enhanced version is returned to you. Nothing is stored permanently.</p>
                         </div>
                     </div>
                 </article>
@@ -202,6 +210,13 @@ export class ImageEnhancerComponent implements OnInit {
             keywords: 'image enhancer, ai image upscaler, photo restoration, unblur image, improve photo quality, online photo enhancer',
             url: 'https://2olhub.netlify.app/image/enhance'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Why does it take 30–60 seconds?', answer: 'The AI model analyzes every region of your image and reconstructs detail pixel by pixel. Larger images take longer since there\'s more data to process.' },
+            { question: 'Can this fix a completely out-of-focus photo?', answer: 'Mild softness and camera shake get improved significantly. Heavy defocus blur is harder — the AI can sharpen somewhat, but can\'t invent detail that was never captured.' },
+            { question: 'Is this good for restoring old family photos?', answer: 'Yes — old scanned photos that are faded, grainy, or low-resolution respond really well to enhancement.' },
+            { question: 'What formats can I upload?', answer: 'JPG, PNG, and WebP. The enhanced image always downloads as a PNG to preserve maximum quality.' },
+            { question: 'Is my image stored on your server?', answer: 'No. The image is sent for processing but handled entirely in memory and deleted as soon as the enhanced version is returned.' }
+        ]);
 
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();

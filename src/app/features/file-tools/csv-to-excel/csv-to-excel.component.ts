@@ -29,11 +29,17 @@ export class CsvToExcelComponent implements OnInit {
 
     ngOnInit(): void {
         this.seoService.updateSeo({
-            title: 'Convert CSV to Excel Online - Free Data Converter',
-            description: 'Convert CSV files to Excel (XLSX) format online. Fast and free CSV to Excel converter. Handle large datasets easily.',
-            keywords: 'csv to excel, convert csv to xlsx, csv converter, online excel converter, free data converter, csv to excel converter',
+            title: 'CSV to Excel Converter — Get a Real Spreadsheet from Your CSV',
+            description: 'Drop in your CSV file and get a properly formatted Excel spreadsheet you can sort, filter, and share. No sign-up, runs in your browser.',
+            keywords: 'csv to excel, csv to xlsx, convert csv spreadsheet, csv file to excel online, open csv in excel',
             url: 'https://2olhub.netlify.app/file/csv-to-excel'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Why not just open the CSV directly in Excel?', answer: 'You can — but Excel sometimes mangles things. Phone numbers lose their leading zeros, dates get reformatted weirdly, and long numbers turn into scientific notation. Converting properly avoids those headaches.' },
+            { question: 'Will all my data come through correctly?', answer: 'Yes — numbers, text, dates, special characters, and even quoted fields with commas inside them all transfer accurately. The converter handles edge cases that trip up most tools.' },
+            { question: 'Can I open the .xlsx in Google Sheets?', answer: 'Absolutely. Just upload it to Google Drive and it opens right up. Also works in LibreOffice, Apple Numbers, and any other modern spreadsheet app.' },
+            { question: 'My CSV uses semicolons, not commas — will that work?', answer: 'Yep, the converter picks up on semicolons, tabs, and pipes automatically. European-style CSVs with semicolons work just fine.' }
+        ]);
     }
 
     onDragOver(event: DragEvent): void {

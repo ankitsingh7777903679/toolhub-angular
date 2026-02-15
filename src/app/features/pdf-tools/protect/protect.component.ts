@@ -110,38 +110,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Protect PDF - Encrypt PDF with Password Online</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Protect PDF — Lock Your Documents with a Password</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Secure your PDF documents with military-grade encryption. Add a password to prevent unauthorized access, copying, or printing.
-                    Protect your sensitive data instantly for free.
+                    Sending a contract over email? Sharing sensitive financials on Slack? Before you hit send, lock the PDF with a password so only the intended recipient can open it. This tool encrypts your PDF with industry-standard algorithms — anyone who tries to open the file gets a password prompt. No password, no access.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    You set the password, confirm it to avoid typos, and the encrypted file is ready for download. The protection works in every PDF reader — Adobe Acrobat, Chrome's built-in viewer, Preview on Mac, and mobile apps. It's real encryption, not just a suggestion.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Password Protect a PDF?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload PDF:</strong> Select the document you want to secure.</li>
-                    <li><strong>Set Password:</strong> Enter a strong password of your choice.</li>
-                    <li><strong>Confirm:</strong> Re-enter the password to avoid typos.</li>
-                    <li><strong>Encrypt:</strong> Click "Protect PDF" to apply the security settings.</li>
-                    <li><strong>Download:</strong> Save your newly encrypted PDF file.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">What People Protect</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Tax documents, legal contracts, salary slips, medical records, exam papers, business proposals, and confidential reports. Basically anything you wouldn't want the wrong person to read. It's also useful for distributing preview copies of paid content — the password acts as a simple access control.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Key Security Features</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Strong Encryption:</strong> Uses standard encryption methods compatible with all PDF readers.</li>
-                    <li><strong>Full Security:</strong> Prevents opening the file without the correct password.</li>
-                    <li><strong>Private Processing:</strong> Files are processed securely via SSL and deleted after use.</li>
-                    <li><strong>Cross-Platform:</strong> Protected files work on Windows, Mac, iOS, and Android.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Security Details</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Your PDF is uploaded over encrypted HTTPS, processed on our server, and deleted immediately after the protected version is returned to your browser. We don't store your files or passwords. The encryption itself uses standard PDF security algorithms supported by all major PDF readers.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I recover a lost password?</h3>
-                        <p class="text-gray-600">No, for security reasons, if you forget the password, the file cannot be opened. Please remember your password!</p>
+                        <h3 class="font-bold text-gray-900 mb-2">What if I forget the password?</h3>
+                        <p class="text-gray-600">There's no recovery option — we don't store your password. If you lose it, the encrypted file can't be opened. Use a password manager to keep track of it, and always keep a copy of the original unprotected file.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Is the encryption strong?</h3>
-                        <p class="text-gray-600">Yes, we use industry-standard encryption algorithms to ensure your document remains confidential.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Is the encryption strong enough for business use?</h3>
+                        <p class="text-gray-600">Yes — the tool uses industry-standard PDF encryption that's compatible with Adobe Acrobat and all major PDF readers. It's suitable for business contracts, financial documents, and legal filings.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I remove the password later?</h3>
+                        <p class="text-gray-600">Yes — use the Unlock PDF tool. You'll need to provide the current password to authorize removal. You can also change the password by unlocking and re-protecting with a new one.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does the protected file work on phones?</h3>
+                        <p class="text-gray-600">Yes — password-protected PDFs work on all mobile PDF readers. The password prompt appears just like it does on desktop.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is there a cost?</h3>
+                        <p class="text-gray-600">No — completely free. No registration, no file limits, and we don't add any branding or watermarks to your document.</p>
                     </div>
                 </div>
             </article>
@@ -175,6 +182,13 @@ export class ProtectComponent implements OnInit {
             keywords: 'protect pdf, lock pdf, encrypt pdf, password protect pdf, secure pdf, pdf security tool',
             url: 'https://2olhub.netlify.app/pdf/protect'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'What if I forget the password?', answer: 'There\'s no recovery option — we don\'t store your password. Always keep a copy of the original unprotected file.' },
+            { question: 'Is the encryption strong enough for business use?', answer: 'Yes — the tool uses industry-standard PDF encryption compatible with Adobe Acrobat and all major PDF readers.' },
+            { question: 'Can I remove the password later?', answer: 'Yes — use the Unlock PDF tool. You\'ll need to provide the current password to authorize removal.' },
+            { question: 'Does the protected file work on phones?', answer: 'Yes — password-protected PDFs work on all mobile PDF readers. The password prompt appears just like it does on desktop.' },
+            { question: 'Is there a cost?', answer: 'No — completely free. No registration, no file limits, and we don\'t add any branding or watermarks.' }
+        ]);
 
         await this.scriptLoader.load(['file-saver']);
 

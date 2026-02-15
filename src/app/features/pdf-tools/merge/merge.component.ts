@@ -117,37 +117,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Merge PDF Files Online for Free</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Merge PDF Files Online for Free</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Combine multiple PDF files into one single document in seconds. Our free PDF merger is secure, fast, and works on any device. 
-                    Whether you need to join PDF pages for work, school, or personal use, 2olhub makes it simple.
+                    Got a bunch of PDFs that need to be one file? Maybe it's a contract split across three documents, or a handful of report sections your team sent over separately. Whatever the case, this tool lets you combine them into a single PDF in a few clicks. Drop your files in, drag them into the right order, and hit merge.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Everything runs in your browser using a library called pdf-lib — your files never leave your device. That matters if you're dealing with sensitive stuff like legal documents or financial records. There's no upload, no server processing, and no one else sees your data.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Merge PDF Files?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload Files:</strong> Click "Select Files" or drag & drop your PDFs into the box.</li>
-                    <li><strong>Reorder:</strong> Arrange the files in the order you want them to appear.</li>
-                    <li><strong>Merge:</strong> Click the "Merge PDF" button to combine them.</li>
-                    <li><strong>Download:</strong> Save your new merged PDF file instantly.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">What Can You Merge?</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Pretty much any standard PDF. Contracts, invoices, reports, scanned pages, cover letters — if it opens in a PDF reader, you can merge it here. The tool keeps all the original formatting intact: fonts, images, bookmarks, everything. One thing to note: password-protected PDFs need to be unlocked first. You can use the Unlock tool on this site to handle that, then come back and merge.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use our PDF Merger?</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>100% Free:</strong> No hidden costs, no watermarks, and no registration required.</li>
-                    <li><strong>Secure Processing:</strong> Your files are processed safely and deleted automatically (or processed client-side).</li>
-                    <li><strong>Unlimited:</strong> Merge as many files as you want without limits.</li>
-                    <li><strong>Universal:</strong> Works on Windows, Mac, Linux, iPhone, and Android.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Real-World Uses</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Lawyers combine contracts with amendments and signature pages into one bundle. Students put together research papers, notes, and reference material for studying. Accountants merge invoices and receipts for end-of-month filing. Real estate agents package property listings with disclosures and inspection reports. It's one of those tools you don't think about until you need it — and then you really need it.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Is it safe to merge PDFs online?</h3>
-                        <p class="text-gray-600">Yes! We use HTTPS encryption and your files are never stored permanently on our servers.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Is it safe to merge PDFs here?</h3>
+                        <p class="text-gray-600">Yes — the merging happens entirely in your browser. Your documents don't get uploaded to a server. The pdf-lib library handles everything locally, so there's zero risk to your data.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I merge PDF files on mobile?</h3>
-                        <p class="text-gray-600">Absolutely. Our tool is fully responsive and works great on iOS and Android devices.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Does it work on my phone?</h3>
+                        <p class="text-gray-600">It does. The tool is fully responsive, so you can upload and merge PDFs from Safari on an iPhone, Chrome on Android, or any mobile browser. It works the same way as on desktop.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">How many files can I merge at once?</h3>
+                        <p class="text-gray-600">There's no hard limit. Since it runs in your browser, it depends on how much memory your device has. For most people, merging a dozen or so files works without any issues. Very large batches (hundreds of pages) might slow things down on older machines.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">What about encrypted PDFs?</h3>
+                        <p class="text-gray-600">You'll need to unlock them first. Password-protected files can't be read by the merge tool. Use the Unlock PDF tool on this site to remove the password, then come back and merge.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Will the merged PDF look different from the originals?</h3>
+                        <p class="text-gray-600">No. Merging just stitches the original pages together — there's no re-encoding or compression involved. Text, images, fonts, and layout stay exactly the same.</p>
                     </div>
                 </div>
             </article>
@@ -179,6 +187,13 @@ export class MergeComponent implements OnInit {
             keywords: 'merge pdf, combine pdf, join pdfs, online pdf merger, free pdf tool',
             url: 'https://2olhub.netlify.app/pdf/merge'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Is it safe to merge PDFs here?', answer: 'Yes — the merging happens entirely in your browser. Your documents don\'t get uploaded to a server. The pdf-lib library handles everything locally, so there\'s zero risk to your data.' },
+            { question: 'Does it work on my phone?', answer: 'It does. The tool is fully responsive, so you can upload and merge PDFs from Safari on an iPhone, Chrome on Android, or any mobile browser.' },
+            { question: 'How many files can I merge at once?', answer: 'There\'s no hard limit. Since it runs in your browser, it depends on how much memory your device has. For most people, merging a dozen or so files works without any issues.' },
+            { question: 'What about encrypted PDFs?', answer: 'You\'ll need to unlock them first. Password-protected files can\'t be read by the merge tool. Use the Unlock PDF tool on this site to remove the password.' },
+            { question: 'Will the merged PDF look different from the originals?', answer: 'No. Merging just stitches the original pages together — there\'s no re-encoding or compression involved. Text, images, fonts, and layout stay exactly the same.' }
+        ]);
 
         await this.scriptLoader.load(['pdf-lib', 'file-saver']);
 

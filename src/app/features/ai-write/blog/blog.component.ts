@@ -20,6 +20,12 @@ export class BlogComponent {
       keywords: 'ai blog post generator, ai article writer, seo content generator, ai content creation tool, blog structure generator, automated blog writing, free content writer, seo article generator',
       url: 'https://2olhub.netlify.app/write/blog'
     });
+    this.seoService.setFaqJsonLd([
+      { question: 'How long are the posts it generates?', answer: 'Usually around 800-1,200 words with an intro, 3-5 sections with subheadings, and a conclusion. If you need it shorter or longer, mention that in your prompt.' },
+      { question: 'Can I just publish the output directly?', answer: 'You could, but we wouldn\'t recommend it. The AI gives you a strong first draft — add your own examples, tweak the tone, and fact-check any claims before hitting publish.' },
+      { question: 'Will Google penalize AI-generated content?', answer: 'Google has said they care about quality, not whether a human or AI wrote it. That said, adding personal experience and unique insights always helps your content stand out.' },
+      { question: 'What makes a good prompt for blog posts?', answer: 'Be specific. Instead of "write about fitness," try "write a blog post about strength training for beginners over 40, with 5 exercises they can do at home." The more detail, the better the output.' }
+    ]);
   }
 
   config = {
@@ -32,27 +38,27 @@ export class BlogComponent {
     iconColor: '#14B8A6',
     bgColor: '#F0FDFA',
     // SEO Content
-    seoTitle: 'Free AI Blog Post Generator - Create SEO-Optimized Articles',
-    seoIntro: 'Generate high-quality, engaging blog posts in seconds using Google Gemini AI. Perfect for content marketers, bloggers, and businesses looking to scale their content creation.',
+    seoTitle: 'AI Blog Post Generator — Skip the Blank Page',
+    seoIntro: 'Coming up with blog post ideas is easy. Actually sitting down and writing 1,000 words with headings, structure, and flow? That\'s the hard part. This tool gives you a complete first draft — intro, sections, conclusion — so you can focus on polishing instead of starting from zero.',
     features: [
-      { icon: 'fa-solid fa-magnifying-glass', title: 'SEO Optimized', description: 'Content structured for search engines with proper headings and keywords.' },
-      { icon: 'fa-solid fa-bolt', title: 'Instant Generation', description: 'Get complete blog posts in under 30 seconds.' },
-      { icon: 'fa-solid fa-language', title: 'Natural Language', description: 'Human-like writing that engages readers.' },
-      { icon: 'fa-solid fa-copy', title: 'One-Click Copy', description: 'Easily copy content to your CMS or editor.' },
-      { icon: 'fa-solid fa-pen-fancy', title: 'Any Topic', description: 'Generate posts on any subject or niche.' },
-      { icon: 'fa-solid fa-infinity', title: 'Unlimited Use', description: 'No limits on how many posts you can generate.' }
+      { icon: 'fa-solid fa-magnifying-glass', title: 'Built for Search', description: 'Posts come with proper headings and keyword-friendly structure.' },
+      { icon: 'fa-solid fa-bolt', title: 'Done in Seconds', description: 'A full blog post in under 30 seconds — not hours.' },
+      { icon: 'fa-solid fa-language', title: 'Reads Like a Human Wrote It', description: 'Natural sentences, not robotic paragraph after paragraph.' },
+      { icon: 'fa-solid fa-copy', title: 'Copy and Paste', description: 'One click to copy into WordPress, Ghost, or wherever you publish.' },
+      { icon: 'fa-solid fa-pen-fancy', title: 'Works for Any Niche', description: 'Tech, health, finance, travel, cooking — just describe your topic.' },
+      { icon: 'fa-solid fa-infinity', title: 'No Limits', description: 'Generate as many posts as you want, no daily caps.' }
     ],
     useCases: [
-      'Content marketers scaling blog production',
-      'Small business owners needing website content',
-      'Affiliate marketers creating product reviews',
-      'Students researching topics for projects'
+      'Content marketers who need to publish regularly but don\'t have time to write everything from scratch',
+      'Small business owners who want blog content on their website but can\'t afford a writer',
+      'Affiliate marketers creating product comparisons and reviews at scale',
+      'Students researching topics and needing a starting framework'
     ],
     faqs: [
-      { question: 'How long are the generated blog posts?', answer: 'Generated posts typically include an introduction, 3-5 main sections with subheadings, and a conclusion - around 800-1200 words depending on your topic.' },
-      { question: 'Can I edit the generated content?', answer: 'Yes! Copy the content and edit it in any text editor or CMS. We recommend reviewing and adding your personal touch before publishing.' },
-      { question: 'Is the content unique?', answer: 'Each generation creates fresh content based on your specific prompt. However, we recommend running it through a plagiarism checker before publishing.' },
-      { question: 'What makes a good prompt?', answer: 'Be specific about your topic, target audience, and any key points you want covered. For example: "Write a blog post about healthy meal prep for busy professionals, including 5 easy recipes."' }
+      { question: 'How long are the posts it generates?', answer: 'Usually around 800-1,200 words with an intro, 3-5 sections with subheadings, and a conclusion. If you need it shorter or longer, mention that in your prompt.' },
+      { question: 'Can I just publish the output directly?', answer: 'You could, but we wouldn\'t recommend it. The AI gives you a strong first draft — add your own examples, tweak the tone, and fact-check any claims before hitting publish.' },
+      { question: 'Will Google penalize AI-generated content?', answer: 'Google has said they care about quality, not whether a human or AI wrote it. That said, adding personal experience and unique insights always helps your content stand out.' },
+      { question: 'What makes a good prompt for blog posts?', answer: 'Be specific. Instead of "write about fitness," try "write a blog post about strength training for beginners over 40, with 5 exercises they can do at home." The more detail, the better the output.' }
     ]
   };
 }

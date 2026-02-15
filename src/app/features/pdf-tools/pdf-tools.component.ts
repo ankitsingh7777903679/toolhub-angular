@@ -17,7 +17,7 @@ interface Tool {
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   template: `
-    <div class="min-h-screen bg-white">
+    <div class="min-h-screen bg-white dark:bg-slate-900">
         <!-- Header -->
         <div class="bg-gradient-to-r from-purple-600 to-purple-700 py-16">
             <div class="container mx-auto px-4 text-center">
@@ -29,14 +29,14 @@ interface Tool {
                 
                 <!-- Search Bar -->
                 <div class="w-full max-w-xl mx-auto px-4 md:px-0">
-                    <div class="bg-white rounded-full p-2 flex items-center shadow-lg">
+                    <div class="bg-white dark:bg-slate-800 rounded-full p-2 flex items-center shadow-lg">
                         <i class="fa-solid fa-magnifying-glass text-gray-400 ml-2 mr-2"></i>
                         <input 
                             type="text" 
                             [(ngModel)]="searchQuery" 
                             (input)="filterTools()"
                             placeholder="Search for a PDF tool..." 
-                            class="flex-1 outline-none text-gray-700 placeholder-gray-400 min-w-0 py-1">
+                            class="flex-1 outline-none text-gray-700 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 min-w-0 py-1 bg-transparent">
                         <button class="bg-purple-500 text-white px-5 py-2 rounded-full font-bold hover:bg-purple-600 transition-colors text-sm flex-shrink-0">
                             Search
                         </button>
@@ -51,20 +51,20 @@ interface Tool {
                 @for (tool of filteredTools; track tool.name) {
                 <a 
                     [routerLink]="tool.link"
-                    class="group block bg-white rounded-2xl p-6 border border-gray-100 hover:border-purple-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-between">
+                    class="group block bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 hover:border-purple-200 dark:hover:border-purple-500/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-between">
                     <div class="flex justify-between items-start mb-6">
                         <div 
                             class="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
                             [style.backgroundColor]="tool.bgColor">
                             <i [class]="tool.icon + ' text-2xl'" [style.color]="tool.iconColor"></i>
                         </div>
-                        <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-purple-50 transition-colors">
-                            <i class="fa-solid fa-arrow-right text-gray-400 group-hover:text-purple-600 text-sm transition-colors"></i>
+                        <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-slate-700 flex items-center justify-center group-hover:bg-purple-50 dark:group-hover:bg-purple-900/30 transition-colors">
+                            <i class="fa-solid fa-arrow-right text-gray-400 dark:text-slate-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 text-sm transition-colors"></i>
                         </div>
                     </div>
                     <div>
-                        <h3 class="font-bold text-gray-900 text-lg mb-2 group-hover:text-purple-600 transition-colors">{{ tool.name }}</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">{{ tool.description }}</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">{{ tool.name }}</h3>
+                        <p class="text-gray-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-2">{{ tool.description }}</p>
                     </div>
                 </a>
                 }
@@ -76,6 +76,24 @@ interface Tool {
                 }
             </div>
         </div>
+
+        <!-- SEO Content -->
+        <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl pb-16">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Free Online PDF Tools — Edit, Convert, and Manage PDFs</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                2olhub offers a comprehensive suite of free online PDF tools that let you work with PDF files without installing any software. Whether you need to combine multiple documents into a single file, split a large PDF into individual pages, compress oversized reports for email, or convert between PDF and other formats, our tools handle it all directly in your browser.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200 mb-4">All-in-One PDF Solution</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                Our PDF toolkit covers every common document task. Merge contracts and proposals into a single professional document. Split lengthy reports into separate chapters. Add watermarks to protect your intellectual property, or password-protect sensitive files with strong encryption. You can even rotate scanned pages, convert Word documents to PDF, or extract text from scanned PDFs using our AI-powered OCR technology. Each tool is designed to do one job exceptionally well — fast, free, and without limitations.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200 mb-4">No Software Installation Needed</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                All our PDF tools run entirely in your web browser. There is nothing to download or install, and your files are processed locally on your device for maximum privacy. Whether you are on Windows, Mac, Linux, or a mobile device, our tools work seamlessly on any platform. No registration or account is required — just upload your file, process it, and download the result.
+            </p>
+        </article>
     </div>
     `
 })

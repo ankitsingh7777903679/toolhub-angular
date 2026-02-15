@@ -117,38 +117,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Add Watermark to PDF Files Online</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Add Watermark to PDF Files Online</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Secure your intellectual property or brand your documents by adding a watermark. 
-                    Insert custom text or images onto every page of your PDF file instantly and for free.
+                    Sometimes you need to stamp a PDF as "CONFIDENTIAL" before sharing it, mark a draft document so no one treats it as final, or brand your proposals with your company name. This tool adds a custom text watermark diagonally across every page of your PDF. Type your text, adjust the size and transparency, and it's done.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    You control how prominent the watermark looks. The opacity slider goes from barely visible (10%) to clearly stamped (50%), and you can pick from three font sizes. The watermark is permanently embedded — it's not a layer that can be easily stripped off.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Watermark a PDF?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload PDF:</strong> Select the file you want to protect.</li>
-                    <li><strong>Customize:</strong> Enter your watermark text (e.g., "CONFIDENTIAL").</li>
-                    <li><strong>Adjust:</strong> Set the font size and opacity level to your liking.</li>
-                    <li><strong>Apply:</strong> Click "Add Watermark" to imprint your text on every page.</li>
-                    <li><strong>Download:</strong> Save your watermarked document.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Common Watermark Text</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    The most popular options people use are "CONFIDENTIAL" for sensitive business documents, "DRAFT" for documents still being reviewed, "SAMPLE" for demo or preview copies, and company names for branding outgoing proposals and presentations. But you can type literally anything — there are no restrictions.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Watermark?</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Copyright Protection:</strong> clearly ownership of your work.</li>
-                    <li><strong>Status Indication:</strong> Mark documents as "DRAFT", "APPROVED", or "SAMPLE".</li>
-                    <li><strong>Branding:</strong> Add your company name to all outgoing documents.</li>
-                    <li><strong>Free & Fast:</strong> No software installation needed.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Privacy and Processing</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    The watermarking runs in your browser using pdf-lib. Your PDF never gets uploaded to a server, so there's no risk to confidential content. Ironically, the tool you'd use to stamp something as "CONFIDENTIAL" is also private by design.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I remove the watermark later?</h3>
-                        <p class="text-gray-600">Watermarks added here are permanent parts of the PDF. Keep your original file safe if you need a non-watermarked version.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Can the watermark be removed afterward?</h3>
+                        <p class="text-gray-600">No — the watermark is permanently embedded into the PDF content. Once it's applied and you save the file, it can't be stripped out. Always keep a copy of your original unwatermarked file.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I use an image logo?</h3>
-                        <p class="text-gray-600">Currently, we support text watermarks. Image watermark support is coming soon!</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Can I use a logo instead of text?</h3>
+                        <p class="text-gray-600">Not yet — the tool currently supports text-only watermarks. Image and logo watermark support is planned for a future update. For now, you can type your company name as text.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Will the watermark make the text hard to read?</h3>
+                        <p class="text-gray-600">At the default 20% opacity, the watermark is visible but doesn't obscure the page content. Drop it to 10% for an even subtler look, or push it to 50% if you want it really obvious. Experiment with the slider to find what looks right.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Where does the watermark appear on each page?</h3>
+                        <p class="text-gray-600">The text is placed diagonally across the center of each page at a 45-degree angle. It covers the middle of the page without blocking the corners or edges.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is there a cost to use this?</h3>
+                        <p class="text-gray-600">No — it's completely free. No sign-up, no daily limits, and the tool doesn't add its own branding or watermark to your document.</p>
                     </div>
                 </div>
             </article>
@@ -182,6 +189,13 @@ export class WatermarkComponent implements OnInit {
             keywords: 'watermark pdf, add watermark, pdf watermark online, stamp pdf, protect pdf copyright, free pdf tool',
             url: 'https://2olhub.netlify.app/pdf/watermark'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can the watermark be removed afterward?', answer: 'No — the watermark is permanently embedded into the PDF content. Once applied, it can\'t be stripped out. Always keep a copy of your original unwatermarked file.' },
+            { question: 'Can I use a logo instead of text?', answer: 'Not yet — the tool currently supports text-only watermarks. Image and logo watermark support is planned for a future update.' },
+            { question: 'Will the watermark make the text hard to read?', answer: 'At the default 20% opacity, the watermark is visible but doesn\'t obscure the page content. Adjust the slider to find what looks right.' },
+            { question: 'Where does the watermark appear on each page?', answer: 'The text is placed diagonally across the center of each page at a 45-degree angle.' },
+            { question: 'Is there a cost to use this?', answer: 'No — it\'s completely free. No sign-up, no daily limits, and the tool doesn\'t add its own branding.' }
+        ]);
 
         await this.scriptLoader.load(['pdf-lib', 'file-saver']);
 

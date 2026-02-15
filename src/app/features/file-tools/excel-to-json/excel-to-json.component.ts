@@ -30,11 +30,17 @@ export class ExcelToJsonComponent implements OnInit {
 
     ngOnInit(): void {
         this.seoService.updateSeo({
-            title: 'Convert Excel to JSON Online - Free Data Converter',
-            description: 'Convert Excel files to JSON format online. Transform spreadsheet data into structured JSON. Free Excel to JSON converter for developers.',
-            keywords: 'excel to json, convert xlsx to json, excel converter, online json converter, data transformation, xls to json',
+            title: 'Excel to JSON Converter — Turn Spreadsheets into Code-Ready Data',
+            description: 'Upload an Excel file and get structured JSON you can paste into your project, import into MongoDB, or feed to an API. Headers become keys, rows become objects.',
+            keywords: 'excel to json, xlsx to json, spreadsheet to json, convert excel json online, excel data api',
             url: 'https://2olhub.netlify.app/file/excel-to-json'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'What does the output look like?', answer: 'You get an array of objects. Each row is one object, and the column headers become the keys. So a spreadsheet with "name" and "email" columns gives you objects like name: "Alice", email: "alice@example.com" for each row.' },
+            { question: 'Can I use this directly with MongoDB?', answer: 'Yep. The output is a JSON array that works with db.collection.insertMany() or you can import it through MongoDB Compass. No reformatting needed.' },
+            { question: 'What happens with blank cells?', answer: 'Empty cells become empty strings in the JSON. The key is still there, so your data structure stays consistent across all rows. No missing keys to break your code.' },
+            { question: 'Does it keep numbers as numbers (not strings)?', answer: 'Yes — 42 stays as 42, not "42". Text stays as strings, and dates get converted to a readable format. The converter is smart about data types so you don\'t have to parseInt() everything.' }
+        ]);
     }
 
     onDragOver(event: DragEvent): void {

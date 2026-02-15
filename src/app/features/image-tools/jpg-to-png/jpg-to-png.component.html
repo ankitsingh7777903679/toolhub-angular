@@ -124,37 +124,74 @@
 
         <!-- SEO Content -->
         <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-            <h1 class="text-3xl font-bold text-gray-900 mb-6">JPG to PNG Converter - Convert Images Free</h1>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">JPG to PNG Converter — Keep the Quality, Gain Transparency
+            </h2>
             <p class="text-gray-600 mb-8 leading-relaxed">
-                Convert JPG images to PNG format with transparency support. PNG preserves quality
-                and supports transparent backgrounds - perfect for logos and graphics.
+                Ever tried putting a JPG logo on a colored background and ended up with that ugly white rectangle around
+                it? That's probably the most common reason people switch to PNG. JPG doesn't do transparency — it just
+                can't. PNG handles it natively, so your logos, icons, and overlays sit cleanly on any surface without a
+                visible border.
+            </p>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                There's another side to it, too. Every time you re-save a JPG, it compresses again and loses a tiny bit
+                more detail. PNG doesn't do that — it's lossless, so once you convert, what you see is what you keep.
+                For screenshots, graphics with sharp text, UI mockups, or anything with clean lines, PNG just handles
+                them better than JPG ever will. The trade-off is larger file sizes, but in situations where quality
+                matters more than storage, that's a fair deal.
             </p>
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert JPG to PNG?</h2>
-            <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                <li><strong>Upload Files:</strong> Drag and drop JPG images or browse.</li>
-                <li><strong>Batch Convert:</strong> Add multiple images at once.</li>
-                <li><strong>Convert:</strong> Click to process all images.</li>
-                <li><strong>Download:</strong> Save PNG files individually or all at once.</li>
-            </ol>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">How This Tool Works</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Drop your JPG files in (or click to browse), hit Convert, and you've got PNGs. It's batch-friendly too —
+                throw in 20 files at once if you want, no limit. The whole conversion runs inside your browser using the
+                Canvas API, so nothing gets uploaded anywhere. Your images stay on your machine the entire time.
+            </p>
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Convert to PNG?</h2>
-            <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                <li><strong>Transparency:</strong> PNG supports transparent backgrounds.</li>
-                <li><strong>Lossless:</strong> No quality loss when saving.</li>
-                <li><strong>Sharp Edges:</strong> Better for logos and text.</li>
-                <li><strong>Privacy First:</strong> All processing in your browser.</li>
-            </ul>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">A Quick Note on File Sizes</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Don't be surprised if the PNG comes out bigger than the original JPG — that's completely normal. JPG
+                achieves smaller sizes by discarding data you (hopefully) won't notice. PNG keeps everything, so it
+                naturally takes up more space. For photos, expect PNGs to be roughly 2–5x larger. If file size is your
+                priority, JPG or WebP might be the better format. But if you need transparency or lossless quality —
+                like for a design asset, a logo, or a screenshot you'll edit later — PNG is the right call.
+            </p>
 
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-900 mb-2">Is quality preserved during conversion?</h3>
-                    <p class="text-gray-600">Yes! PNG is lossless, so your image quality remains intact.</p>
+                    <h3 class="font-bold text-gray-900 mb-2">Will converting to PNG magically fix a blurry JPG?</h3>
+                    <p class="text-gray-600">Nope. If the JPG already has compression artifacts — those blocky, smudgy
+                        areas you see in heavily compressed photos — those are baked into the pixel data. Converting to
+                        PNG preserves them as-is. You won't lose any more quality, but you also won't gain any back.
+                        Think of it as locking in what you currently have.</p>
                 </div>
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-900 mb-2">Can I convert multiple files?</h3>
-                    <p class="text-gray-600">Yes! Upload as many images as you need and convert them all at once.</p>
+                    <h3 class="font-bold text-gray-900 mb-2">I need the background removed, not just converted. Can this
+                        do that?</h3>
+                    <p class="text-gray-600">This tool converts the format but doesn't alter the image itself.
+                        Converting to PNG enables transparency support, but it won't automatically remove the existing
+                        background. For that, run the image through our Remove Background tool after (or before)
+                        converting — the two work great together.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Can I convert a whole folder at once?</h3>
+                    <p class="text-gray-600">You can select or drag in multiple files at once — there's no cap on how
+                        many. They all convert at the same time, and you can download each one individually or grab
+                        everything together. If you have 50 product photos to convert, it takes about the same time as
+                        converting one.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Do my images get uploaded somewhere?</h3>
+                    <p class="text-gray-600">No — nothing leaves your browser. The conversion uses the Canvas API
+                        locally, so your files never touch a server. That makes it safe for sensitive stuff like client
+                        work, personal photos, or anything you'd rather keep private.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">When should I stick with JPG instead?</h3>
+                    <p class="text-gray-600">If you're working with photos and file size matters — like for a blog,
+                        email, or social media — JPG is usually the smarter pick. It compresses way better for
+                        photographic content. PNG really shines for graphics, screenshots, logos, and anything where
+                        transparency or pixel-perfect sharpness is important.</p>
                 </div>
             </div>
         </article>

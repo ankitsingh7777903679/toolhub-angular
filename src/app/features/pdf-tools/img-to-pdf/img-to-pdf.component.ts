@@ -133,37 +133,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert Images to PDF Online for Free</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Convert Images to PDF Online for Free</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Turn your photos, screenshots, and graphics into professional PDF documents. Supports JPG, PNG, and other image formats.
-                    Perfect for creating portfolios, reports, or archiving receipts.
+                    Need to turn a stack of photos or screenshots into a single PDF? This tool does exactly that. Drop in your JPG or PNG files, arrange them in the order you want, and hit convert. Each image becomes its own page in the PDF. It's the quickest way to create a document from images without opening Photoshop or Word.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    The conversion happens locally in your browser — your images aren't uploaded to any server. You can also enable "Fit to A4" to scale everything to standard page size, or add margins for a cleaner look. The output preserves your original image quality with no compression.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert Images to PDF?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload Images:</strong> Select your JPG or PNG files. You can upload multiple images at once.</li>
-                    <li><strong>Arrange:</strong> Drag and drop images to reorder them as needed.</li>
-                    <li><strong>Customize:</strong> Choose "Fit to A4" or "Add Margin" for better formatting.</li>
-                    <li><strong>Convert:</strong> Click "Convert to PDF" and download your document.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">What People Use This For</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Freelancers bundle project screenshots and mockups into client presentations. Students turn handwritten notes and whiteboard photos into organized study documents. Small business owners scan receipts and invoices into a single file for bookkeeping. Photographers put together quick portfolio PDFs. If you need to email or archive a bunch of images in one neat file, this saves a lot of time compared to inserting them into a Word doc manually.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Key Features</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Multiple Formats:</strong> Works with JPG, PNG, and more.</li>
-                    <li><strong>Custom Formatting:</strong> Options to fit images to A4 pages automatically.</li>
-                    <li><strong>High Quality:</strong> Preserves the resolution of your original images.</li>
-                    <li><strong>Secure & Private:</strong> Files are processed securely and deleted automatically.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Page Sizing Options</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    By default, each PDF page matches the exact dimensions of the image. Turn on "Fit to A4" and images get scaled to fit within a standard A4 page (210 × 297 mm) while keeping their aspect ratio. There's also an optional margin setting that adds clean borders around each image — useful for printing.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I combine multiple images into one PDF?</h3>
-                        <p class="text-gray-600">Yes! You can upload 20+ images and merge them all into a single PDF file in seconds.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Can I put multiple images into one PDF?</h3>
+                        <p class="text-gray-600">Yes — upload as many as you need. Each image gets its own page in the final PDF, in the order you arrange them.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Does it support screenshots?</h3>
-                        <p class="text-gray-600">Absolutely. It's the best way to turn mobile or desktop screenshots into a shareable document.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Which image formats work?</h3>
+                        <p class="text-gray-600">JPG and PNG. Those cover pretty much every photo, screenshot, or graphic you'll run into.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does it reduce my image quality?</h3>
+                        <p class="text-gray-600">No. Images are embedded at their original resolution without any compression or re-encoding. What goes in is exactly what comes out.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I do this from my phone?</h3>
+                        <p class="text-gray-600">Definitely — the tool works on any device with a browser. Upload your phone's screenshots or camera photos, and convert them right from your mobile browser.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">What does "Fit to A4" do exactly?</h3>
+                        <p class="text-gray-600">It scales each image to fit within a standard A4 page (210 × 297 mm), keeping the aspect ratio intact. Without it, each page is sized to match the image's exact dimensions — which is fine for viewing on screen but can look odd when printed.</p>
                     </div>
                 </div>
             </article>
@@ -205,6 +213,13 @@ export class ImgToPdfComponent implements OnInit {
             keywords: 'image to pdf, jpg to pdf, png to pdf, convert photos to pdf, picture to pdf, online converter',
             url: 'https://2olhub.netlify.app/pdf/img-to-pdf'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can I put multiple images into one PDF?', answer: 'Yes — upload as many as you need. Each image gets its own page in the final PDF, in the order you arrange them.' },
+            { question: 'Which image formats work?', answer: 'JPG and PNG. Those cover pretty much every photo, screenshot, or graphic you\'ll run into.' },
+            { question: 'Does it reduce my image quality?', answer: 'No. Images are embedded at their original resolution without any compression or re-encoding.' },
+            { question: 'Can I do this from my phone?', answer: 'Definitely — the tool works on any device with a browser. Upload your phone\'s screenshots or camera photos directly.' },
+            { question: 'What does "Fit to A4" do exactly?', answer: 'It scales each image to fit within a standard A4 page (210 x 297 mm), keeping the aspect ratio intact.' }
+        ]);
 
         await this.scriptLoader.load(['pdf-lib', 'file-saver']);
 

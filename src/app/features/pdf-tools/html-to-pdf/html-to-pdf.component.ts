@@ -101,37 +101,45 @@ declare const html2pdf: any;
             </div>
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert HTML to PDF Online (Free & Fast)</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Convert HTML to PDF Online (Free & Fast)</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Transform your web pages, HTML code, or raw text into professional PDF documents instantly. 
-                    Ideal for developers, students, and professionals who need to save web content as PDF.
+                    If you've ever needed to turn a block of HTML into a proper PDF — for a report, an invoice template, or just to save some formatted text — this tool does it without any fuss. Paste your HTML into the editor on the left, see a live preview on the right, and generate a PDF when it looks right. It handles headings, tables, styled text, lists, and inline CSS.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Developers tend to use this for generating quick documentation or testing how their HTML templates render as PDFs. Students use it to save formatted notes. It's also handy for creating simple invoices or letters from HTML snippets without needing a full design tool.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How it Works</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Enter HTML:</strong> Type or paste your HTML code into the editor.</li>
-                    <li><strong>Preview:</strong> See a real-time preview of how your PDF will look.</li>
-                    <li><strong>Generate:</strong> Click "Generate PDF" to create your document.</li>
-                    <li><strong>Download:</strong> Save the file instantly to your device.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">What HTML Elements Work?</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Most standard HTML renders well: headings (H1 through H6), paragraphs, ordered and unordered lists, tables with styled headers and borders, bold and italic formatting, colored text, background colors, links, and nested divs. Inline CSS is fully supported — so things like font-size, padding, margins, and border styles all come through in the PDF. External stylesheets and JavaScript won't work though, so keep your styling inline.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use our Converter?</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Client-Side Processing:</strong> Your code is converted directly in your browser.</li>
-                    <li><strong>Real-Time Preview:</strong> Fix layout issues before downloading.</li>
-                    <li><strong>Supports CSS:</strong> Styles and formatting are preserved in the PDF.</li>
-                    <li><strong>Free Forever:</strong> No usage limits or watermarks.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">A Note on Privacy</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    The conversion happens in your browser — your HTML code never gets sent to a server. That's worth knowing if you're working with templates that contain real names, addresses, or financial details. Close the tab and everything's cleared.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I convert a live URL?</h3>
-                        <p class="text-gray-600">Currently, we support raw HTML input. To convert a URL, view the page source, copy it, and paste it here.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Can I convert a live webpage to PDF?</h3>
+                        <p class="text-gray-600">Not directly from a URL. But you can view the page source (Ctrl+U in most browsers), copy the HTML, and paste it here. That actually gives you the chance to clean up or modify the content before generating the PDF.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Is my code safe?</h3>
-                        <p class="text-gray-600">Yes! The conversion happens on your device, so your code never leaves your computer.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Does it support CSS?</h3>
+                        <p class="text-gray-600">Inline CSS works fully — colors, fonts, borders, backgrounds, padding, margins, the works. External stylesheets and linked CSS files aren't supported, so you'll need to put your styles directly on the elements.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I use this for invoices or reports?</h3>
+                        <p class="text-gray-600">Definitely — it's one of the most common use cases. Create an HTML template with tables, styling, and your data, then generate a clean PDF from it. The sample template shows a report format you can start from.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">What page size is the output?</h3>
+                        <p class="text-gray-600">Standard A4 with proper margins. The content auto-flows across pages with appropriate page breaks, so longer documents are handled correctly.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is my code sent to a server?</h3>
+                        <p class="text-gray-600">No — the entire conversion runs locally in your browser. Your HTML stays on your machine and nothing gets transmitted anywhere.</p>
                     </div>
                 </div>
             </article>
@@ -179,6 +187,13 @@ export class HtmlToPdfComponent {
             keywords: 'html to pdf, convert html to pdf, save web page as pdf, html converter, code to pdf, free online tool',
             url: 'https://2olhub.netlify.app/pdf/html-to-pdf'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can I convert a live webpage to PDF?', answer: 'Not directly from a URL. But you can view the page source (Ctrl+U in most browsers), copy the HTML, and paste it here. That actually gives you the chance to clean up or modify the content before generating the PDF.' },
+            { question: 'Does it support CSS?', answer: 'Inline CSS works fully — colors, fonts, borders, backgrounds, padding, margins, the works. External stylesheets and linked CSS files aren\'t supported, so you\'ll need to put your styles directly on the elements.' },
+            { question: 'Can I use this for invoices or reports?', answer: 'Definitely — it\'s one of the most common use cases. Create an HTML template with tables, styling, and your data, then generate a clean PDF from it. The sample template shows a report format you can start from.' },
+            { question: 'What page size is the output?', answer: 'Standard A4 with proper margins. The content auto-flows across pages with appropriate page breaks, so longer documents are handled correctly.' },
+            { question: 'Is my code sent to a server?', answer: 'No — the entire conversion runs locally in your browser. Your HTML stays on your machine and nothing gets transmitted anywhere.' }
+        ]);
         this.loadSample();
         this.initScripts();
     }

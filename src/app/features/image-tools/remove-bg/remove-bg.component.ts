@@ -133,29 +133,39 @@ declare const saveAs: any;
                     </div>
 
                     <!-- Action Buttons -->
-                    <div *ngIf="!isProcessing" class="flex flex-col md:flex-row gap-4 justify-center mt-6">
+                    <div *ngIf="!isProcessing" class="flex flex-col md:flex-row gap-4 justify-center md:items-end mt-6">
+                        <div class="flex flex-col gap-2 w-full md:w-auto">
+                            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Select Model:</label>
+                            <select [(ngModel)]="selectedModel" 
+                                    class="px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent w-full">
+                                <option *ngFor="let model of availableModels" [value]="model">{{ model }}</option>
+                            </select>
+                        </div>
+                        
                         <button *ngIf="!processedImage" (click)="removeBackground()" 
-                                class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-bold hover:from-cyan-600 hover:to-blue-600 transition-all flex items-center gap-2 shadow-lg">
+                                class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-bold hover:from-cyan-600 hover:to-blue-600 transition-all flex items-center justify-center gap-2 shadow-lg w-full md:w-auto">
                             <i class="fa-solid fa-eraser"></i> Remove Background
                         </button>
                         
                         <button *ngIf="processedImage" (click)="downloadProcessed()" 
-                                class="px-6 py-3 bg-green-500 justify-center align-center text-white rounded-lg font-bold hover:bg-green-600 transition-colors flex items-center gap-2 shadow-lg">
+                                class="px-6 py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg w-full md:w-auto">
                             <i class="fa-solid fa-download"></i> 
                             {{ selectedBgColor === 'transparent' ? 'Download PNG' : 'Download with Background' }}
                         </button>
                         
                         <!-- Send to Tool -->
-                        <app-send-to-tool *ngIf="processedImage"
-                            [hasOutput]="!!processedImage"
-                            [currentRoute]="currentRoute"
-                            [outputData]="processedImage"
-                            [fileName]="getOutputFileName()"
-                            [fileType]="'image'">
-                        </app-send-to-tool>
+                        <div *ngIf="processedImage" class="w-full md:w-auto">
+                            <app-send-to-tool
+                                [hasOutput]="!!processedImage"
+                                [currentRoute]="currentRoute"
+                                [outputData]="processedImage"
+                                [fileName]="getOutputFileName()"
+                                [fileType]="'image'">
+                            </app-send-to-tool>
+                        </div>
                         
                         <button (click)="reset()" 
-                                class="px-6 py-3 justify-center align-center bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-bold hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center gap-2">
+                                class="px-6 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-bold hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center justify-center gap-2 w-full md:w-auto">
                             <i class="fa-solid fa-rotate"></i> Try Another
                         </button>
                     </div>
@@ -180,39 +190,84 @@ declare const saveAs: any;
                     </div>
                 </div>
 
+                <!-- Example Showcase (Before & After Slider) -->
+                <div *ngIf="!originalImage" class="mt-16 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white text-center mb-8">See Examples</h2>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div *ngFor="let ex of examples; let i = index" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                            <div class="p-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-100 dark:border-gray-600 flex justify-center items-center">
+                                <h3 class="font-bold text-gray-700 dark:text-gray-200">{{ ex.name }}</h3>
+                            </div>
+                            <div class="p-0 relative h-48 sm:h-64 cursor-ew-resize group select-none">
+                                <!-- Processed Image (Background/After) - Shows fully when slider is at 0 -->
+                                <div class="absolute inset-0 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAjyQc6wcXEgCjGZZJM66DqqAAAAAElFTkSuQmCC')]">
+                                    <img [src]="ex.processed" class="w-full h-full object-cover" loading="lazy" fetchpriority="low" [alt]="ex.name + ' Processed'">
+                                    <span class="absolute bottom-4 right-4 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded z-10">AFTER</span>
+                                </div>
+
+                                <!-- Original Image (Foreground/Before) - Clipped by width -->
+                                <div class="absolute inset-0 overflow-hidden border-r-2 border-white" [style.width.%]="sliderValues[i] || 50">
+                                    <img [src]="ex.original" class="w-full h-full max-w-none object-cover" [style.width.%]="100 / ((sliderValues[i] || 50) / 100)" loading="lazy" fetchpriority="low" [alt]="ex.name">
+                                    <span class="absolute bottom-4 left-4 bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded z-10">BEFORE</span>
+                                </div>
+
+                                <!-- Slider Handle -->
+                                <div class="absolute inset-y-0 w-1 bg-white cursor-ew-resize shadow-[0_0_10px_rgba(0,0,0,0.5)]" [style.left.%]="sliderValues[i] || 50">
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                                        <i class="fa-solid fa-arrows-left-right text-gray-400 text-xs"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Range Input Overlay -->
+                                <input type="range" min="0" max="100" [value]="sliderValues[i] || 50" 
+                                       (input)="updateSlider($event, i)"
+                                       class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20 m-0 p-0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- SEO Content -->
                 <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Remove Background - AI Background Remover Free</h1>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Remove Background — Clean Cutouts Without the Photoshop Hassle</h2>
                     <p class="text-gray-600 mb-8 leading-relaxed">
-                        Automatically remove backgrounds from photos with AI. Perfect for product photos, 
-                        portraits, and creating transparent PNGs for any purpose.
+                        You know the drill: you need a product photo with a white background for your shop, or a headshot without the messy living room behind you, or just a clean cutout of an object for a design project. In Photoshop, that means layer masks, edge refinement, maybe an hour of careful selection work. Here, you upload the image, click one button, and the AI handles the rest in about 5-15 seconds.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        The model is specifically good at tricky edges — hair, fur, lace, semi-transparent fabrics, the stuff that makes manual cutouts painful. After the background is gone, you can keep the transparency (great for logos and overlays), or pick a solid background color from the presets. There's also a custom hex input if you need a specific brand color. Download the result as a PNG and you're done.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Remove Background?</h2>
-                    <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                        <li><strong>Upload Image:</strong> Drag and drop or click to browse.</li>
-                        <li><strong>Process:</strong> Click to let AI remove the background.</li>
-                        <li><strong>Customize:</strong> Add a custom background color if needed.</li>
-                        <li><strong>Download:</strong> Save as transparent PNG or with new background.</li>
-                    </ol>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">E-Commerce Product Photography</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Amazon, Etsy, eBay — they all want product images on clean white backgrounds. Hiring a photographer with a proper backdrop is ideal, but if you've got fifty products photographed on your kitchen table, this tool will get you to "good enough" surprisingly fast. Upload the product photo, let the AI strip the background, set it to white, and download. Repeat for the next 49. It handles complex product shapes (shoes, jewelry, electronics) really well.
+                    </p>
 
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Use Our Tool?</h2>
-                    <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                        <li><strong>Automatic:</strong> No manual selection or editing needed.</li>
-                        <li><strong>Custom Colors:</strong> Add any background color after removal.</li>
-                        <li><strong>High Quality:</strong> Preserves fine details like hair.</li>
-                        <li><strong>AI Powered:</strong> Advanced neural network for accuracy.</li>
-                    </ul>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How It Handles Your Data</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        The image does get sent to our AI server for processing — background removal requires a neural network model that's too large to run in a browser. But it's processed entirely in memory and deleted the moment your result is ready. Nothing is stored, logged, or retained.
+                    </p>
 
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                     <div class="space-y-4">
                         <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                            <h3 class="font-bold text-gray-900 mb-2">Does it work with complex backgrounds?</h3>
-                            <p class="text-gray-600">Yes! Our AI handles complex backgrounds, hair, and transparent objects.</p>
+                            <h3 class="font-bold text-gray-900 mb-2">How does it handle messy backgrounds like outdoor scenes?</h3>
+                            <p class="text-gray-600">Really well, actually. The AI was trained on all kinds of scenes — outdoor, indoor, crowded, patterned. It focuses on identifying the foreground subject rather than analyzing the background, so complexity behind the subject doesn't throw it off much.</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                            <h3 class="font-bold text-gray-900 mb-2">Can I add a custom background?</h3>
-                            <p class="text-gray-600">Yes! Choose from preset colors or pick any custom color after processing.</p>
+                            <h3 class="font-bold text-gray-900 mb-2">What about wispy hair or fuzzy edges?</h3>
+                            <p class="text-gray-600">This is where the AI really shines compared to manual tools. It preserves individual hair strands, fur textures, and semi-transparent materials that would take ages to mask by hand. The results aren't perfect 100% of the time, but they're consistently impressive.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Can I add a specific color behind the subject?</h3>
+                            <p class="text-gray-600">Yes — after the background is removed you'll see color presets (white, black, red, blue, and several others). There's also a hex color input for any specific shade. Pick a color and it fills the background instantly.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Is this really free? No hidden limits?</h3>
+                            <p class="text-gray-600">Completely free — no watermarks, no account required, no caps on how many images you process. Use it as much as you want.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Where does the processing happen?</h3>
+                            <p class="text-gray-600">On our AI server. The image is uploaded, processed in memory by the RemBG neural network, and the result is sent back to your browser. The original image is deleted immediately after — nothing is kept on our end.</p>
                         </div>
                     </div>
                 </article>
@@ -246,6 +301,26 @@ export class RemoveBgComponent implements OnInit {
         '#f97316'  // Orange
     ];
 
+    // Model selection
+    selectedModel = 'bria-rmbg';
+    availableModels = [
+        // 'u2net',
+        // 'u2netp',
+        // 'u2net_human_seg',
+        // 'silueta',
+        // 'isnet-general-use',
+        'isnet-anime',
+        // 'sam',
+        'bria-rmbg',
+        // 'birefnet-general',
+        // 'birefnet-general-lite',
+        'birefnet-portrait',
+        // 'birefnet-dis',
+        'birefnet-hrsod',
+        // 'birefnet-cod',
+        'birefnet-massive'
+    ];
+
     private apiUrl = environment.apiUrl;
     constructor(
         private cdr: ChangeDetectorRef,
@@ -263,8 +338,13 @@ export class RemoveBgComponent implements OnInit {
             keywords: 'remove background, background remover, transparent background, free background remover, ai background removal, online photo editor',
             url: 'https://2olhub.netlify.app/image/remove-bg'
         });
-
-        await this.scriptLoader.load(['file-saver']);
+        this.seoService.setFaqJsonLd([
+            { question: 'How does it handle messy backgrounds like outdoor scenes?', answer: 'Really well. The AI focuses on identifying the foreground subject rather than analyzing the background, so complexity doesn\'t throw it off.' },
+            { question: 'What about wispy hair or fuzzy edges?', answer: 'The AI preserves individual hair strands, fur textures, and semi-transparent materials that would take ages to mask by hand.' },
+            { question: 'Can I add a specific color behind the subject?', answer: 'Yes — after removal you\'ll see color presets and a hex input. Pick a color and it fills the background instantly.' },
+            { question: 'Is this really free? No hidden limits?', answer: 'Completely free — no watermarks, no account required, no caps on how many images you process.' },
+            { question: 'Where does the processing happen?', answer: 'On our AI server. The image is processed in memory and the original is deleted immediately after — nothing is kept.' }
+        ]);
 
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();
@@ -340,7 +420,7 @@ export class RemoveBgComponent implements OnInit {
                 },
                 body: JSON.stringify({
                     image: this.originalImage,
-                    model: 'isnet-general-use'
+                    model: this.selectedModel
                 })
             });
 
@@ -367,8 +447,11 @@ export class RemoveBgComponent implements OnInit {
         }
     }
 
-    downloadProcessed() {
+    async downloadProcessed() {
         if (!this.processedImage) return;
+
+        // Load file-saver only when needed
+        await this.scriptLoader.load(['file-saver']);
 
         if (this.selectedBgColor === 'transparent') {
             // Download as transparent PNG
@@ -418,6 +501,57 @@ export class RemoveBgComponent implements OnInit {
             }, 'image/png');
         };
         img.src = this.processedImage!;
+    }
+
+    examples = [
+        { original: 'assets/examples/product.webp', processed: 'assets/examples/product_nobg.webp', name: 'Product Example' },
+        { original: 'assets/examples/portrait.webp', processed: 'assets/examples/portrait_nobg.webp', name: 'Portrait Example' },
+        { original: 'assets/examples/sneaker_product.webp', processed: 'assets/examples/sneaker_product_nobg.webp', name: 'Sneaker Product Example' },
+        { original: 'assets/examples/lightingGirl.webp', processed: 'assets/examples/lightingGirl_nobg.webp', name: 'Lighting Girl Example' },
+        { original: 'assets/examples/shadowMan.webp', processed: 'assets/examples/shadowMan_nobg.webp', name: 'Shadow Man Example' },
+        { original: 'assets/examples/friendsGroup.webp', processed: 'assets/examples/friendsGroup_nobg.webp', name: 'Friends Group Example' }
+    ];
+
+    sliderValues: { [key: number]: number } = {};
+
+    updateSlider(event: Event, index: number) {
+        const input = event.target as HTMLInputElement;
+        this.sliderValues[index] = Number(input.value);
+    }
+
+    async loadExample(example: any) {
+        try {
+            // Load original image
+            const originalResponse = await fetch(example.original);
+            const originalBlob = await originalResponse.blob();
+            this.originalImage = await this.blobToBase64(originalBlob);
+            this.originalFileName = example.name + '.jpg';
+
+            // Load processed image
+            const processedResponse = await fetch(example.processed);
+            const processedBlob = await processedResponse.blob();
+            this.processedImage = await this.blobToBase64(processedBlob);
+
+            this.selectedBgColor = 'transparent';
+            this.error = '';
+            this.cdr.detectChanges();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (error) {
+            console.error('Error loading example:', error);
+            this.error = 'Failed to load example image';
+            this.cdr.detectChanges();
+        }
+    }
+
+    private blobToBase64(blob: Blob): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
     }
 
     reset() {

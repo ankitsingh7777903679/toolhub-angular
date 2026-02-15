@@ -114,37 +114,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">PDF OCR - Extract Text from Scanned PDF Online</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">PDF OCR — Extract Text from Scanned PDFs</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Convert scanned PDF documents and images into editable text formats. 
-                    Our AI-powered OCR tool recognizes text from images and scanned pages with high accuracy.
+                    Got a PDF you can't copy text from? That usually means it's a scan or a photo saved as a PDF — the text is baked into an image, so there's nothing to select. This tool reads the text from those images using AI-powered OCR and gives you an editable result you can download as a Word doc, a text file, or a new PDF.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    It's powered by the Llama 4 Scout vision model, which handles complex layouts, tables, mixed fonts, and even reasonably clear handwriting. Each page gets processed individually, and you can watch the progress in real time as the text comes through.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Extract Text from PDF?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload File:</strong> Select your scanned PDF or image containing text.</li>
-                    <li><strong>Process:</strong> Our AI engine analyzes the document and identifies character patterns.</li>
-                    <li><strong>Review:</strong> See the extracted text on the screen instantly.</li>
-                    <li><strong>Download:</strong> Save the result as a TXT or Word file.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">What Kind of Documents Work?</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Scanned contracts, old book pages, photographed receipts, government forms, medical records — basically any PDF where the text exists as an image rather than selectable characters. The AI handles printed text with very high accuracy. Handwriting works too, though results are better with neat, legible writing. Multi-column documents, invoices with tables, and forms with boxes all come through in structured format.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use this OCR Tool?</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>AI Accuracy:</strong> Uses advanced machine learning (Llama 4 Scout) for superior text recognition.</li>
-                    <li><strong>Multi-Language Support:</strong> Capable of recognizing text in various languages.</li>
-                    <li><strong>Editable Output:</strong> Convert unreadable scans into fully editable Word documents.</li>
-                    <li><strong>100% Free:</strong> No subscription required for basic OCR tasks.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Download Options</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Once the OCR finishes, you can grab the extracted text in three formats. Plain text (.txt) gives you the raw content. Word (.docx) preserves headings and structure. PDF creates a new, searchable version of your document. Pick whichever fits your workflow — or download all three.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
                         <h3 class="font-bold text-gray-900 mb-2">Can it read handwriting?</h3>
-                        <p class="text-gray-600">It performs best with printed text, but clear handwriting can sometimes be recognized depending on quality.</p>
+                        <p class="text-gray-600">It handles neat, printed-style handwriting reasonably well. Highly cursive or messy writing may produce less accurate results. Best accuracy is with typed or clearly printed text.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Are my documents stored?</h3>
-                        <p class="text-gray-600">No, files are processed temporarily and are not permanently stored on our servers.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">How accurate is it?</h3>
+                        <p class="text-gray-600">For clean, high-resolution scans of printed text, accuracy is typically 95% or better. Lower-quality scans, faded text, or documents with busy backgrounds may see lower accuracy. Always review the output for critical documents.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Are my documents stored after processing?</h3>
+                        <p class="text-gray-600">No. Pages are rendered locally in your browser and sent to the OCR API one at a time. The server processes each image and returns the text immediately — nothing is stored permanently.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does it handle multi-page PDFs?</h3>
+                        <p class="text-gray-600">Yes — each page is processed one after another. You can see real-time progress as each page completes. All pages end up combined in a single output file.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">What languages does it support?</h3>
+                        <p class="text-gray-600">English, Hindi, Gujarati, and many other languages. The AI model works across Latin-based scripts and several Indic scripts. Accuracy is highest with English text.</p>
                     </div>
                 </div>
             </article>
@@ -181,6 +189,13 @@ export class PdfToWordComponent {
             keywords: 'pdf ocr, extract text from pdf, scanned pdf to text, image to text, online ocr, free ocr tool',
             url: 'https://2olhub.netlify.app/pdf/pdf-to-word'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can it read handwriting?', answer: 'It handles neat, printed-style handwriting reasonably well. Highly cursive or messy writing may produce less accurate results.' },
+            { question: 'How accurate is it?', answer: 'For clean, high-resolution scans of printed text, accuracy is typically 95% or better. Lower-quality scans may see lower accuracy. Always review the output for critical documents.' },
+            { question: 'Are my documents stored after processing?', answer: 'No. Pages are rendered locally in your browser and sent to the OCR API one at a time. Nothing is stored permanently.' },
+            { question: 'Does it handle multi-page PDFs?', answer: 'Yes — each page is processed one after another. You can see real-time progress as each page completes.' },
+            { question: 'What languages does it support?', answer: 'English, Hindi, Gujarati, and many other languages. Accuracy is highest with English text.' }
+        ]);
 
         await this.scriptLoader.load(['pdf-js', 'file-saver']);
     }

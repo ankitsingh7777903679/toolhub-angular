@@ -181,39 +181,70 @@
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Add Watermark - Protect Your Images Free</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Add Watermark to Images — Brand and Protect Your Work
+                </h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Add text or image watermarks to protect your photos and artwork. Customize position,
-                    opacity, and size to create professional watermarks instantly.
+                    If you've ever shared a photo online and found it reposted without credit — or worse, used by
+                    someone else commercially — you know why watermarks exist. They're not glamorous, but they work. A
+                    subtle watermark stamps your ownership on an image without ruining it for legitimate viewers, while
+                    making it useless for anyone trying to pass it off as their own.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    This tool gives you two options: text watermarks (your name, brand, copyright notice, "DRAFT,"
+                    whatever you want) or image watermarks (upload your logo as a PNG with a transparent background and
+                    it overlays cleanly). You can control the size, opacity, color, position, and angle. If you really
+                    want to lock things down, the tile option repeats the watermark diagonally across the entire image
+                    so nobody can crop it out.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Add Watermark?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload Image:</strong> Drag and drop or click to browse.</li>
-                    <li><strong>Choose Type:</strong> Select text or image watermark.</li>
-                    <li><strong>Customize:</strong> Set position, opacity, size, and color.</li>
-                    <li><strong>Download:</strong> Save your watermarked image.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Finding the Right Opacity</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    This is the part people struggle with most — too visible and it distracts from the image, too subtle
+                    and someone can easily edit it out. For client proofs and portfolio sharing, somewhere around 20-40%
+                    opacity usually works well. It's visible enough to establish ownership but doesn't destroy the
+                    viewing experience. For DRAFT labels on internal documents, go heavier — 50-70% so there's no
+                    ambiguity.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Watermark Options</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Text Watermark:</strong> Add custom text with any font size and color.</li>
-                    <li><strong>Logo Watermark:</strong> Upload your logo or brand image.</li>
-                    <li><strong>Tile Pattern:</strong> Repeat watermark across entire image.</li>
-                    <li><strong>Privacy First:</strong> All processing in your browser.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Privacy First</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    All watermarking happens in your browser — your images never leave your device. That's important for
+                    photographers sharing client proofs or anyone working with images they'd rather not upload to a
+                    random server. The processing uses the Canvas API locally, so there's genuinely no server involved.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I use my own logo?</h3>
-                        <p class="text-gray-600">Yes! Switch to Image mode and upload any PNG logo with transparency.
-                        </p>
+                        <h3 class="font-bold text-gray-900 mb-2">Can I use my own logo instead of text?</h3>
+                        <p class="text-gray-600">Yes — switch to Image mode and upload a PNG. Logos with transparent
+                            backgrounds work best since the transparency carries over. You can resize and position it
+                            just like text watermarks.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I position the watermark anywhere?</h3>
-                        <p class="text-gray-600">Yes! Choose from center, corners, or tile pattern for full coverage.
-                        </p>
+                        <h3 class="font-bold text-gray-900 mb-2">How do I stop someone from just cropping the watermark
+                            out?</h3>
+                        <p class="text-gray-600">Enable the tile option. It repeats the watermark in a diagonal grid
+                            across the entire image, so there's no clean area left to crop. Combined with medium
+                            opacity, it makes removal impractical without obviously damaging the image.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">What opacity setting looks professional without being
+                            obnoxious?</h3>
+                        <p class="text-gray-600">For portfolio/client proofs, 20-40% is the sweet spot — visible but not
+                            distracting. For "DRAFT" stamps on internal docs, go 50% or higher so there's no confusion.
+                            Experiment with the slider until it feels right for your use case.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does adding a watermark hurt image quality?</h3>
+                        <p class="text-gray-600">No — the watermark gets composited on top of the image at its full
+                            original resolution. The output file is the same dimensions and quality as your source. The
+                            watermark is an overlay, not a destructive edit.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Are my images uploaded anywhere?</h3>
+                        <p class="text-gray-600">No. Everything happens in your browser. Your photos stay on your device
+                            and nothing is transmitted to any server at any point.</p>
                     </div>
                 </div>
             </article>

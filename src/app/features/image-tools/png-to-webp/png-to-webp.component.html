@@ -122,9 +122,14 @@
 
                             @if (file.status === 'done') {
                             <button (click)="downloadOne(file)"
-                                class="w-full py-1.5 bg-gray-900 text-white text-xs font-bold rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+                                class="w-full py-1.5 bg-gray-900 text-white text-xs font-bold rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 mb-2">
                                 <i class="fa-solid fa-download"></i> Download
                             </button>
+
+                            <app-send-to-tool [hasOutput]="true" [currentRoute]="currentRoute"
+                                [outputData]="file.convertedUrl || ''" [fileName]="file.name" [fileType]="'image'"
+                                [size]="'small'">
+                            </app-send-to-tool>
                             } @else {
                             <div class="h-7 flex items-center justify-center">
                                 <span class="text-xs text-gray-400 font-medium">{{ (file.file.size / 1024).toFixed(1) }}
@@ -149,37 +154,71 @@
 
         <!-- Instructions / SEO Content -->
         <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-            <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert PNG to WebP - Smaller Size, Same Quality</h1>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">PNG to WebP — Smaller Files, Same Quality, Same
+                Transparency</h2>
             <p class="text-gray-600 mb-8 leading-relaxed">
-                Convert your PNG images to the modern WebP format. WebP offers superior compression for images on the
-                web, drastically reducing file sizes while maintaining transparency and quality.
+                PNGs are fantastic for quality and transparency, but they're big. If you're running a website with
+                dozens of PNG images — icons, logos, product photos with transparent backgrounds — those file sizes add
+                up fast and directly hurt your page load time. WebP gives you the same visual quality and full
+                transparency support in a file that's typically 25-35% smaller. For photographs saved as PNG, the
+                savings can hit 50% or more.
+            </p>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Every major browser supports WebP now — Chrome, Firefox, Safari (since version 14), Edge, Opera. The
+                compatibility concern that kept people on PNG for years is basically gone. This converter lets you drag
+                in your PNGs, hit convert, and download WebP versions instantly. You can batch-convert as many as you
+                want — everything runs in your browser, so your images stay on your device.
             </p>
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert PNG to WebP?</h2>
-            <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                <li><strong>Upload Files:</strong> Drag and drop PNG images or browse.</li>
-                <li><strong>Batch Convert:</strong> Processing multiple images at once is supported.</li>
-                <li><strong>Convert:</strong> Click 'Convert to WebP' to start.</li>
-                <li><strong>Download:</strong> Save WebP files individually or as a ZIP archive.</li>
-            </ol>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Why Your Website Cares About This</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Google's Core Web Vitals literally measure how fast your images load. Largest Contentful Paint (LCP) is
+                one of the three key metrics, and oversized images are the most common reason it's slow. Switching from
+                PNG to WebP across your site is one of the easiest performance wins you can get — minimal effort,
+                measurable improvement. If you're running a WordPress site, Shopify store, or any web app with lots of
+                imagery, this conversion pays for itself in better page speed scores.
+            </p>
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use WebP?</h2>
-            <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                <li><strong>Smaller File Sizes:</strong> WebP images are 26% smaller than PNGs.</li>
-                <li><strong>Faster Loading:</strong> Smaller images mean faster website load times.</li>
-                <li><strong>Transparency Support:</strong> Unlike JPG, WebP supports transparent backgrounds.</li>
-                <li><strong>High Quality:</strong> Keep your image details sharp.</li>
-            </ul>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Lossless by Default</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                The converter uses lossless WebP compression, which means the output is pixel-identical to your original
+                PNG. No quality is lost — you're just getting better compression. WebP also supports lossy compression
+                for even smaller sizes, but for PNG-to-WebP conversion where you want to preserve everything exactly,
+                lossless is the right choice.
+            </p>
 
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-900 mb-2">Does WebP support transparency?</h3>
-                    <p class="text-gray-600">Yes! WebP fully supports transparency (alpha channel), just like PNG.</p>
+                    <h3 class="font-bold text-gray-900 mb-2">Will my transparent backgrounds survive the conversion?
+                    </h3>
+                    <p class="text-gray-600">Yes — WebP has full alpha channel support, just like PNG. Your transparent
+                        areas, semi-transparent gradients, and rounded edges all carry over perfectly. This is one of
+                        WebP's big advantages over JPG.</p>
                 </div>
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-900 mb-2">Is it free?</h3>
-                    <p class="text-gray-600">Yes, this tool is 100% free and unlimited.</p>
+                    <h3 class="font-bold text-gray-900 mb-2">Can older browsers display WebP?</h3>
+                    <p class="text-gray-600">Safari added WebP support in version 14 (2020), and every other major
+                        browser has supported it for years. Overall browser support is above 97% of global users. Unless
+                        you're specifically targeting very old devices, WebP is safe to use everywhere.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">How much smaller will my files actually be?</h3>
+                    <p class="text-gray-600">For typical PNG images, expect 25-35% smaller files. For photographs that
+                        were saved as PNG (which happens more often than you'd think), the savings can be 50% or higher
+                        since WebP handles photographic content especially efficiently.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Is there any quality loss?</h3>
+                    <p class="text-gray-600">None. The converter uses lossless WebP compression, which produces
+                        pixel-identical output to your original PNG. The file is smaller purely because WebP's
+                        compression algorithm is more efficient — no data is discarded.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Are my images uploaded anywhere?</h3>
+                    <p class="text-gray-600">No — the conversion happens entirely in your browser using the Canvas API.
+                        Your files never leave your device. This makes it safe for converting proprietary or
+                        confidential images.</p>
                 </div>
             </div>
         </article>

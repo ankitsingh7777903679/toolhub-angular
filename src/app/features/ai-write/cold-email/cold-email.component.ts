@@ -20,6 +20,12 @@ export class ColdEmailComponent {
             keywords: 'cold email generator, ai email writer, cold email outreach, sales outreach automation, personalized cold emails, automated email campaigns, email marketing tool, free cold email template',
             url: 'https://2olhub.netlify.app/write/cold-email'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'What actually makes a cold email work?', answer: 'Keep it short — 3-5 sentences max. Lead with something specific about them (not about you), explain your value in one line, and end with a clear ask. The AI follows this structure.' },
+            { question: 'How do I make it sound less generic?', answer: 'After generating, replace the bracketed placeholders with real details — their name, company, a recent achievement, or a specific problem you can solve. That\'s what turns a template into a real email.' },
+            { question: 'Can it write follow-up emails too?', answer: 'Absolutely. Just say something like "write a follow-up email after no response to my initial pitch about X." It\'ll keep the context and adjust the tone.' },
+            { question: 'Does it work for industries outside tech?', answer: 'Yes — real estate, consulting, healthcare, SaaS, agencies, you name it. Describe your industry and product in the prompt and the output adapts.' }
+        ]);
     }
 
     config = {
@@ -32,27 +38,27 @@ export class ColdEmailComponent {
         iconColor: '#EC4899',
         bgColor: '#FCE7F3',
         // SEO Content
-        seoTitle: 'Free AI Cold Email Generator - Write Emails That Get Replies',
-        seoIntro: 'Create compelling cold emails for sales outreach, business development, and networking. Our AI crafts personalized, professional emails that boost your response rates.',
+        seoTitle: 'AI Cold Email Generator — Write Outreach That Gets Replies',
+        seoIntro: 'Writing cold emails is painful. You agonize over every word, second-guess the subject line, and still end up with something that sounds like every other sales pitch in their inbox. This tool gives you a solid draft in seconds — personalized, concise, and structured the way high-converting emails actually work.',
         features: [
-            { icon: 'fa-solid fa-bullseye', title: 'High-Converting', description: 'Emails designed to maximize open and reply rates.' },
-            { icon: 'fa-solid fa-user-tie', title: 'Professional Tone', description: 'Polished, business-appropriate language.' },
-            { icon: 'fa-solid fa-handshake', title: 'Personalization', description: 'Easily customize for specific prospects.' },
-            { icon: 'fa-solid fa-clock', title: 'Save Hours', description: 'Generate dozens of emails in minutes.' },
-            { icon: 'fa-solid fa-chart-line', title: 'Proven Templates', description: 'Based on high-performing email structures.' },
-            { icon: 'fa-solid fa-edit', title: 'Easy to Customize', description: 'Quick copy and personalize workflow.' }
+            { icon: 'fa-solid fa-bullseye', title: 'Gets to the Point', description: 'Short, focused emails that respect the reader\'s time.' },
+            { icon: 'fa-solid fa-user-tie', title: 'Sounds Professional', description: 'Business-appropriate without being stiff or robotic.' },
+            { icon: 'fa-solid fa-handshake', title: 'Easy to Personalize', description: 'Swap in prospect details and make it yours in 30 seconds.' },
+            { icon: 'fa-solid fa-clock', title: 'Saves Hours', description: 'Stop staring at Gmail — generate dozens of variations quickly.' },
+            { icon: 'fa-solid fa-chart-line', title: 'Proven Structure', description: 'Hook, value prop, call-to-action — the format that works.' },
+            { icon: 'fa-solid fa-edit', title: 'Tweak and Send', description: 'Copy, customize a few lines, and hit send.' }
         ],
         useCases: [
-            'Sales teams doing prospect outreach',
-            'Recruiters reaching out to candidates',
-            'Freelancers pitching new clients',
-            'Startups seeking partnerships or investors'
+            'Sales reps who send 50+ cold emails a week and need fresh angles',
+            'Recruiters reaching out to candidates who ignore generic InMails',
+            'Freelancers pitching potential clients without sounding desperate',
+            'Founders reaching out to investors or potential partners'
         ],
         faqs: [
-            { question: 'What makes a cold email effective?', answer: 'Effective cold emails are personalized, concise, offer clear value to the recipient, and include a specific call-to-action. Our AI incorporates these best practices.' },
-            { question: 'How do I personalize the generated email?', answer: 'Replace placeholder text with specific details about your prospect - their name, company, recent achievements, or pain points you can address.' },
-            { question: 'Can I generate follow-up emails?', answer: 'Yes! Just specify in your prompt that you need a follow-up email and mention the context of your initial outreach.' },
-            { question: 'Will this work for any industry?', answer: 'Absolutely. Describe your industry, product/service, and target audience in your prompt for industry-specific results.' }
+            { question: 'What actually makes a cold email work?', answer: 'Keep it short — 3-5 sentences max. Lead with something specific about them (not about you), explain your value in one line, and end with a clear ask. The AI follows this structure.' },
+            { question: 'How do I make it sound less generic?', answer: 'After generating, replace the bracketed placeholders with real details — their name, company, a recent achievement, or a specific problem you can solve. That\'s what turns a template into a real email.' },
+            { question: 'Can it write follow-up emails too?', answer: 'Absolutely. Just say something like "write a follow-up email after no response to my initial pitch about X." It\'ll keep the context and adjust the tone.' },
+            { question: 'Does it work for industries outside tech?', answer: 'Yes — real estate, consulting, healthcare, SaaS, agencies, you name it. Describe your industry and product in the prompt and the output adapts.' }
         ]
     };
 }

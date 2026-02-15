@@ -55,6 +55,13 @@ export class ImageCompressorComponent implements OnInit {
             keywords: 'compress image, reduce image size, image optimizer, online image compressor, shrink image size, free photo compressor',
             url: 'https://2olhub.netlify.app/image/compress'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Will I actually see a quality difference?', answer: 'At 60% quality and above, most people can\'t tell the difference. Start around 75% and see if it looks good to you.' },
+            { question: 'How much smaller will my files get?', answer: 'Photos compress well — expect 60-80% reduction. Flat graphics compress less aggressively, more like 30-50%.' },
+            { question: 'Does this change my image\'s resolution or dimensions?', answer: 'No. Compression only affects how pixel data is stored — it doesn\'t resize anything.' },
+            { question: 'What formats are supported?', answer: 'JPG, PNG, and WebP. The output stays in whatever format the original was.' },
+            { question: 'Is there a limit on how many images I can compress?', answer: 'No limits at all — no file count cap, no size restriction, no daily quota. Completely free and unlimited.' }
+        ]);
 
         // Check if there's an image from another tool
         if (this.workspaceService.hasFile()) {

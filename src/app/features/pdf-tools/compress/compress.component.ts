@@ -134,37 +134,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Compress PDF to Reduce File Size Online</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Compress PDF to Reduce File Size Online</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Optimize your PDF files for free. Our online PDF compressor reduces file size while maintaining the highest possible quality.
-                    Perfect for emailing large documents or saving storage space.
+                    Ever tried emailing a PDF and got hit with a "file too large" bounce? It's annoying, especially when the PDF is mostly text with a few images. This tool shrinks your PDF by re-compressing the images inside it — the text stays perfectly sharp. You control how aggressively it compresses via a simple slider.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    The whole thing runs in your browser. Your PDF doesn't go to a server, which is nice if you're working with contracts, financial statements, or anything you'd rather keep private. You can see the estimated new file size before you even download.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Compress a PDF?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload PDF:</strong> Click to select a file or drag and drop it into the upload box.</li>
-                    <li><strong>Choose Compression:</strong> Use the slider to balance between file size and quality.</li>
-                    <li><strong>Compress:</strong> Click the "Compress PDF" button to start the optimization.</li>
-                    <li><strong>Download:</strong> Get your smaller PDF file instantly.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">How the Compression Works</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Here's what happens under the hood: the tool extracts every image embedded in your PDF, re-encodes them at a lower quality level, and puts them back. Text, fonts, and vector graphics are never touched — they pass through untouched. At low compression you'll barely notice any difference but might save 20–40%. Crank it up and image-heavy PDFs can shrink by 60–90%. Text-only documents won't change much since text data is already tiny.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Features</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Smart Compression:</strong> Advanced algorithms to reduce size without noticeable quality loss.</li>
-                    <li><strong>Privacy First:</strong> Files are processed securely and deleted automatically.</li>
-                    <li><strong>Fast & Free:</strong> No limits, no watermarks, and high-speed processing.</li>
-                    <li><strong>Cross-Platform:</strong> Works on any browser, Windows, Mac, or Linux.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">When Compression Actually Helps</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    If your PDF is mostly text — like a contract or a code document — compression won't do much because text is already compact. Where it really shines is with scanned documents, photo-heavy reports, presentations exported to PDF, and brochures. Those are the files that balloon to 10, 20, even 50 MB. After compression, they're usually small enough to email without a second thought.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">How much can I reduce my PDF size?</h3>
-                        <p class="text-gray-600">It depends on the file content, but often we can reduce file size by up to 80-90% for image-heavy PDFs.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">How much smaller will my PDF get?</h3>
+                        <p class="text-gray-600">It depends on what's in it. Scanned documents and presentation decks with lots of images can drop by 60–90%. A mostly-text contract might only shrink by 10–30%. The slider lets you preview the estimated size before you commit.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Is the quality affected?</h3>
-                        <p class="text-gray-600">We optimize images and remove unused data. For most documents, the visual difference is negligible.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Will the images look blurry?</h3>
+                        <p class="text-gray-600">At lower compression settings, you won't notice a difference. Higher compression will soften images somewhat, but text always stays crisp because it's not affected. Play with the slider to find the sweet spot for your needs.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is my PDF uploaded to a server?</h3>
+                        <p class="text-gray-600">No — compression happens entirely in your browser. Your file stays on your machine the whole time. When you close the tab, everything's cleared from memory.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I compress an encrypted PDF?</h3>
+                        <p class="text-gray-600">Not directly. You'll need to remove the password first using the Unlock PDF tool, then come back and compress the unlocked version.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I do multiple files at once?</h3>
+                        <p class="text-gray-600">Right now, it handles one PDF at a time — that way you get full control over each file's compression level. But each one processes in just a few seconds, so running through a batch is quick.</p>
                     </div>
                 </div>
             </article>
@@ -204,6 +212,13 @@ export class CompressComponent implements OnInit {
             keywords: 'compress pdf, reduce pdf size, shrink pdf, optimize pdf, online pdf compressor, free pdf tool',
             url: 'https://2olhub.netlify.app/pdf/compress'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'How much smaller will my PDF get?', answer: 'It depends on what\'s in it. Scanned documents and presentation decks with lots of images can drop by 60–90%. A mostly-text contract might only shrink by 10–30%. The slider lets you preview the estimated size before you commit.' },
+            { question: 'Will the images look blurry?', answer: 'At lower compression settings, you won\'t notice a difference. Higher compression will soften images somewhat, but text always stays crisp because it\'s not affected. Play with the slider to find the sweet spot for your needs.' },
+            { question: 'Is my PDF uploaded to a server?', answer: 'No — compression happens entirely in your browser. Your file stays on your machine the whole time. When you close the tab, everything\'s cleared from memory.' },
+            { question: 'Can I compress an encrypted PDF?', answer: 'Not directly. You\'ll need to remove the password first using the Unlock PDF tool, then come back and compress the unlocked version.' },
+            { question: 'Can I do multiple files at once?', answer: 'Right now, it handles one PDF at a time — that way you get full control over each file\'s compression level. But each one processes in just a few seconds, so running through a batch is quick.' }
+        ]);
 
         await this.scriptLoader.load(['pdf-lib', 'pdf-js', 'file-saver']);
 

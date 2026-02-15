@@ -93,6 +93,13 @@ export class ResizeImageComponent implements OnInit, AfterViewInit {
             keywords: 'resize image, online image resizer, photo resizer, change image size, crop image, resize for instagram',
             url: 'https://2olhub.netlify.app/image/resize'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Will making an image bigger hurt quality?', answer: 'Smaller preserves quality fully. Going bigger with standard resize introduces some softness, but AI upscale reconstructs detail instead of just stretching.' },
+            { question: 'What\'s the difference between Stretch, Crop, and Fit?', answer: 'Stretch fills the target size but can distort. Crop scales to fill and trims overflow. Fit scales inside the frame with background padding — nothing lost.' },
+            { question: 'Can I position where the image sits in the frame?', answer: 'Yes — in Crop and Fit modes, you can drag the image to choose exactly which part is visible or how it\'s positioned.' },
+            { question: 'What formats does this support?', answer: 'JPG, PNG, and WebP for both input and output. The resized file comes out in the same format as the original.' },
+            { question: 'Is there a max image size?', answer: 'No hard limit — it handles whatever your browser can manage. Very large images might take a few extra seconds.' }
+        ]);
 
         // Check if there's an image from another tool
         if (this.workspaceService.hasFile()) {

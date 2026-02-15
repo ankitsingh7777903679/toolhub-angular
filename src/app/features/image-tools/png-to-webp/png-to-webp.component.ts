@@ -50,6 +50,13 @@ export class PngToWebpComponent implements OnInit {
             keywords: 'png to webp, convert png to webp, image converter, online webp converter, free image converter, png converter, reduce image size',
             url: 'https://2olhub.netlify.app/image/png-to-webp'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Will my transparent backgrounds survive the conversion?', answer: 'Yes — WebP has full alpha channel support, just like PNG. Transparent areas and semi-transparent gradients carry over perfectly.' },
+            { question: 'Can older browsers display WebP?', answer: 'Browser support is above 97% of global users. Unless targeting very old devices, WebP is safe to use everywhere.' },
+            { question: 'How much smaller will my files actually be?', answer: 'For typical PNGs, expect 25-35% smaller. Photos saved as PNG can see 50%+ savings since WebP handles photographic content efficiently.' },
+            { question: 'Is there any quality loss?', answer: 'None. The converter uses lossless WebP compression — pixel-identical output to your original PNG.' },
+            { question: 'Are my images uploaded anywhere?', answer: 'No — conversion happens entirely in your browser using the Canvas API. Your files never leave your device.' }
+        ]);
 
         // Tool Chaining - Handle incoming files
         if (this.workspaceService.hasFile()) {
@@ -182,8 +189,9 @@ export class PngToWebpComponent implements OnInit {
             img.onload = () => {
                 try {
                     const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
+                    // Use naturalWidth/Height to get actual pixel dimensions
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
 
                     const ctx = canvas.getContext('2d');
                     if (!ctx) {
@@ -191,11 +199,11 @@ export class PngToWebpComponent implements OnInit {
                         return;
                     }
 
-                    // Draw image
-                    ctx.drawImage(img, 0, 0);
+                    // Draw image at full original size
+                    ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
 
-                    // Convert to WebP with 0.8 quality
-                    const dataUrl = canvas.toDataURL('image/webp', 0.8);
+                    // Convert to WebP with lossless quality (1.0 = no quality loss)
+                    const dataUrl = canvas.toDataURL('image/webp', 1.0);
 
                     canvas.toBlob((blob) => {
                         if (blob) {
@@ -203,7 +211,7 @@ export class PngToWebpComponent implements OnInit {
                         } else {
                             reject(new Error('Blob creation failed'));
                         }
-                    }, 'image/webp', 0.8);
+                    }, 'image/webp', 1.0);
 
                 } catch (error) {
                     reject(error);

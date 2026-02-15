@@ -36,11 +36,17 @@ export class ImageToCsvComponent implements OnInit {
 
     ngOnInit(): void {
         this.seoService.updateSeo({
-            title: 'Convert Image to CSV Online - Free Table Extractor',
-            description: 'Convert images (JPG, PNG) containing tables to CSV format online. Extract tabular data from images using OCR. Free image to CSV converter.',
-            keywords: 'image to csv, extract table from image, ocr table, image converter, online csv converter, table extraction',
+            title: 'Image to CSV — Pull Table Data Out of Photos and Screenshots',
+            description: 'Upload a photo of a table, receipt, or register and the AI extracts the data into a CSV. Beats retyping everything by hand.',
+            keywords: 'image to csv, photo to csv, extract table from image, screenshot to spreadsheet, ocr table data',
             url: 'https://2olhub.netlify.app/file/image-to-csv'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'What kind of images work best?', answer: 'Clear, well-lit photos with visible table lines work great. JPG, PNG, WebP, and BMP are all supported. The sharper the image, the better the results — blurry photos from across the room won\'t cut it.' },
+            { question: 'Will it read my handwriting?', answer: 'If the handwriting is reasonably neat and the photo is clear, yes. Think printed-style handwriting, not cursive notes. The AI does its best, but you\'ll want to double-check the output for handwritten content.' },
+            { question: 'How accurate is it really?', answer: 'For clear, printed tables it\'s very accurate — you usually won\'t need to fix anything. Handwritten content or low-quality scans might need some cleanup. It\'s always worth a quick review before importing the data anywhere important.' },
+            { question: 'What about my privacy?', answer: 'The image gets sent to the AI for processing (that part does require a server), but it\'s not stored after extraction. Once you\'ve got your CSV, the image data is discarded.' }
+        ]);
     }
 
     onDragOver(event: DragEvent): void {

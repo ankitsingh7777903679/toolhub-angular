@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
             <button 
                 class="send-btn"
                 [class.open]="isOpen"
+                [class.btn-small]="size === 'small'"
                 (click)="toggleDropdown($event)">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span>Send to Tool</span>
@@ -101,6 +102,14 @@ import { Router } from '@angular/router';
                 background: linear-gradient(135deg, #EA580C, #F97316);
             }
 
+            &.btn-small {
+                padding: 6px 12px;
+                font-size: 12px;
+                border-radius: 8px;
+                background: linear-gradient(135deg, #F97316, #FB923C); /* Keep gradient or adjust */
+                box-shadow: 0 2px 6px rgba(249, 115, 22, 0.2);
+            }
+
             .chevron {
                 font-size: 12px;
                 transition: transform 0.2s ease;
@@ -184,6 +193,7 @@ export class SendToToolComponent {
     @Input() outputData: string = '';
     @Input() fileName: string = '';
     @Input() fileType: 'image' | 'pdf' = 'image';
+    @Input() size: 'normal' | 'small' = 'normal';
 
     isOpen = false;
     imageTools: ToolInfo[] = [];

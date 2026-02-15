@@ -49,6 +49,13 @@ export class JpgToPngComponent implements OnInit {
             keywords: 'jpg to png, convert jpg to png, image converter, online png converter, free image converter, change image format',
             url: 'https://2olhub.netlify.app/image/jpg-to-png'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Will converting to PNG magically fix a blurry JPG?', answer: 'No. Existing compression artifacts are baked into the pixel data. Converting preserves them as-is — no quality loss, but no quality gain either.' },
+            { question: 'I need the background removed, not just converted. Can this do that?', answer: 'This tool converts format only. Converting to PNG enables transparency support, but won\'t remove the background. Use the Remove Background tool for that.' },
+            { question: 'Can I convert a whole folder at once?', answer: 'Yes — select or drag in multiple files at once. They all convert simultaneously with no cap on quantity.' },
+            { question: 'Do my images get uploaded somewhere?', answer: 'No — nothing leaves your browser. The conversion uses the Canvas API locally, so your files never touch a server.' },
+            { question: 'When should I stick with JPG instead?', answer: 'If file size matters (blog, email, social media), JPG is usually smarter. PNG shines for graphics, screenshots, logos, and anything needing transparency.' }
+        ]);
 
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();

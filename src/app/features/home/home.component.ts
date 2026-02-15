@@ -50,28 +50,28 @@ export class HomeComponent implements OnInit {
     // FAQ Data
     faqs: FaqItem[] = [
         {
-            question: "Is 2olhub completely free to use?",
-            answer: "Most of our tools are 100% free and unlimited for everyone. We also offer specific premium tools and features for power users who need advanced capabilities, higher limits, and priority processing.",
+            question: "Wait, is this actually free? What's the catch?",
+            answer: "No catch — the tools are genuinely free. You don't need to create an account, there are no daily limits on most tools, and we don't slap watermarks on your output. We keep the lights on with ads and optional premium features, but the core tools? Completely free, always.",
             isOpen: true
         },
         {
-            question: "Do you store my uploaded files?",
-            answer: "No, we prioritize your privacy. Most files are processed directly in your browser. For server-side tools, your files are deleted immediately after processing. We do not store or share your content.",
+            question: "What happens to my files after I use a tool?",
+            answer: "For most tools, nothing goes anywhere — your files are processed right in your browser and never leave your device. For the few tools that need server processing (like AI background removal), your file is sent over an encrypted connection, processed in memory, and deleted the second the result is ready. We don't store, log, or look at anything.",
             isOpen: false
         },
         {
-            question: "How can I suggest a new tool?",
-            answer: "We love community feedback! You can visit our Feedback page to suggest new tools or vote on existing requests. We regularly build tools based on user demand.",
+            question: "I have an idea for a tool you should build. Where do I tell you?",
+            answer: "Head to the Feedback page — there's a form where you can describe what you need. We actually read every submission and build tools based on what people ask for most. Some of our most popular tools started as user suggestions.",
             isOpen: false
         },
         {
-            question: "Is my data secure?",
-            answer: "Yes. We use industry-standard encryption for data transfer. Since we don't store your files, the risk of data breach is minimized by design.",
+            question: "Should I worry about uploading sensitive documents here?",
+            answer: "Most tools run entirely in your browser, so your files literally never leave your computer. For the few that need server-side processing, data is encrypted in transit and deleted from memory immediately after. There's no database storing your files, no employee with access to them — the architecture simply doesn't allow it.",
             isOpen: false
         },
         {
-            question: "What if I encounter a bug?",
-            answer: "Please let us know immediately via the Feedback page. Our team monitors reports 24/7 and we usually fix critical bugs within hours.",
+            question: "Something broke — how do I report it?",
+            answer: "Bugs happen, and we want to hear about them. Go to the Feedback page and describe what went wrong — which tool, what you were trying to do, and what happened instead. Screenshots help a lot. We usually patch critical issues within hours of a report.",
             isOpen: false
         }
     ];
@@ -598,6 +598,35 @@ export class HomeComponent implements OnInit {
             title: '2olhub - Free Online Tools to Make Everything Simple',
             description: 'Free online tools for everyone. Merge PDF, Remove Background, AI Writing, and more. 100% free and unlimited options available.',
             keywords: 'free online tools, pdf tools, image editor, ai writer, 2olhub, student learning platform'
+        });
+
+        // WebSite + FAQPage JSON-LD
+        this.seoService.setJsonLd({
+            '@context': 'https://schema.org',
+            '@graph': [
+                {
+                    '@type': 'WebSite',
+                    'name': '2olhub',
+                    'url': 'https://2olhub.netlify.app/',
+                    'description': 'Free online tools for PDF, image editing, AI writing, and file conversion.',
+                    'potentialAction': {
+                        '@type': 'SearchAction',
+                        'target': 'https://2olhub.netlify.app/?q={search_term_string}',
+                        'query-input': 'required name=search_term_string'
+                    }
+                },
+                {
+                    '@type': 'FAQPage',
+                    'mainEntity': this.faqs.map(faq => ({
+                        '@type': 'Question',
+                        'name': faq.question,
+                        'acceptedAnswer': {
+                            '@type': 'Answer',
+                            'text': faq.answer
+                        }
+                    }))
+                }
+            ]
         });
 
         // For now, use sample tools. Later, fetch from API

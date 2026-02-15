@@ -31,11 +31,17 @@ export class JsonToExcelComponent implements OnInit {
 
     ngOnInit(): void {
         this.seoService.updateSeo({
-            title: 'Convert JSON to Excel Online - Free Data Converter',
-            description: 'Convert JSON data to Excel (XLSX) format online. Transform structured JSON into spreadsheets. Free and fast JSON to Excel converter.',
-            keywords: 'json to excel, convert json to xlsx, json converter, online excel converter, data transformation, json to xls',
+            title: 'JSON to Excel Converter — Make API Data Readable for Everyone',
+            description: 'Paste a JSON response or upload a file and get a clean Excel spreadsheet anyone can open. Perfect for sharing API data with non-technical teammates.',
+            keywords: 'json to excel, json to xlsx, api response to spreadsheet, convert json excel online, postman to excel',
             url: 'https://2olhub.netlify.app/file/json-to-excel'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'What kinds of JSON does it handle?', answer: 'Arrays of objects (the most common API response format), single objects, and nested structures. If it\'s valid JSON, it\'ll convert. If it\'s deeply nested, the converter flattens it using dot notation.' },
+            { question: 'What happens with nested objects like user > name > "Alice"?', answer: 'Nested keys get flattened with dots. So "user.name" becomes a column header with "Alice" as the value. It\'s the same convention tools like pandas use, so the output should feel familiar.' },
+            { question: 'Can I paste a Postman response directly?', answer: 'Yep. Copy the response body from Postman, Insomnia, or your browser\'s DevTools network tab and paste it in. As long as it\'s valid JSON, it\'ll work.' },
+            { question: 'Is there a size limit?', answer: 'No server limit since everything runs locally. Most API responses (even large ones) convert instantly. If you\'re pasting a 20MB JSON dump, it might take a moment, but it\'ll get there.' }
+        ]);
     }
 
     onDragOver(event: DragEvent): void {

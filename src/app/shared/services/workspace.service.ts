@@ -34,6 +34,7 @@ export class WorkspaceService {
         { name: 'PNG to JPG', route: '/image/png-to-jpg', icon: 'fa-solid fa-file-image', category: 'image', acceptsType: 'image', outputType: 'image' },
         { name: 'JPG to PNG', route: '/image/jpg-to-png', icon: 'fa-solid fa-file-image', category: 'image', acceptsType: 'image', outputType: 'image' },
         { name: 'WebP to JPG', route: '/image/webp-to-jpg', icon: 'fa-solid fa-file-image', category: 'image', acceptsType: 'image', outputType: 'image' },
+        { name: 'PNG to WebP', route: '/image/png-to-webp', icon: 'fa-solid fa-file-image', category: 'image', acceptsType: 'image', outputType: 'image' },
         { name: 'Remove Background', route: '/image/remove-bg', icon: 'fa-solid fa-eraser', category: 'image', acceptsType: 'image', outputType: 'image' },
         { name: 'Enhance Image', route: '/image/enhance', icon: 'fa-solid fa-wand-magic-sparkles', category: 'image', acceptsType: 'image', outputType: 'image' },
         { name: 'Add Watermark', route: '/image/watermark', icon: 'fa-solid fa-droplet', category: 'image', acceptsType: 'image', outputType: 'image' },

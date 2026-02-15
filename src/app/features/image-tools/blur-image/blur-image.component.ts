@@ -62,6 +62,13 @@ export class BlurImageComponent implements OnInit {
             keywords: 'blur image, online blur tool, blur face, privacy blur, image blur effect, free photo blur',
             url: 'https://2olhub.netlify.app/image/blur'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can I blur just part of the image, like a face?', answer: 'This tool blurs the entire image uniformly. For partial blur, crop the section, blur it separately, and layer it back.' },
+            { question: 'What\'s the difference between Gaussian blur and Pixelate?', answer: 'Gaussian blur blends pixels for a smooth, dreamy effect. Pixelate creates a mosaic look. Gaussian is better for artistic use; Pixelate is better for censoring.' },
+            { question: 'Does blurring shrink the image or reduce resolution?', answer: 'No — the output is the exact same resolution and dimensions as your original.' },
+            { question: 'Are my photos sent to a server?', answer: 'No. Everything runs locally in your browser using the Canvas API. Your images never leave your device.' },
+            { question: 'Which blur should I use to censor sensitive info?', answer: 'Pixelate at a high intensity is the standard for privacy redaction. It makes text and faces completely unrecognizable.' }
+        ]);
 
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();

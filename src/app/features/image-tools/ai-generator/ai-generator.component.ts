@@ -40,6 +40,13 @@ export class AiGeneratorComponent implements OnInit {
       keywords: 'ai image generator, text to image, free ai art generator, online image generator, create images with ai',
       url: 'https://2olhub.netlify.app/image/ai-generator'
     });
+    this.seoService.setFaqJsonLd([
+      { question: 'Is this actually free?', answer: 'Yes — no cost, no account required, no usage caps. Generate as many images as you want.' },
+      { question: 'Can I use these images commercially?', answer: 'Yes, the images you generate are yours. Use them for marketing, merchandise, publications, social media — whatever you need.' },
+      { question: 'Why does the same prompt give different results each time?', answer: 'The generation process includes a random seed, so every output is unique. If you don\'t love the first result, just run it again.' },
+      { question: 'How long does it take?', answer: 'Usually 5 to 15 seconds, depending on how busy the server is.' },
+      { question: 'What resolution do I get?', answer: 'High enough for social media, blog posts, and presentations. For most digital uses they\'re ready to go.' }
+    ]);
   }
 
   async generateImages(): Promise<void> {

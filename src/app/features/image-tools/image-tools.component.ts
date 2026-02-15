@@ -18,7 +18,7 @@ interface Tool {
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   template: `
-    <div class="min-h-screen bg-white">
+    <div class="min-h-screen bg-white dark:bg-slate-900">
         <!-- Header -->
         <div class="bg-gradient-to-r from-orange-500 to-orange-600 py-16">
             <div class="container mx-auto px-4 text-center">
@@ -30,14 +30,14 @@ interface Tool {
                 
                 <!-- Search Bar -->
                 <div class="w-full max-w-xl mx-auto px-4 md:px-0">
-                    <div class="bg-white rounded-full p-2 flex items-center shadow-lg">
+                    <div class="bg-white dark:bg-slate-800 rounded-full p-2 flex items-center shadow-lg">
                         <i class="fa-solid fa-magnifying-glass text-gray-400 ml-2 mr-2"></i>
                         <input 
                             type="text" 
                             [(ngModel)]="searchQuery" 
                             (input)="filterTools()"
                             placeholder="Search for an image tool..." 
-                            class="flex-1 outline-none text-gray-700 placeholder-gray-400 min-w-0 py-1">
+                            class="flex-1 outline-none text-gray-700 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 min-w-0 py-1 bg-transparent">
                         <button class="bg-orange-500 text-white px-5 py-2 rounded-full font-bold hover:bg-orange-600 transition-colors text-sm flex-shrink-0">
                             Search
                         </button>
@@ -52,20 +52,20 @@ interface Tool {
                 @for (tool of filteredTools; track tool.name) {
                 <a 
                     [routerLink]="tool.link"
-                    class="group block bg-white rounded-2xl p-6 border border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-between">
+                    class="group block bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 hover:border-orange-200 dark:hover:border-orange-500/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-between">
                     <div class="flex justify-between items-start mb-6">
                         <div 
                             class="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
                             [style.backgroundColor]="tool.bgColor">
                             <i [class]="tool.icon + ' text-2xl'" [style.color]="tool.iconColor"></i>
                         </div>
-                        <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-orange-50 transition-colors">
-                            <i class="fa-solid fa-arrow-right text-gray-400 group-hover:text-orange-600 text-sm transition-colors"></i>
+                        <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-slate-700 flex items-center justify-center group-hover:bg-orange-50 dark:group-hover:bg-orange-900/30 transition-colors">
+                            <i class="fa-solid fa-arrow-right text-gray-400 dark:text-slate-500 group-hover:text-orange-600 dark:group-hover:text-orange-400 text-sm transition-colors"></i>
                         </div>
                     </div>
                     <div>
-                        <h3 class="font-bold text-gray-900 text-lg mb-2 group-hover:text-orange-600 transition-colors">{{ tool.name }}</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">{{ tool.description }}</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">{{ tool.name }}</h3>
+                        <p class="text-gray-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-2">{{ tool.description }}</p>
                     </div>
                 </a>
                 }
@@ -77,6 +77,24 @@ interface Tool {
                 }
             </div>
         </div>
+
+        <!-- SEO Content -->
+        <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl pb-16">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Free Online Image Editing and Conversion Tools</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                2olhub provides a powerful collection of free image tools that help you edit, convert, compress, and transform your images without any software installation. From simple format conversions like JPG to PNG or WebP to JPG, to advanced AI-powered features like background removal and image enhancement, every tool you need is available right in your browser.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200 mb-4">Convert, Compress, and Edit Images Instantly</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                Need to convert images between formats for web optimization? Our converters handle JPG, PNG, and WebP conversions with zero quality loss. Need to reduce file sizes for faster website loading or email attachments? Our image compressor can shrink files by up to 80% while maintaining visual clarity. You can also crop, resize, rotate, blur, and watermark images — all with real-time previews and batch processing support for handling multiple files at once.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200 mb-4">AI-Powered Image Tools</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                Take your images further with AI. Our AI Image Generator creates stunning visuals from text descriptions. The AI Image Enhancer uses deep learning to upscale and sharpen blurry or low-resolution photos. And our Remove Background tool uses advanced machine learning to automatically detect and remove backgrounds from any image — perfect for product photography, profile pictures, and design projects. All AI tools are free to use with no watermarks or hidden fees.
+            </p>
+        </article>
     </div>
     `
 })

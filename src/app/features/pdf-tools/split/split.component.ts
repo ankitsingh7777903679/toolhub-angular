@@ -78,6 +78,13 @@ export class SplitComponent implements OnInit {
             keywords: 'split pdf, extract pdf pages, separate pdf, cut pdf, split pdf online, free pdf splitter',
             url: 'https://2olhub.netlify.app/pdf/split'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can I grab just one page from a long PDF?', answer: 'Yes — click the thumbnail of the page you want, choose "Merge into Single PDF" mode, and hit Split. You\'ll get a one-page PDF with just that page.' },
+            { question: 'What about custom page ranges?', answer: 'Open Advanced Options and switch to "Custom Ranges" mode. Type something like "1-5, 8, 10-15" and each range becomes its own separate PDF. Handy for splitting a document into chapters.' },
+            { question: 'Is there a page limit?', answer: 'No hard limit. Since it runs in your browser, it depends on your device\'s memory. Documents with a few hundred pages work fine for most people. Very large files might be slower on older machines.' },
+            { question: 'Does splitting change the quality of my pages?', answer: 'No — splitting extracts the original pages without re-encoding anything. Text, images, fonts, and formatting come through exactly as they are in the original file.' },
+            { question: 'Can I split a password-protected PDF?', answer: 'Not directly. You\'ll need to unlock it first using the Unlock PDF tool on this site, then come back and split the unlocked version.' }
+        ]);
 
         // Load required scripts dynamically
         await this.scriptLoader.load(['pdf-lib', 'pdf-js', 'jszip', 'file-saver']);

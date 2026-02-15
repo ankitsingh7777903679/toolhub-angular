@@ -45,6 +45,13 @@ export class RotateImageComponent implements OnInit {
             keywords: 'rotate image, online photo rotator, rotate picture, change image orientation, free image rotator, flip image',
             url: 'https://2olhub.netlify.app/image/rotate'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can I straighten a photo that\'s just slightly tilted?', answer: 'That\'s exactly what the angle slider is for. Drag it to 2°, 3°, whatever looks right — it goes in single-degree steps.' },
+            { question: 'Does rotating hurt the image quality?', answer: 'The output is saved as a lossless PNG, so no — quality is fully preserved with high-quality interpolation.' },
+            { question: 'What happens to the image size at weird angles?', answer: 'At angles other than 90° or 180°, the canvas expands to fit the full rotated image — nothing gets cut off.' },
+            { question: 'Can I rotate and flip the same photo?', answer: 'Yes, you can combine any rotation with horizontal or vertical flips. Everything gets applied together in the final download.' },
+            { question: 'Do my images get uploaded to a server?', answer: 'Nope. All rotation and flipping happens entirely in your browser using the Canvas API.' }
+        ]);
 
         await this.scriptLoader.load(['file-saver']);
 

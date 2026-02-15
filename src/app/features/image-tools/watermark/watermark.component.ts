@@ -60,6 +60,13 @@ export class WatermarkComponent implements OnInit {
             keywords: 'add watermark to image, watermark photo, online watermark tool, protect images, free image watermarker, text watermark',
             url: 'https://2olhub.netlify.app/image/watermark'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can I use my own logo instead of text?', answer: 'Yes — switch to Image mode and upload a PNG. Logos with transparent backgrounds work best.' },
+            { question: 'How do I stop someone from just cropping the watermark out?', answer: 'Enable the tile option. It repeats the watermark in a diagonal grid across the entire image, making removal impractical.' },
+            { question: 'What opacity setting looks professional without being obnoxious?', answer: 'For portfolio/client proofs, 20-40% is the sweet spot. For DRAFT stamps, go 50% or higher.' },
+            { question: 'Does adding a watermark hurt image quality?', answer: 'No — the watermark is composited on top at full original resolution. It\'s an overlay, not a destructive edit.' },
+            { question: 'Are my images uploaded anywhere?', answer: 'No. Everything happens in your browser. Your photos stay on your device.' }
+        ]);
 
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();

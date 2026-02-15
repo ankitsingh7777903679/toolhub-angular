@@ -98,6 +98,13 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
             keywords: 'crop image, online photo cropper, image cropper, resize and crop, free image cropper',
             url: 'https://2olhub.netlify.app/image/crop'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Will cropping make my image blurry or lower quality?', answer: 'Not at all. The cropped region is exported at the exact same pixel resolution as the original — no quality loss.' },
+            { question: 'What if I need a custom size that\'s not in the presets?', answer: 'Pick the freeform option and drag the crop box to any shape you want. There\'s no restriction on dimensions.' },
+            { question: 'Which ratio works best for Instagram?', answer: '1:1 for square posts, 4:5 portrait for more feed space, 9:16 for Stories and Reels.' },
+            { question: 'What formats can I crop?', answer: 'JPG, PNG, and WebP all work. The output saves as PNG to preserve quality and transparency.' },
+            { question: 'Does this upload my photos anywhere?', answer: 'No. Everything is processed locally in your browser. Your images never leave your device.' }
+        ]);
 
         // Check if there's an image from another tool
         if (this.workspaceService.hasFile()) {

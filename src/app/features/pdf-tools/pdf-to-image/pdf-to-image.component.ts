@@ -100,37 +100,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert PDF to Image (JPG & PNG) Online</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Convert PDF to Image (JPG & PNG) Online</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Extract pages from PDF files and save them as high-quality JPG or PNG images. 
-                    Free online converter with no registration required. Ideal for sharing visual content from documents.
+                    Need to turn a PDF page into an image you can paste into a presentation, share on social media, or insert into a document? This tool converts every page of your PDF into individual JPG or PNG images. Pick the format that suits you, choose a quality level, and download the pages you need.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    The rendering happens in your browser using pdf.js — nothing gets uploaded to a server. Each page shows up with its own download button, so you can grab just the pages you actually need instead of downloading the whole batch.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert PDF to JPG?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload PDF:</strong> Select your file from your computer or drag and drop it here.</li>
-                    <li><strong>Choose Format:</strong> Select JPG for smaller size or PNG for transparent quality.</li>
-                    <li><strong>Set Quality:</strong> Choose from High, Medium, or Low resolution options.</li>
-                    <li><strong>Convert:</strong> Click the button and download your images instantly.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">JPG or PNG — Which to Choose?</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Short answer: JPG for sharing, PNG for precision. JPG files are smaller, which makes them great for emailing, posting online, or dropping into a PowerPoint. PNG files are larger but lossless — every pixel is preserved. If you plan to edit the images later or need sharp text rendering for documentation, PNG is the better choice. For most casual uses, JPG works fine.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why choose this tool?</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>High Definition:</strong> Get crisp, clear images from your PDF pages.</li>
-                    <li><strong>Secure Processing:</strong> Files are processed locally or securely server-side and deleted.</li>
-                    <li><strong>Batch Conversion:</strong> Convert entire documents with multiple pages at once.</li>
-                    <li><strong>Universal Compatibility:</strong> Works on desktop, tablet, and mobile browsers.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Quality Settings</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    You get three quality options. High renders at 3x scale — that gives you a roughly 2480 × 3508 pixel image for an A4 page, which is sharp enough for printing. Medium (2x) is good for screen use and presentations. Low (1x) keeps file sizes small for quick sharing. Higher quality means bigger files, so pick based on what you're doing with the images.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I extract just one page?</h3>
-                        <p class="text-gray-600">Yes! The tool converts all pages, and you can choose which ones to download as images.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Can I download just one page?</h3>
+                        <p class="text-gray-600">Yes — every page has its own download button. Grab the ones you need and skip the rest.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Is it free?</h3>
-                        <p class="text-gray-600">Yes, our PDF to Image converter is completely free to use with no hidden fees.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">How sharp are the output images?</h3>
+                        <p class="text-gray-600">Depends on the quality setting. High quality (3x scale) gives you print-ready resolution — around 2480 × 3508 pixels for an A4 page. Medium (2x) is great for screens. Low (1x) is fine for quick previews and sharing.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is my PDF uploaded to a server?</h3>
+                        <p class="text-gray-600">No. The pdf.js library renders your PDF entirely in your browser. Your file stays on your device the entire time.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does it work with encrypted PDFs?</h3>
+                        <p class="text-gray-600">No — you'll need to remove the password first. Use the Unlock PDF tool on this site, then come back and convert the unlocked file.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is there any cost or usage limit?</h3>
+                        <p class="text-gray-600">No — it's completely free. No registration, no daily caps, and no watermarks on the output images.</p>
                     </div>
                 </div>
             </article>
@@ -164,6 +172,13 @@ export class PdfToImageComponent implements OnInit {
             keywords: 'pdf to image, pdf to jpg, pdf to png, pdf converter, convert pdf pages to images, free pdf tool',
             url: 'https://2olhub.netlify.app/pdf/pdf-to-image' // Note: Component folder is pdf-to-image, route is likely /pdf/pdf-to-image or similar. Checked routes earlier, it is /pdf/to-image. I will use to-image.
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can I download just one page?', answer: 'Yes — every page has its own download button. Grab the ones you need and skip the rest.' },
+            { question: 'How sharp are the output images?', answer: 'Depends on the quality setting. High quality (3x scale) gives you print-ready resolution. Medium (2x) is great for screens. Low (1x) is fine for quick previews.' },
+            { question: 'Is my PDF uploaded to a server?', answer: 'No. The pdf.js library renders your PDF entirely in your browser. Your file stays on your device the entire time.' },
+            { question: 'Does it work with encrypted PDFs?', answer: 'No — you\'ll need to remove the password first. Use the Unlock PDF tool on this site.' },
+            { question: 'Is there any cost or usage limit?', answer: 'No — it\'s completely free. No registration, no daily caps, and no watermarks on the output images.' }
+        ]);
 
         await this.scriptLoader.load(['pdf-js']);
 

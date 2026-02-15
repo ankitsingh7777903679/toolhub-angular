@@ -17,7 +17,7 @@ interface Tool {
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   template: `
-    <div class="min-h-screen bg-white">
+    <div class="min-h-screen bg-white dark:bg-slate-900">
         <!-- Header -->
         <div class="bg-gradient-to-r from-blue-600 to-blue-700 py-16">
             <div class="container mx-auto px-4 text-center">
@@ -29,14 +29,14 @@ interface Tool {
                 
                 <!-- Search Bar -->
                 <div class="w-full max-w-xl mx-auto px-4 md:px-0">
-                    <div class="bg-white rounded-full p-2 flex items-center shadow-lg">
+                    <div class="bg-white dark:bg-slate-800 rounded-full p-2 flex items-center shadow-lg">
                         <i class="fa-solid fa-magnifying-glass text-gray-400 ml-2 mr-2"></i>
                         <input 
                             type="text" 
                             [(ngModel)]="searchQuery" 
                             (input)="filterTools()"
                             placeholder="Search for a writing tool..." 
-                            class="flex-1 outline-none text-gray-700 placeholder-gray-400 min-w-0 py-1">
+                            class="flex-1 outline-none text-gray-700 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-500 min-w-0 py-1 bg-transparent">
                         <button class="bg-blue-500 text-white px-5 py-2 rounded-full font-bold hover:bg-blue-600 transition-colors text-sm flex-shrink-0">
                             Search
                         </button>
@@ -51,20 +51,20 @@ interface Tool {
                 @for (tool of filteredTools; track tool.name) {
                 <a 
                     [routerLink]="tool.link"
-                    class="group block bg-white rounded-2xl p-6 border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-between">
+                    class="group block bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-500/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col justify-between">
                     <div class="flex justify-between items-start mb-6">
                         <div 
                             class="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110"
                             [style.backgroundColor]="tool.bgColor">
                             <i [class]="tool.icon + ' text-2xl'" [style.color]="tool.iconColor"></i>
                         </div>
-                        <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-blue-50 transition-colors">
-                            <i class="fa-solid fa-arrow-right text-gray-400 group-hover:text-blue-600 text-sm"></i>
+                        <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-slate-700 flex items-center justify-center group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors">
+                            <i class="fa-solid fa-arrow-right text-gray-400 dark:text-slate-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 text-sm"></i>
                         </div>
                     </div>
                     <div>
-                        <h3 class="font-bold text-gray-900 text-lg mb-2 group-hover:text-blue-600 transition-colors">{{ tool.name }}</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">{{ tool.description }}</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{{ tool.name }}</h3>
+                        <p class="text-gray-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-2">{{ tool.description }}</p>
                     </div>
                 </a>
                 }
@@ -76,6 +76,24 @@ interface Tool {
                 }
             </div>
         </div>
+
+        <!-- SEO Content -->
+        <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl pb-16">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">AI Writing Tools That Actually Save You Time</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                Let's be honest — staring at a blank page is the worst part of writing. Whether it's a cold email you've rewritten in your head six times, a blog post you keep putting off, or an essay due tomorrow morning, the hardest step is always getting something on the page. That's where these tools come in. They're powered by Google Gemini and they give you a solid first draft in seconds — not perfect prose, but a real starting point you can shape into something good.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200 mb-4">What Can You Actually Do Here?</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                More than you'd expect. Need a professional cold email for a sales pitch? There's a tool for that. Writing a 5-paragraph essay on climate change? Covered. Want to turn a 3,000-word article into a quick summary? Done in about ten seconds. You can also rewrite existing content to make it unique, fix grammar mistakes, change the tone of a message from casual to formal, generate product descriptions for your online store, create social media posts, or even write short stories. Each tool is tuned for its specific job — the blog writer structures content with headings, the email generator keeps things concise, and the story generator actually builds a narrative arc.
+            </p>
+
+            <h2 class="text-2xl font-bold text-gray-800 dark:text-slate-200 mb-4">How Does the AI Part Work?</h2>
+            <p class="text-gray-600 dark:text-slate-400 mb-8 leading-relaxed">
+                You type a prompt describing what you want — the more specific, the better — and the AI generates original content from scratch. It's not copying from a database or stitching together existing articles. Each output is created fresh based on your exact input. If you write "blog post about healthy meal prep for busy parents with three recipe ideas," that's exactly what you'll get. The output isn't always publish-ready (what first draft is?), but it gives you 80% of the work done so you can focus on the editing and personal touches that make content yours.
+            </p>
+        </article>
     </div>
     `
 })

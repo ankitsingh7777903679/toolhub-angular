@@ -101,37 +101,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
                 <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                    <h1 class="text-3xl font-bold text-gray-900 mb-6">Unlock PDF - Remove Password Online for Free</h1>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Unlock PDF — Remove Password Protection</h2>
                     <p class="text-gray-600 mb-8 leading-relaxed">
-                        Remove password security from your PDF files instantly. 
-                        If you have the password but want to remove it for easier access, this free tool is the perfect solution.
+                        Know the password to a PDF but tired of entering it every single time? This tool strips the password permanently so you get a clean, unlocked copy. The content stays exactly the same — text, images, formatting — but the file opens without any prompt. Great for documents you access daily, or files you need to share with a team who shouldn't have to hunt for a password.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        To be clear: you need the correct password to use this tool. It doesn't crack or bypass anything. You're just choosing to remove a lock that you already have the key to.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Unlock PDF?</h2>
-                    <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                        <li><strong>Upload PDF:</strong> Select your password-protected file.</li>
-                        <li><strong>Enter Password:</strong> Input the current correct password to authorize the removal.</li>
-                        <li><strong>Unlock:</strong> Click the button to strip the security settings permanently.</li>
-                        <li><strong>Download:</strong> Get your new, unlocked PDF file.</li>
-                    </ol>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Typical Scenarios</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Old archived files that still have passwords from years ago. Bank statements you download every month that always arrive locked. Internal company documents you want to merge with other PDFs (most merge tools can't handle password-protected files). Or documents you just want to open quickly without the extra step.
+                    </p>
 
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use our PDF Unlocker?</h2>
-                    <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                        <li><strong>Permanent Removal:</strong> The file will no longer require a password to open.</li>
-                        <li><strong>Secure Processing:</strong> Your password and file are processed securely via SSL.</li>
-                        <li><strong>Fast & Easy:</strong> Remove restrictions in seconds.</li>
-                        <li><strong>All Devices:</strong> Works on Windows, Mac, Linux, and mobile devices.</li>
-                    </ul>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">How It Works</h2>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Upload your locked PDF, type the password, and the server decrypts it and sends back an unlocked copy. The whole thing takes a few seconds. Your file and password are transmitted over encrypted HTTPS and deleted immediately after processing — nothing is stored.
+                    </p>
 
                     <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                     <div class="space-y-4">
                         <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                            <h3 class="font-bold text-gray-900 mb-2">Can I remove a password I don't know?</h3>
-                            <p class="text-gray-600">No, for legal and ethical reasons, you must know the password to remove it. This tool is for owners who want to remove known passwords.</p>
+                            <h3 class="font-bold text-gray-900 mb-2">Can it remove a password I don't know?</h3>
+                            <p class="text-gray-600">No — you must provide the correct password. This tool is for document owners who want to remove a known password for convenience, not for bypassing security on files you don't have access to.</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                            <h3 class="font-bold text-gray-900 mb-2">Is the file copying safe?</h3>
-                            <p class="text-gray-600">We do not store your passwords or files. Everything is deleted immediately after processing.</p>
+                            <h3 class="font-bold text-gray-900 mb-2">Is the unlocked file identical to the original?</h3>
+                            <p class="text-gray-600">Yes — same content, same formatting, same images. The only difference is that no password is needed to open it anymore.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Is my password safe during processing?</h3>
+                            <p class="text-gray-600">Your file and password travel over encrypted HTTPS. The server decrypts the PDF, returns the unlocked version, and immediately deletes everything. No passwords or files are stored.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">Can I add a different password afterward?</h3>
+                            <p class="text-gray-600">Absolutely. Use the Protect PDF tool to add a new password. This is handy if you want to change the password rather than remove it entirely.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <h3 class="font-bold text-gray-900 mb-2">What happens if I enter the wrong password?</h3>
+                            <p class="text-gray-600">You'll see an error saying the password is incorrect. Just try again — there's no limit on attempts.</p>
                         </div>
                     </div>
                 </article>
@@ -159,13 +167,19 @@ export class UnlockComponent implements OnInit {
     ) { }
 
     async ngOnInit(): Promise<void> {
-        // Initialize SEO and load scripts
         this.seoService.updateSeo({
             title: 'Unlock PDF - Remove Password from PDF Online',
             description: 'Remove password protection from PDF files online. Unlock secured PDFs instantly if you know the password. Free and secure PDF unlocker.',
             keywords: 'unlock pdf, remove pdf password, pdf password remover, decrypt pdf, open secured pdf, free pdf tool',
             url: 'https://2olhub.netlify.app/pdf/unlock'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can it remove a password I don\'t know?', answer: 'No — you must provide the correct password. This tool is for document owners who want to remove a known password for convenience.' },
+            { question: 'Is the unlocked file identical to the original?', answer: 'Yes — same content, same formatting, same images. The only difference is that no password is needed to open it anymore.' },
+            { question: 'Is my password safe during processing?', answer: 'Your file and password travel over encrypted HTTPS. The server decrypts the PDF, returns the unlocked version, and immediately deletes everything.' },
+            { question: 'Can I add a different password afterward?', answer: 'Absolutely. Use the Protect PDF tool to add a new password.' },
+            { question: 'What happens if I enter the wrong password?', answer: 'You\'ll see an error saying the password is incorrect. Just try again — there\'s no limit on attempts.' }
+        ]);
 
         await this.scriptLoader.load(['file-saver']);
 

@@ -30,11 +30,18 @@ export class ExcelToCsvComponent implements OnInit {
 
     ngOnInit(): void {
         this.seoService.updateSeo({
-            title: 'Convert Excel to CSV Online - Free Data Converter',
-            description: 'Convert Excel (XLSX, XLS) files to CSV format online. Extract data from spreadsheets easily. Free and fast Excel to CSV converter.',
-            keywords: 'excel to csv, convert xlsx to csv, excel converter, online csv converter, free data converter, xls to csv',
+            title: 'Excel to CSV Converter — Plain Text Data from Any Spreadsheet',
+            description: 'Need your Excel data in CSV format? Upload your .xlsx or .xls file and get a clean CSV you can import into databases, scripts, or other tools.',
+            keywords: 'excel to csv, xlsx to csv, convert excel to csv online, export spreadsheet csv, excel csv converter',
             url: 'https://2olhub.netlify.app/file/excel-to-csv'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Wait — will I lose my formatting and formulas?', answer: 'Yes, and that\'s the point. CSV is pure data — no colors, no fonts, no formulas. You\'ll keep the calculated values (so a SUM cell becomes the number itself), but the styling is gone. That\'s exactly what databases and import tools want.' },
+            { question: 'What about special characters and non-English text?', answer: 'The output uses UTF-8 encoding, so Hindi, Chinese, Arabic, emojis, accented characters — they all come through fine. No garbled text.' },
+            { question: 'How big a file can I convert?', answer: 'Since it\'s all browser-based, there\'s no upload limit. Files under 20MB convert almost instantly. Really big files (50MB+) might slow down depending on your computer, but they\'ll still work.' },
+            { question: 'Do I need Excel installed on my computer?', answer: 'Nope. This runs entirely in your browser. You don\'t need Excel, LibreOffice, or any other software. If you can read this page, you can convert files.' },
+            { question: 'What\'s the difference between XLS and XLSX anyway?', answer: 'XLS is the old Excel format from the \'97-2003 era. XLSX is the modern one — smaller files, better features. Both convert to CSV the same way here, so it doesn\'t matter which one you have.' }
+        ]);
     }
 
     onDragOver(event: DragEvent): void {

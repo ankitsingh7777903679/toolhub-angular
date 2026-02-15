@@ -37,6 +37,13 @@ export class ImageToBase64Component implements OnInit {
             keywords: 'image to base64, base64 encoder, convert image to text, online base64 converter, data uri generator',
             url: 'https://2olhub.netlify.app/image/to-base64'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Wait, so the image becomes text?', answer: 'Essentially, yes. Base64 encodes binary image data as a long string of letters and numbers. Browsers decode it back into a viewable image.' },
+            { question: 'How big can the images be?', answer: 'No hard limit, but keep Base64 images under 10-20 KB original size. Beyond that, the 33% size penalty starts outweighing the benefits.' },
+            { question: 'What\'s the data URI prefix thing?', answer: 'The prefix tells the browser what follows is a Base64-encoded image. You need it for img src or CSS url(). For backend APIs, you usually leave it off.' },
+            { question: 'Does this work with animated GIFs?', answer: 'Yes — the GIF data gets encoded as-is, animation and all. The resulting string will be large but it works.' },
+            { question: 'Are my images sent to a server?', answer: 'No — everything happens in your browser using the FileReader API. Your images never leave your device.' }
+        ]);
         this.checkWorkspace();
     }
 

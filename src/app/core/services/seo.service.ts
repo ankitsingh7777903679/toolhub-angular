@@ -71,4 +71,32 @@ export class SeoService {
         }
         link.setAttribute('href', url);
     }
+
+    setJsonLd(data: object): void {
+        // Remove existing JSON-LD script if any
+        const existing = this.doc.querySelector('script[type="application/ld+json"]');
+        if (existing) {
+            existing.remove();
+        }
+
+        const script = this.doc.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(data);
+        this.doc.head.appendChild(script);
+    }
+
+    setFaqJsonLd(faqs: { question: string; answer: string }[]): void {
+        this.setJsonLd({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqs.map(faq => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: faq.answer
+                }
+            }))
+        });
+    }
 }

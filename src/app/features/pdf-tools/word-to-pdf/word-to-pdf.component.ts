@@ -97,36 +97,45 @@ import { SendToToolComponent } from '../../../shared/components/send-to-tool/sen
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Convert Word to PDF (Doc, Docx) Online</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Word to PDF — Convert .doc and .docx Files</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Transform your Microsoft Word documents into professional PDF files with our free online converter.
-                    Preserve your original formatting, fonts, and layout accurately.
+                    Need to send a Word document but don't want the recipient to accidentally mess up the formatting — or worse, see all your Track Changes? Convert it to PDF first. Upload your .doc or .docx file, and the converter handles everything: tables, images, headers, footers, footnotes. The PDF comes out looking exactly like the original.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    PDFs look the same on every device, every operating system, and every screen size. That's why they're the standard for resumes, invoices, contracts, and anything you want the recipient to see exactly as you designed it. No more "it looked fine on my computer" conversations.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Convert Word to PDF?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload Field:</strong> Select your .doc or .docx file from your device.</li>
-                    <li><strong>Convert:</strong> Click the button to start the conversion process.</li>
-                    <li><strong>Download:</strong> Get your high-quality PDF file instantly.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Formatting Accuracy</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    The conversion engine handles complex documents well — multi-column layouts, tables with merged cells, embedded charts, text boxes, and styled headings all come through. Standard fonts like Arial, Calibri, and Times New Roman render perfectly. Custom or rare fonts are closely matched. For best results, stick to common fonts in your Word files.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Why use our Converter?</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Format Preservation:</strong> Visual elements, tables, and text styles remain intact.</li>
-                    <li><strong>Wide Compatibility:</strong> Supports both legacy (.doc) and modern (.docx) World formats.</li>
-                    <li><strong>Secure & Private:</strong> Your documents are encrypted during transfer and deleted after processing.</li>
-                    <li><strong>Universal Access:</strong> Use it on any device, including Mobile, Tablet, and Desktop.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">After Conversion</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Once the PDF is ready, download it directly or send it to another tool — merge it with other PDFs, compress it for email, add a password, or stamp a watermark. The tool chain lets you do all of that without re-uploading.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Is it compatible with Office 365?</h3>
-                        <p class="text-gray-600">Yes, it fully supports documents created with minimal Microsoft Office versions, including Office 365.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Does it support .doc (older Word format)?</h3>
+                        <p class="text-gray-600">Yes — both legacy .doc files (Word 97-2003) and modern .docx files (Office 2007+, including Office 365) are supported.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Does it support large files?</h3>
-                        <p class="text-gray-600">We optimize for standard document sizes. Very large files with many high-res images may take longer.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Are my fonts preserved?</h3>
+                        <p class="text-gray-600">Standard fonts like Arial, Calibri, and Times New Roman are embedded in the PDF. Unusual or custom fonts are substituted with the closest available match. For the most accurate output, use widely-available fonts.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is my document stored on the server?</h3>
+                        <p class="text-gray-600">No — your file is processed in memory, converted, and returned to your browser. It's deleted immediately after conversion. We don't keep copies.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I handle large files with lots of images?</h3>
+                        <p class="text-gray-600">Yes. Documents with embedded images, charts, and tables convert without issues. Very large files (50+ MB) may take a few extra seconds but will complete successfully.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I convert the PDF back to Word?</h3>
+                        <p class="text-gray-600">You can use the PDF OCR tool to extract text from a PDF and save it as a Word document. But it's always best to keep your original .docx as the source of truth.</p>
                     </div>
                 </div>
             </article>
@@ -161,6 +170,13 @@ export class WordToPdfComponent implements OnInit {
             keywords: 'word to pdf, doc to pdf, docx to pdf, convert word to pdf, microsoft word to pdf, office to pdf',
             url: 'https://2olhub.netlify.app/pdf/word-to-pdf'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Does it support .doc (older Word format)?', answer: 'Yes — both legacy .doc files (Word 97-2003) and modern .docx files are supported.' },
+            { question: 'Are my fonts preserved?', answer: 'Standard fonts like Arial, Calibri, and Times New Roman are embedded. Unusual fonts are substituted with the closest match.' },
+            { question: 'Is my document stored on the server?', answer: 'No — your file is processed in memory, converted, and returned to your browser. It\'s deleted immediately after conversion.' },
+            { question: 'Can I handle large files with lots of images?', answer: 'Yes. Documents with embedded images, charts, and tables convert without issues. Very large files may take a few extra seconds.' },
+            { question: 'Can I convert the PDF back to Word?', answer: 'You can use the PDF OCR tool to extract text from a PDF and save it as a Word document. But it\'s best to keep your original .docx as the source of truth.' }
+        ]);
     }
 
     onFileSelect(event: Event) {

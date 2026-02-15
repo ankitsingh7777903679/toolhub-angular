@@ -20,6 +20,11 @@ export class JsonToXmlComponent {
       keywords: 'json to xml converter, convert json to xml, json to xml tool, json xml conversion, free json to xml, online json to xml, developer tools, data format converter',
       url: 'https://2olhub.netlify.app/write/json-to-xml'
     });
+    this.seoService.setFaqJsonLd([
+      { question: 'Is the XML output actually valid?', answer: 'Yes — it generates syntactically correct, well-formed XML based on your JSON structure. You can paste it directly into your code or API testing tool.' },
+      { question: 'Can it handle deeply nested JSON?', answer: 'Absolutely. It recursively processes nested objects and arrays, creating the corresponding XML hierarchy with proper parent-child tag relationships.' },
+      { question: 'Does it store my data?', answer: 'No. The conversion happens in real-time and nothing is saved. We don\'t log your JSON or the resulting XML.' }
+    ]);
   }
 
   config = {
@@ -32,26 +37,26 @@ export class JsonToXmlComponent {
     iconColor: '#64748B',
     bgColor: '#F8FAFC',
     // SEO Content
-    seoTitle: 'Free JSON to XML Converter - Online Data Transformation',
-    seoIntro: 'Effortlessly convert JSON objects to XML format. Our AI-powered tool ensures valid schema generation and accurate data transformation for your development needs.',
+    seoTitle: 'JSON to XML Converter — Because Legacy Systems Still Exist',
+    seoIntro: 'You have JSON. The API you\'re integrating with wants XML. It\'s 2024 and this is still a thing. Paste your JSON in, get properly formatted XML out. Handles nested objects, arrays, attributes — the works.',
     features: [
-      { icon: 'fa-solid fa-code', title: 'Valid XML', description: 'Generates properly formatted XML syntax.' },
-      { icon: 'fa-solid fa-bolt', title: 'Instant', description: 'Convert large JSON objects in seconds.' },
-      { icon: 'fa-solid fa-check-double', title: 'Accurate', description: 'Preserves data structure and types.' },
-      { icon: 'fa-solid fa-copy', title: 'Easy Copy', description: 'One-click copy to clipboard.' },
-      { icon: 'fa-solid fa-shield-halved', title: 'Secure', description: 'Data processing happens securely.' },
-      { icon: 'fa-solid fa-laptop-code', title: 'Dev Friendly', description: 'Perfect for API integrations.' }
+      { icon: 'fa-solid fa-code', title: 'Clean XML Output', description: 'Properly indented, valid syntax every time.' },
+      { icon: 'fa-solid fa-bolt', title: 'Instant Conversion', description: 'Even large JSON objects convert in seconds.' },
+      { icon: 'fa-solid fa-check-double', title: 'Preserves Structure', description: 'Nested objects and arrays map correctly to XML tags.' },
+      { icon: 'fa-solid fa-copy', title: 'One-Click Copy', description: 'Grab the XML and paste it where you need it.' },
+      { icon: 'fa-solid fa-shield-halved', title: 'Stays Private', description: 'Your data is processed securely — nothing stored.' },
+      { icon: 'fa-solid fa-laptop-code', title: 'Dev Workflow Friendly', description: 'Perfect for quick API integration tasks.' }
     ],
     useCases: [
-      'Converting API responses for legacy systems',
-      'Data format transformation for integration',
-      'Debugging and testing XML services',
-      'Quick data structure conversion'
+      'Integrating with SOAP APIs that require XML when your app uses JSON',
+      'Converting API responses for systems that only read XML formats',
+      'Testing and debugging XML-based web services during development',
+      'Quick one-off format conversions without writing a script'
     ],
     faqs: [
-      { question: 'Is the XML valid?', answer: 'Yes, the tool generates syntacticly correct XML based on your JSON input.' },
-      { question: 'Does it support nested JSON?', answer: 'Absolutely. It recursively processes nested objects and arrays into appropriate XML tags.' },
-      { question: 'Is my data saved?', answer: 'No, validation and conversion happen in real-time and we do not store your data.' }
+      { question: 'Is the XML output actually valid?', answer: 'Yes — it generates syntactically correct, well-formed XML based on your JSON structure. You can paste it directly into your code or API testing tool.' },
+      { question: 'Can it handle deeply nested JSON?', answer: 'Absolutely. It recursively processes nested objects and arrays, creating the corresponding XML hierarchy with proper parent-child tag relationships.' },
+      { question: 'Does it store my data?', answer: 'No. The conversion happens in real-time and nothing is saved. We don\'t log your JSON or the resulting XML.' }
     ]
   };
 }

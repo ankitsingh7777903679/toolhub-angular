@@ -110,38 +110,69 @@
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Rotate Image - Flip & Rotate Photos Free</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Rotate Image Online — Fix Orientation in Seconds</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Rotate images to any angle, flip horizontally or vertically, and fix photo orientation.
-                    Perfect for correcting sideways photos or creating mirror effects.
+                    Your phone decided that sideways photo was fine. Or maybe you scanned a document that came in upside
+                    down. Or the horizon in your landscape shot is just slightly tilted and it's driving you crazy.
+                    Whatever the reason, this tool lets you spin, flip, and straighten images without downloading
+                    anything.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    The quick-rotate buttons handle the common cases — 90° left, 90° right, and 180° full turn. For more
+                    precise work, the angle slider goes from 0° to 359° in single-degree increments, which is what you
+                    want for straightening a horizon that's off by two or three degrees. You can also flip images
+                    horizontally or vertically — useful for correcting selfie mirrors or creating reflection effects for
+                    design work.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Rotate Images?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload Image:</strong> Drag and drop or click to browse.</li>
-                    <li><strong>Rotate:</strong> Use quick buttons or slider for custom angle.</li>
-                    <li><strong>Flip:</strong> Mirror horizontally or vertically if needed.</li>
-                    <li><strong>Download:</strong> Save your rotated image as PNG.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">What Happens When You Rotate at Odd Angles</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Rotating exactly 90° or 180° is clean — the image dimensions just swap. But at in-between angles
+                    (like 15° or 45°), the canvas automatically expands to fit the rotated image. No part of the image
+                    gets clipped or cut off. The output saves as a lossless PNG, so quality stays sharp regardless of
+                    the angle. The whole thing runs in your browser using the Canvas API — your images never get
+                    uploaded anywhere.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Rotation Options</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Quick Rotate:</strong> 90° left, 90° right, or 180° buttons.</li>
-                    <li><strong>Custom Angle:</strong> Rotate from 0° to 359° precisely.</li>
-                    <li><strong>Flip:</strong> Mirror horizontally or vertically.</li>
-                    <li><strong>Privacy First:</strong> All processing in your browser.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Combining Rotations and Flips</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    You can stack transformations — rotate 90° clockwise and then flip horizontally, for example. All
+                    operations get applied together in the final output. This is handy when you need a mirror image at a
+                    specific angle, or when correcting photos taken through a reflective surface that need both
+                    reorientation and mirroring.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I rotate to any custom angle?</h3>
-                        <p class="text-gray-600">Yes! Use the slider to rotate from 0° to 359° with precision.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Can I straighten a photo that's just slightly tilted?
+                        </h3>
+                        <p class="text-gray-600">That's exactly what the angle slider is for. Drag it to 2°, 3°,
+                            whatever looks right — it goes in single-degree steps. Way easier than trying to eyeball it
+                            in a full editing app.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Is image quality preserved?</h3>
-                        <p class="text-gray-600">Yes! We use high-quality canvas rendering to preserve image quality.
-                        </p>
+                        <h3 class="font-bold text-gray-900 mb-2">Does rotating hurt the image quality?</h3>
+                        <p class="text-gray-600">The output is saved as a lossless PNG, so no — quality is fully
+                            preserved. The Canvas rendering uses high-quality interpolation to keep everything sharp,
+                            even at non-standard angles.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">What happens to the image size at weird angles?</h3>
+                        <p class="text-gray-600">At angles other than 90° or 180°, the canvas expands to fit the full
+                            rotated image — nothing gets cut off. The dimensions will be a bit larger than the original
+                            because of the rotation geometry, but no content is lost.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Can I rotate and flip the same photo?</h3>
+                        <p class="text-gray-600">Yes, you can combine any rotation with horizontal or vertical flips.
+                            Everything gets applied together in the final download. Useful for correcting photos taken
+                            through mirrors or reflective surfaces.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Do my images get uploaded to a server?</h3>
+                        <p class="text-gray-600">Nope. All rotation and flipping happens entirely in your browser using
+                            the Canvas API. Your images stay on your device and nothing is sent anywhere.</p>
                     </div>
                 </div>
             </article>

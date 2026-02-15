@@ -40,11 +40,17 @@ export class ImageToExcelComponent implements OnInit {
 
     ngOnInit(): void {
         this.seoService.updateSeo({
-            title: 'Convert Image & PDF to Excel Online - Free Table Extractor',
-            description: 'Extract tables from images (JPG, PNG) and PDF documents to Excel (XLSX) automatically. AI-powered OCR for accurate data extraction. Free, fast, and secure.',
-            keywords: 'image to excel, pdf to excel, extract table from pdf, screenshot to excel, ocr to excel, convert pdf to excel table, free online converter',
+            title: 'Image to Excel — Get an Editable Spreadsheet from Any Photo or Scan',
+            description: 'Take a photo of a printed table or upload a scanned PDF and get a real Excel file with rows, columns, and data in the right cells. AI does the heavy lifting.',
+            keywords: 'image to excel, photo to spreadsheet, scan to excel, pdf table to excel, ocr to xlsx, picture to excel',
             url: 'https://2olhub.netlify.app/file/image-to-excel'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'What image types can I upload?', answer: 'JPG, PNG, WebP, BMP, TIFF, and even PDFs. Basically anything you\'d get from a phone camera, scanner, or screenshot tool. Higher resolution = better results, so don\'t crop too aggressively.' },
+            { question: 'What if my image has more than one table?', answer: 'The AI can detect multiple tables in a single image. They\'ll be placed on separate sheets or sections in the output. Works best when the tables are clearly separate from each other.' },
+            { question: 'How good is the accuracy?', answer: 'For well-lit photos of clean, printed tables, it\'s very accurate. Handwritten content or blurry photos may need a quick review. Tip: make sure the whole table is visible and the text isn\'t too small in the image.' },
+            { question: 'Why Excel instead of CSV?', answer: 'Excel gives you way more to work with. You can add formulas, formatting, charts, and pivot tables immediately. CSV is just raw data — Excel is a ready-to-use spreadsheet. If you\'d prefer CSV, check out our Image to CSV tool.' }
+        ]);
 
         // Tool Chaining - Handle incoming files
         if (this.workspaceService.hasFile()) {

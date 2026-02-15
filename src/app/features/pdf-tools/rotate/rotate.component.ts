@@ -103,37 +103,45 @@ declare const saveAs: any;
 
             <!-- SEO Content -->
             <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-                <h1 class="text-3xl font-bold text-gray-900 mb-6">Rotate PDF Pages Permanently Online</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Rotate PDF Pages Permanently Online</h2>
                 <p class="text-gray-600 mb-8 leading-relaxed">
-                    Correct the orientation of your PDF files. Rotate individual pages or the entire document by 90, 180, or 270 degrees.
-                    Save your changes effectively and free of charge.
+                    Nothing's more annoying than a PDF with sideways or upside-down pages. It usually happens with scanned documents — the scanner flips the orientation, and now you're tilting your head every time you open the file. This tool fixes that. Choose your rotation angle, and the orientation is permanently saved into the file.
+                </p>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    This isn't the "rotate view" button in your PDF reader that resets when you close the file. The change sticks — every PDF reader, every device, and every printer will display the corrected orientation. The whole process takes about a second and runs in your browser using pdf-lib.
                 </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Rotate PDF Files?</h2>
-                <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Upload PDF:</strong> Select your file or drag and drop it into the tool.</li>
-                    <li><strong>Choose Angle:</strong> Click buttons to rotate 90°, 180°, or 270° clockwise.</li>
-                    <li><strong>Apply:</strong> Click "Rotate PDF" to apply the changes to all pages.</li>
-                    <li><strong>Download:</strong> Save your permanently rotated PDF file.</li>
-                </ol>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">When You'd Need This</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Scanners and multi-function printers are the biggest culprits for misoriented pages. Some scan every other page rotated 180°. Others randomly produce landscape pages in a portrait batch. Beyond scanning, you might need to flip a presentation from portrait to landscape, or fix a phone photo that was saved to PDF at the wrong angle. It's a small fix that makes a big difference for readability.
+                </p>
 
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">Features</h2>
-                <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                    <li><strong>Permanent Rotation:</strong> The file is saved with the new orientation (not just a view setting).</li>
-                    <li><strong>Secure & Private:</strong> Files are processed on your device or securely deleted after processing.</li>
-                    <li><strong>Easy to Use:</strong> Simple interface to fix upside-down or sideways scanned documents.</li>
-                    <li><strong>Fast Processing:</strong> Rotate large documents in seconds.</li>
-                </ul>
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Pages, Untouched</h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    Rotation only changes a metadata flag in the PDF — it tells the viewer which way to display the page. The actual content is never re-encoded or compressed. Your text stays sharp, images stay identical, and the file size barely changes.
+                </p>
 
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
                 <div class="space-y-4">
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Can I rotate specific pages only?</h3>
-                        <p class="text-gray-600">Currently, this tool rotates the entire document. Use our "Split PDF" tool first if you need to rotate only specific pages.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Can I rotate just some pages?</h3>
+                        <p class="text-gray-600">Not yet — this tool rotates all pages by the same angle. If you need to fix individual pages, use the Split tool to extract them, rotate them here, then merge everything back together.</p>
                     </div>
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-900 mb-2">Does this affect document quality?</h3>
-                        <p class="text-gray-600">No, the rotation is a metadata change, so the quality of your text and images remains exactly the same.</p>
+                        <h3 class="font-bold text-gray-900 mb-2">Will it mess up my text or images?</h3>
+                        <p class="text-gray-600">No. Rotation is a lossless metadata change. Nothing in the document content is altered — it just changes how the pages are displayed.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Is the rotation permanent?</h3>
+                        <p class="text-gray-600">Yes — the downloaded PDF will always display in the new orientation. It's not a temporary "view rotation" that resets when you close the file. Every PDF reader (Adobe, Chrome, Preview, etc.) will show it correctly.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">What if I rotate the wrong way?</h3>
+                        <p class="text-gray-600">Just upload the file again and apply the opposite rotation. Rotated 90° clockwise by mistake? Apply 270° to get back to the original orientation.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-gray-900 mb-2">Does this work on my phone?</h3>
+                        <p class="text-gray-600">Yes, it works on any device with a web browser. Upload your PDF, pick a rotation angle, and download the corrected file right from your phone.</p>
                     </div>
                 </div>
             </article>
@@ -166,6 +174,13 @@ export class RotateComponent implements OnInit {
             keywords: 'rotate pdf, turn pdf, rotate pdf pages, fix pdf orientation, free pdf rotator, online tools',
             url: 'https://2olhub.netlify.app/pdf/rotate'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'Can I rotate just some pages?', answer: 'Not yet — this tool rotates all pages by the same angle. If you need to fix individual pages, use the Split tool to extract them, rotate them here, then merge everything back together.' },
+            { question: 'Will it mess up my text or images?', answer: 'No. Rotation is a lossless metadata change. Nothing in the document content is altered — it just changes how the pages are displayed.' },
+            { question: 'Is the rotation permanent?', answer: 'Yes — the downloaded PDF will always display in the new orientation. Every PDF reader will show it correctly.' },
+            { question: 'What if I rotate the wrong way?', answer: 'Just upload the file again and apply the opposite rotation. Rotated 90° clockwise by mistake? Apply 270° to get back to the original orientation.' },
+            { question: 'Does this work on my phone?', answer: 'Yes, it works on any device with a web browser. Upload your PDF, pick a rotation angle, and download the corrected file right from your phone.' }
+        ]);
 
         await this.scriptLoader.load(['pdf-lib', 'file-saver']);
 

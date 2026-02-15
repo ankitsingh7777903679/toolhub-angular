@@ -54,6 +54,13 @@ export class PngToJpgComponent implements OnInit {
             keywords: 'png to jpg, convert png to jpg, image converter, online jpg converter, free image converter, change image format',
             url: 'https://2olhub.netlify.app/image/png-to-jpg'
         });
+        this.seoService.setFaqJsonLd([
+            { question: 'How much smaller will my files actually get?', answer: 'Photos see 70-80% reduction. Screenshots with text compress 40-60%. Either way, the difference is significant.' },
+            { question: 'Will I notice a quality drop?', answer: 'For most images, no. At high quality settings the difference is almost impossible to spot on screen.' },
+            { question: 'Which image types benefit most from this conversion?', answer: 'Photographs and screenshots see the biggest gains — often 70-80% reduction with no visible quality loss.' },
+            { question: 'Can I convert a bunch of files at once?', answer: 'Yes — drag them all in at once. No limit on how many. They convert simultaneously and you can download individually or all at once.' },
+            { question: 'Do my images get uploaded anywhere?', answer: 'No — the entire conversion runs in your browser using the Canvas API. Your images stay on your machine.' }
+        ]);
 
         if (this.workspaceService.hasFile()) {
             const file = this.workspaceService.getFile();

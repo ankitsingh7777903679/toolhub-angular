@@ -170,39 +170,72 @@
 
         <!-- SEO Content -->
         <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-            <h1 class="text-3xl font-bold text-gray-900 mb-6">Blur Image Online - Add Blur Effects for Free</h1>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Blur Image Online — From Privacy Redaction to Artistic
+                Effects</h2>
             <p class="text-gray-600 mb-8 leading-relaxed">
-                Add professional blur effects to your photos instantly. Perfect for privacy protection,
-                background blur, or creating artistic effects. No software needed.
+                Sometimes you need to hide something in a photo — a license plate in a background, a name on a document,
+                someone's face in a screenshot you're about to share online. Other times, you want something more
+                artistic — a dreamy soft-focus look for a portrait, or motion blur to make a still image feel dynamic.
+                This tool handles both ends of that spectrum.
+            </p>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                There are four blur modes to pick from. Gaussian gives you that classic smooth soft-focus — great for
+                softening backgrounds or reducing noise. Motion blur simulates camera shake along a direction you
+                choose, which can add a sense of speed to action shots. Radial blur creates a zoom-burst effect from a
+                center point you can position anywhere. And Pixelate turns areas into a chunky mosaic — the go-to option
+                when you're censoring something and want it to be clearly unreadable.
             </p>
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Blur an Image?</h2>
-            <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                <li><strong>Upload Image:</strong> Select or drag and drop your photo.</li>
-                <li><strong>Choose Effect:</strong> Pick Gaussian, Motion, Radial, or Pixelate.</li>
-                <li><strong>Adjust Intensity:</strong> Use the slider to control blur strength.</li>
-                <li><strong>Download:</strong> Save your blurred image instantly.</li>
-            </ol>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">How It Actually Works</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Upload your image, pick a blur type, drag the intensity slider to taste, and hit Apply. You'll see the
+                result right away before committing to a download. The whole thing runs in your browser using the Canvas
+                API — no uploads, no server processing. Your images stay on your device from start to finish, which
+                matters when you're working with sensitive screenshots or personal photos.
+            </p>
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Blur Types Available</h2>
-            <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                <li><strong>Gaussian Blur:</strong> Smooth, soft blur for backgrounds.</li>
-                <li><strong>Motion Blur:</strong> Simulates camera movement effect.</li>
-                <li><strong>Radial Blur:</strong> Zoom-like effect from center point.</li>
-                <li><strong>Pixelate:</strong> Mosaic effect for privacy or artistic style.</li>
-            </ul>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Picking the Right Blur</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                If you're trying to obscure private information — names, addresses, faces, plates — Pixelate at a high
+                intensity is the way to go. It makes content clearly unreadable and looks intentional, not accidental.
+                For aesthetic work, Gaussian at a lower setting gives a natural out-of-focus feel, like shallow depth of
+                field from an expensive lens. Motion blur works well for creative edits where you want to fake movement,
+                and Radial blur is your shortcut to that dramatic zoom effect photographers sometimes use.
+            </p>
 
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-900 mb-2">Can I blur specific areas?</h3>
-                    <p class="text-gray-600">This tool applies blur to the entire image. For selective blur, use our
-                        Crop tool first.</p>
+                    <h3 class="font-bold text-gray-900 mb-2">Can I blur just part of the image, like a face?</h3>
+                    <p class="text-gray-600">This tool blurs the entire image uniformly. If you only need to blur one
+                        area, you could crop that section out, blur it separately, and layer it back in using a design
+                        tool. It's an extra step, but it works for quick redactions.</p>
                 </div>
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-900 mb-2">Is my image safe?</h3>
-                    <p class="text-gray-600">Yes! All processing happens in your browser. Images never leave your
-                        device.</p>
+                    <h3 class="font-bold text-gray-900 mb-2">What's the difference between Gaussian blur and Pixelate?
+                    </h3>
+                    <p class="text-gray-600">Gaussian blur blends neighboring pixels into each other, creating a smooth,
+                        dreamy effect. Pixelate replaces groups of pixels with a single flat color, creating a mosaic
+                        look. Gaussian is better for artistic use; Pixelate is better when you need to clearly censor
+                        something.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Does blurring shrink the image or reduce resolution?</h3>
+                    <p class="text-gray-600">No — the output is the exact same resolution and dimensions as your
+                        original. Blurring changes how the pixels look, but it doesn't reduce the file's pixel count or
+                        dimensions at all.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Are my photos sent to a server?</h3>
+                    <p class="text-gray-600">No. Everything runs locally in your browser. The blur processing uses the
+                        Canvas API on your machine, so your images never leave your device and no data is transmitted
+                        anywhere.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Which blur should I use to censor sensitive info?</h3>
+                    <p class="text-gray-600">Pixelate at a high intensity is the standard for privacy redaction. It
+                        makes text, faces, and other details completely unrecognizable and looks deliberate — which is
+                        exactly what you want when sharing screenshots or photos publicly.</p>
                 </div>
             </div>
         </article>

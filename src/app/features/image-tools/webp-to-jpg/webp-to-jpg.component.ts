@@ -49,6 +49,13 @@ export class WebpToJpgComponent implements OnInit {
       keywords: 'webp to jpg, convert webp to jpg, image converter, online jpg converter, free image converter, webp converter',
       url: 'https://2olhub.netlify.app/image/webp-to-jpg'
     });
+    this.seoService.setFaqJsonLd([
+      { question: 'Will the quality look worse after converting?', answer: 'In practice, no. The converter uses high-quality JPG compression. The difference is imperceptible for photographs and typical web images.' },
+      { question: 'Why do websites keep downloading images as WebP?', answer: 'WebP files are smaller and load faster, which helps website performance. This converter exists for when you need JPG compatibility.' },
+      { question: 'What happens if my WebP has a transparent background?', answer: 'JPG can\'t handle transparency, so transparent areas get filled with white. If you need transparency, convert to PNG instead.' },
+      { question: 'Can I do a bunch of files at once?', answer: 'Yes — upload as many WebP files as you want and they all convert simultaneously. No file count or size limits.' },
+      { question: 'Do my images get uploaded to your server?', answer: 'Nope. The entire conversion happens in your browser using the Canvas API. Your images stay on your device.' }
+    ]);
 
     if (this.workspaceService.hasFile()) {
       const file = this.workspaceService.getFile();

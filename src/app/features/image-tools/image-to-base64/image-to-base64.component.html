@@ -109,39 +109,73 @@
 
         <!-- SEO Content -->
         <article class="prose lg:prose-xl mx-auto mt-16 px-4 max-w-4xl">
-            <h1 class="text-3xl font-bold text-gray-900 mb-6">Image to Base64 - Encode Images Online Free</h1>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Image to Base64 — Turn Any Image Into an Embeddable Code
+                String</h2>
             <p class="text-gray-600 mb-8 leading-relaxed">
-                Convert images to Base64 encoded strings for embedding in HTML, CSS, or JavaScript.
-                Perfect for developers who need to inline images without external file requests.
+                If you've ever built an HTML email and had recipients complain that "the images aren't showing," Base64
+                is the answer. Instead of linking to an external image file that might get blocked, you encode the image
+                data directly into your HTML as a text string. The result? The image is baked right into the code — no
+                separate file needed, no broken image icons.
+            </p>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                This tool converts any image (JPG, PNG, WebP, GIF, SVG, you name it) into a Base64 string you can paste
+                directly into your HTML, CSS, or JavaScript. Upload your file, click encode, and copy the result.
+                There's a toggle for including the data URI prefix — you'll want that on if you're embedding in an
+                <code>img</code> tag or CSS <code>background-image</code>, and off if you're sending raw Base64 to an
+                API.
             </p>
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">How to Encode Images?</h2>
-            <ol class="list-decimal pl-6 mb-8 space-y-2 text-gray-600">
-                <li><strong>Upload Images:</strong> Drag and drop or click to browse.</li>
-                <li><strong>Set Options:</strong> Choose to include data URI prefix.</li>
-                <li><strong>Convert:</strong> Click to encode all images.</li>
-                <li><strong>Copy:</strong> Copy the Base64 string to use in your code.</li>
-            </ol>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">When Base64 Makes Sense (And When It Doesn't)</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Base64 encoding increases the data size by roughly 33%, so it's not great for large photos. But for
+                small assets — think icons, tiny logos, UI sprites, loading indicators — the tradeoff is worth it
+                because you eliminate an HTTP request entirely. A page with 20 small images can shave off 20 network
+                round-trips by inlining them, which measurably speeds up loading. It's also the go-to method for
+                embedding images in single-file HTML apps, offline documentation, or JSON payloads sent to APIs.
+            </p>
 
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Common Use Cases</h2>
-            <ul class="list-disc pl-6 mb-8 space-y-2 text-gray-600">
-                <li><strong>Email Templates:</strong> Embed images in HTML emails.</li>
-                <li><strong>CSS Backgrounds:</strong> Use as background-image values.</li>
-                <li><strong>Single File Apps:</strong> Bundle assets into one HTML file.</li>
-                <li><strong>Reduce Requests:</strong> Eliminate separate image requests.</li>
-            </ul>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Email Templates: The Biggest Use Case</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Most email clients block external images by default — Gmail, Outlook, Apple Mail all do it. If your
+                email template links to images on your server, recipients get placeholder boxes until they click "load
+                images." Base64-encoded images bypass this entirely because they're part of the email's HTML source. The
+                tradeoff is a larger email size, so keep it to small images like logos and icons rather than full-width
+                hero banners.
+            </p>
 
             <h2 class="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-900 mb-2">What is Base64 encoding?</h3>
-                    <p class="text-gray-600">Base64 converts binary image data to text that can be embedded directly in
-                        code.</p>
+                    <h3 class="font-bold text-gray-900 mb-2">Wait, so the image becomes text?</h3>
+                    <p class="text-gray-600">Essentially, yes. Base64 takes the binary data of an image and represents
+                        it as a long string of letters and numbers. Browsers know how to decode this back into a
+                        viewable image. It looks like gibberish (a wall of characters), but it works perfectly when
+                        dropped into HTML or CSS.</p>
                 </div>
                 <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                    <h3 class="font-bold text-gray-900 mb-2">Is my data safe?</h3>
-                    <p class="text-gray-600">Yes! All encoding happens in your browser. Images never leave your device.
-                    </p>
+                    <h3 class="font-bold text-gray-900 mb-2">How big can the images be?</h3>
+                    <p class="text-gray-600">There's no hard limit, but as a practical guideline, keep Base64 images
+                        under 10-20 KB (original size). Beyond that, the 33% size penalty starts outweighing the
+                        benefits. For large images, it's better to serve them as regular files with proper caching.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">What's the data URI prefix thing?</h3>
+                    <p class="text-gray-600">The prefix (like <code>data:image/png;base64,</code>) tells the browser
+                        "hey, what follows is a Base64-encoded PNG image." You need this prefix if you're putting the
+                        string in an <code>img src</code> or CSS <code>url()</code>. If you're sending the raw string to
+                        a backend API, you usually leave it off.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Does this work with animated GIFs?</h3>
+                    <p class="text-gray-600">Yes — the GIF data gets encoded as-is, animation and all. The resulting
+                        Base64 string will be quite large for animated GIFs since they contain multiple frames, but
+                        it'll work when embedded in HTML.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-gray-900 mb-2">Are my images sent to a server?</h3>
+                    <p class="text-gray-600">No — everything happens in your browser using the FileReader API. Your
+                        images never leave your device. This is important if you're encoding proprietary assets or
+                        confidential design files.</p>
                 </div>
             </div>
         </article>
