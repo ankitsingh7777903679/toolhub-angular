@@ -597,7 +597,8 @@ export class HomeComponent implements OnInit {
         this.seoService.updateSeo({
             title: '2olhub - Free Online Tools to Make Everything Simple',
             description: 'Free online tools for everyone. Merge PDF, Remove Background, AI Writing, and more. 100% free and unlimited options available.',
-            keywords: 'free online tools, pdf tools, image editor, ai writer, 2olhub, student learning platform'
+            keywords: 'free online tools, pdf tools, image editor, ai writer, 2olhub, student learning platform',
+            url: 'https://2olhub.netlify.app/'
         });
 
         // WebSite + FAQPage JSON-LD
