@@ -73,13 +73,16 @@ export class SeoService {
     }
 
     setJsonLd(data: object): void {
-        // Remove existing JSON-LD script if any
-        const existing = this.doc.querySelector('script[type="application/ld+json"]');
-        if (existing) {
-            existing.remove();
+        // Use a specific ID to distinguish dynamic JSON-LD from static JSON-LD (in index.html)
+        const scriptId = 'dynamic-json-ld';
+        let script = this.doc.getElementById(scriptId) as HTMLScriptElement;
+
+        if (script) {
+            script.remove();
         }
 
-        const script = this.doc.createElement('script');
+        script = this.doc.createElement('script');
+        script.id = scriptId;
         script.type = 'application/ld+json';
         script.text = JSON.stringify(data);
         this.doc.head.appendChild(script);

@@ -601,20 +601,24 @@ export class HomeComponent implements OnInit {
             url: 'https://2olhub.netlify.app/'
         });
 
-        // WebSite + FAQPage JSON-LD
+        // WebApplication + FAQPage JSON-LD
         this.seoService.setJsonLd({
             '@context': 'https://schema.org',
             '@graph': [
                 {
                     '@type': 'WebSite',
                     'name': '2olhub',
-                    'url': 'https://2olhub.netlify.app/',
-                    'description': 'Free online tools for PDF, image editing, AI writing, and file conversion.',
-                    'potentialAction': {
-                        '@type': 'SearchAction',
-                        'target': 'https://2olhub.netlify.app/?q={search_term_string}',
-                        'query-input': 'required name=search_term_string'
-                    }
+                    'description': 'Free Online Tools to Make Everything Simple. PDF tools, AI writing, image processing and more.',
+                    'applicationCategory': 'UtilitiesApplication',
+                    'operatingSystem': 'Web',
+                    'offers': {
+                        '@type': 'Offer',
+                        'price': '0',
+                        'priceCurrency': 'USD'
+                    },
+                    'featureList': 'Merge PDF, Remove Background, AI Writer, Compress PDF, Split PDF, Image Converter, Excel Tools',
+                    'screenshot': 'https://2olhub.netlify.app/assets/og-image.jpg',
+                    'url': 'https://2olhub.netlify.app/'
                 },
                 {
                     '@type': 'FAQPage',
