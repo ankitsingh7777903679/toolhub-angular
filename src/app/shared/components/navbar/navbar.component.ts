@@ -15,7 +15,7 @@ import { ThemeService } from '../../../core/services/theme.service';
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center h-14 md:h-16">
           <a routerLink="/" class="flex items-center gap-2">
-            <img src="assets/logo.webp" alt="2olhub" class="h-16 md:h-24 w-auto object-contain" fetchpriority="high" height="64" width="200">
+            <img src="assets/logo-200.webp" srcset="assets/logo-96.webp 96w, assets/logo-200.webp 200w, assets/logo.webp 1024w" sizes="(max-width: 768px) 96px, 200px" alt="2olhub" class="h-16 md:h-24 w-auto object-contain" fetchpriority="high" height="64" width="200">
           </a>
 
           <div *ngIf="!isAdminRoute()" class="hidden lg:flex items-center gap-8">
@@ -28,8 +28,8 @@ import { ThemeService } from '../../../core/services/theme.service';
 
           <div class="flex items-center gap-3 md:gap-4">
             <!-- Dark Mode Toggle -->
-            <button 
-              (click)="themeService.toggleTheme()" 
+            <button
+              (click)="themeService.toggleTheme()"
               class="theme-toggle w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors"
               [title]="themeService.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
               [attr.aria-label]="themeService.isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
