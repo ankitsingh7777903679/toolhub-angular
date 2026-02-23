@@ -1,7 +1,6 @@
 import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import * as XLSX from 'xlsx';
 import { AnalyticsService } from '../../../core/services/analytics.service';
 import { SeoService } from '../../../core/services/seo.service';
 
@@ -79,6 +78,7 @@ export class ExcelToCsvComponent implements OnInit {
         this.isProcessing = true;
 
         try {
+            const XLSX = await import('xlsx');
             const data = await file.arrayBuffer();
             const workbook = XLSX.read(data);
             this.sheets = workbook.SheetNames;
@@ -125,10 +125,12 @@ export class ExcelToCsvComponent implements OnInit {
         }
     }
 
-    async processSheet(workbook?: XLSX.WorkBook): Promise<void> {
+    // Changed signature to 'any' for workbook to avoid requiring XLSX type imported at top level
+    async processSheet(workbook?: any): Promise<void> {
         if (!this.selectedFile) return;
 
         try {
+            const XLSX = await import('xlsx');
             if (!workbook) {
                 const data = await this.selectedFile.arrayBuffer();
                 workbook = XLSX.read(data);

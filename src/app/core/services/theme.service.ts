@@ -1,4 +1,5 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, signal, effect, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
@@ -7,15 +8,17 @@ export class ThemeService {
     private storageKey = 'toolhub-theme';
     isDarkMode = signal(false);
 
-    constructor() {
-        // Load saved theme preference
-        const savedTheme = localStorage.getItem(this.storageKey);
-        if (savedTheme) {
-            this.isDarkMode.set(savedTheme === 'dark');
-        } else {
-            // Check system preference
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            this.isDarkMode.set(prefersDark);
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+        if (isPlatformBrowser(this.platformId)) {
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem(this.storageKey);
+            if (savedTheme) {
+                this.isDarkMode.set(savedTheme === 'dark');
+            } else {
+                // Check system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                this.isDarkMode.set(prefersDark);
+            }
         }
 
         // Apply theme on changes
@@ -26,14 +29,18 @@ export class ThemeService {
 
     toggleTheme(): void {
         this.isDarkMode.update(dark => !dark);
-        localStorage.setItem(this.storageKey, this.isDarkMode() ? 'dark' : 'light');
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem(this.storageKey, this.isDarkMode() ? 'dark' : 'light');
+        }
     }
 
     private applyTheme(isDark: boolean): void {
-        if (isDark) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
+        if (isPlatformBrowser(this.platformId)) {
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
         }
     }
 }

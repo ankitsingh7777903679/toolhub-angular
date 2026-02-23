@@ -2,7 +2,6 @@ import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import * as XLSX from 'xlsx';
 import { AnalyticsService } from '../../../core/services/analytics.service';
 import { SeoService } from '../../../core/services/seo.service';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
@@ -34,7 +33,7 @@ export class ImageToExcelComponent implements OnInit {
     rowCount = 0;
     columnCount = 0;
     currentProcessingIndex = 0;
-    private workbook: XLSX.WorkBook | null = null;
+    private workbook: any = null;
 
     private workspaceService = inject(WorkspaceService); // Inject WorkspaceService
 
@@ -188,6 +187,7 @@ export class ImageToExcelComponent implements OnInit {
                 this.columnCount = headers.length;
 
                 // Create Excel workbook from JSON data
+                const XLSX = await import('xlsx');
                 const sheet = XLSX.utils.json_to_sheet(allData);
                 this.workbook = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(this.workbook, sheet, 'Sheet1');
@@ -221,8 +221,9 @@ export class ImageToExcelComponent implements OnInit {
         this.cdr.detectChanges();
     }
 
-    download(): void {
+    async download(): Promise<void> {
         if (!this.workbook) return;
+        const XLSX = await import('xlsx');
 
         const excelBuffer = XLSX.write(this.workbook, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

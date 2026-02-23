@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
     selector: 'app-privacy',
@@ -155,4 +156,14 @@ import { CommonModule } from '@angular/common';
     </div>
   `
 })
-export class PrivacyComponent { }
+export class PrivacyComponent implements OnInit {
+    private seoService = inject(SeoService);
+
+    ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Privacy Policy - 2olhub',
+            description: 'Read the privacy policy of 2olhub. Learn how we handle your data, keep your files secure, and respect your privacy.',
+            url: 'https://2olhub.netlify.app/privacy'
+        });
+    }
+}

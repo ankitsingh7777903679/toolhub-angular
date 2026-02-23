@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SeoService } from '../../../core/services/seo.service';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -191,4 +192,14 @@ import { RouterModule } from '@angular/router';
     </div>
   `
 })
-export class TermsComponent { }
+export class TermsComponent implements OnInit {
+    private seoService = inject(SeoService);
+
+    ngOnInit(): void {
+        this.seoService.updateSeo({
+            title: 'Terms & Conditions - 2olhub',
+            description: 'Read the Terms & Conditions for using 2olhub tools. Understand our policies and user guidelines.',
+            url: 'https://2olhub.netlify.app/terms'
+        });
+    }
+}

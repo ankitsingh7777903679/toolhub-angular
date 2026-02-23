@@ -1,7 +1,6 @@
 import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import * as XLSX from 'xlsx';
 import { AnalyticsService } from '../../../core/services/analytics.service';
 import { SeoService } from '../../../core/services/seo.service';
 
@@ -25,7 +24,7 @@ export class CsvToExcelComponent implements OnInit {
     isProcessing = false;
     isReady = false;
     error: string | null = null;
-    private workbook: XLSX.WorkBook | null = null;
+    private workbook: any = null;
 
     ngOnInit(): void {
         this.seoService.updateSeo({
@@ -77,7 +76,7 @@ export class CsvToExcelComponent implements OnInit {
 
         try {
             const text = await file.text();
-            this.processCSV(text);
+            await this.processCSV(text);
         } catch (err) {
             this.error = 'Failed to read CSV file';
             console.error(err);
@@ -86,16 +85,16 @@ export class CsvToExcelComponent implements OnInit {
         }
     }
 
-    processText(): void {
+    async processText(): Promise<void> {
         if (!this.csvText.trim()) {
             this.error = 'Please enter CSV data';
             return;
         }
         this.error = null;
-        this.processCSV(this.csvText);
+        await this.processCSV(this.csvText);
     }
 
-    private processCSV(text: string): void {
+    private async processCSV(text: string): Promise<void> {
         try {
             const rows = text.split('\n').filter(r => r.trim());
             const parsedRows = rows.map(r => this.parseCSVRow(r));
@@ -104,6 +103,7 @@ export class CsvToExcelComponent implements OnInit {
             this.previewRows = parsedRows.slice(0, 10);
 
             // Create workbook
+            const XLSX = await import('xlsx');
             const sheet = XLSX.utils.aoa_to_sheet(parsedRows);
             this.workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(this.workbook, sheet, 'Sheet1');
@@ -135,8 +135,9 @@ export class CsvToExcelComponent implements OnInit {
         return result;
     }
 
-    download(): void {
+    async download(): Promise<void> {
         if (!this.workbook) return;
+        const XLSX = await import('xlsx');
 
         const excelBuffer = XLSX.write(this.workbook, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

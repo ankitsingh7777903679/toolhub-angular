@@ -1,7 +1,6 @@
 import { Component, inject, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import * as XLSX from 'xlsx';
 import { AnalyticsService } from '../../../core/services/analytics.service';
 import { SeoService } from '../../../core/services/seo.service';
 
@@ -27,7 +26,7 @@ export class JsonToExcelComponent implements OnInit {
     isProcessing = false;
     isReady = false;
     error: string | null = null;
-    private workbook: XLSX.WorkBook | null = null;
+    private workbook: any = null;
 
     ngOnInit(): void {
         this.seoService.updateSeo({
@@ -79,7 +78,7 @@ export class JsonToExcelComponent implements OnInit {
 
         try {
             const text = await file.text();
-            this.processJSON(text);
+            await this.processJSON(text);
         } catch (err) {
             this.error = 'Failed to read JSON file';
             console.error(err);
@@ -88,17 +87,18 @@ export class JsonToExcelComponent implements OnInit {
         }
     }
 
-    processText(): void {
+    async processText(): Promise<void> {
         if (!this.jsonText.trim()) {
             this.error = 'Please enter JSON data';
             return;
         }
         this.error = null;
-        this.processJSON(this.jsonText);
+        await this.processJSON(this.jsonText);
     }
 
-    private processJSON(text: string): void {
+    private async processJSON(text: string): Promise<void> {
         try {
+            const XLSX = await import('xlsx');
             let data = JSON.parse(text);
 
             // Handle nested structures like {"table": [...]} or {"data": [...]}
@@ -137,8 +137,9 @@ export class JsonToExcelComponent implements OnInit {
         }
     }
 
-    download(): void {
+    async download(): Promise<void> {
         if (!this.workbook) return;
+        const XLSX = await import('xlsx');
 
         const excelBuffer = XLSX.write(this.workbook, { bookType: 'xlsx', type: 'array' });
         const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FeedbackService, Feedback } from '../../../core/services/feedback.service';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { SeoService } from '../../../core/services/seo.service';
 
 @Component({
-    selector: 'app-feedback',
-    standalone: true,
-    imports: [CommonModule, FormsModule, HttpClientModule],
-    template: `
+  selector: 'app-feedback',
+  standalone: true,
+  imports: [CommonModule, FormsModule, HttpClientModule],
+  template: `
     <div class="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors duration-300">
       
       <div class="max-w-3xl mx-auto relative z-10">
@@ -186,104 +187,110 @@ import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
       </div>
     </div>
   `,
-    styles: []
+  styles: []
 })
 export class FeedbackComponent implements OnInit, OnDestroy {
-    feedbacks: Feedback[] = [];
-    visibleFeedbacks: Feedback[] = [];
-    visibleCount = 5;
+  feedbacks: Feedback[] = [];
+  visibleFeedbacks: Feedback[] = [];
+  visibleCount = 5;
 
-    newFeedbackContent = '';
-    isSubmitting = false;
-    isLoading = true;
-    moderationError: string | null = null;
-    successMessage: string | null = null;
+  newFeedbackContent = '';
+  isSubmitting = false;
+  isLoading = true;
+  moderationError: string | null = null;
+  successMessage: string | null = null;
 
-    private pollInterval: any;
-    private feedbackService = inject(FeedbackService);
-    private cdr = inject(ChangeDetectorRef);
+  private pollInterval: any;
+  private feedbackService = inject(FeedbackService);
+  private cdr = inject(ChangeDetectorRef);
+  private seoService = inject(SeoService);
 
-    ngOnInit(): void {
-        this.loadFeedbacks();
-        // Poll every 10 seconds
-        this.pollInterval = setInterval(() => {
-            this.loadFeedbacks(false);
-        }, 10000);
+  ngOnInit(): void {
+    this.seoService.updateSeo({
+      title: 'Feedback - 2olhub',
+      description: 'Share your feedback, ideas, or report bugs for 2olhub tools.',
+      url: 'https://2olhub.netlify.app/feedback'
+    });
+    this.loadFeedbacks();
+    // Poll every 10 seconds
+    this.pollInterval = setInterval(() => {
+      this.loadFeedbacks(false);
+    }, 10000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.pollInterval) {
+      clearInterval(this.pollInterval);
     }
+  }
 
-    ngOnDestroy(): void {
-        if (this.pollInterval) {
-            clearInterval(this.pollInterval);
-        }
-    }
+  loadMore(): void {
+    this.visibleCount += 5;
+    this.updateVisibleFeedbacks();
+  }
 
-    loadMore(): void {
-        this.visibleCount += 5;
+  showLess(): void {
+    this.visibleCount = 5;
+    this.updateVisibleFeedbacks();
+  }
+
+  private updateVisibleFeedbacks(): void {
+    this.visibleFeedbacks = this.feedbacks.slice(0, this.visibleCount);
+    this.cdr.detectChanges();
+  }
+
+  loadFeedbacks(showLoading = true): void {
+    if (showLoading) this.isLoading = true;
+
+    this.feedbackService.getFeedbacks().subscribe({
+      next: (data: Feedback[]) => {
+        this.feedbacks = data;
         this.updateVisibleFeedbacks();
-    }
-
-    showLess(): void {
-        this.visibleCount = 5;
-        this.updateVisibleFeedbacks();
-    }
-
-    private updateVisibleFeedbacks(): void {
-        this.visibleFeedbacks = this.feedbacks.slice(0, this.visibleCount);
+        this.isLoading = false;
         this.cdr.detectChanges();
-    }
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error('Error loading feedbacks', err);
+        if (showLoading) this.isLoading = false;
+        this.cdr.detectChanges();
+      }
+    });
+  }
 
-    loadFeedbacks(showLoading = true): void {
-        if (showLoading) this.isLoading = true;
+  submitFeedback(): void {
+    if (!this.newFeedbackContent.trim()) return;
 
-        this.feedbackService.getFeedbacks().subscribe({
-            next: (data: Feedback[]) => {
-                this.feedbacks = data;
-                this.updateVisibleFeedbacks();
-                this.isLoading = false;
-                this.cdr.detectChanges();
-            },
-            error: (err: HttpErrorResponse) => {
-                console.error('Error loading feedbacks', err);
-                if (showLoading) this.isLoading = false;
-                this.cdr.detectChanges();
-            }
-        });
-    }
+    this.isSubmitting = true;
+    this.moderationError = null;
+    this.successMessage = null;
 
-    submitFeedback(): void {
-        if (!this.newFeedbackContent.trim()) return;
+    this.feedbackService.submitFeedback(this.newFeedbackContent).subscribe({
+      next: (res: Feedback) => {
+        this.newFeedbackContent = '';
+        this.isSubmitting = false;
+        this.successMessage = 'Posted!';
+        this.loadFeedbacks(false);
 
-        this.isSubmitting = true;
-        this.moderationError = null;
-        this.successMessage = null;
+        // Clear success message after 3s
+        setTimeout(() => {
+          this.successMessage = null;
+          this.cdr.detectChanges();
+        }, 3000);
 
-        this.feedbackService.submitFeedback(this.newFeedbackContent).subscribe({
-            next: (res: Feedback) => {
-                this.newFeedbackContent = '';
-                this.isSubmitting = false;
-                this.successMessage = 'Posted!';
-                this.loadFeedbacks(false);
+        this.cdr.detectChanges();
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isSubmitting = false;
 
-                // Clear success message after 3s
-                setTimeout(() => {
-                    this.successMessage = null;
-                    this.cdr.detectChanges();
-                }, 3000);
+        // Handle Moderation or Validation Errors
+        if (err.status === 400 && err.error) {
+          this.moderationError = err.error.message || err.error.error || 'Content flagged as inappropriate.';
+        } else {
+          this.moderationError = 'Something went wrong. Please try again.';
+        }
 
-                this.cdr.detectChanges();
-            },
-            error: (err: HttpErrorResponse) => {
-                this.isSubmitting = false;
-
-                // Handle Moderation or Validation Errors
-                if (err.status === 400 && err.error) {
-                    this.moderationError = err.error.message || err.error.error || 'Content flagged as inappropriate.';
-                } else {
-                    this.moderationError = 'Something went wrong. Please try again.';
-                }
-
-                this.cdr.detectChanges();
-            }
-        });
-    }
+        this.cdr.detectChanges();
+      }
+    });
+  }
 }

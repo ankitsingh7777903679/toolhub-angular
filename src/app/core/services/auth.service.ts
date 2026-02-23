@@ -1,4 +1,5 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap, catchError, of } from 'rxjs';
@@ -33,13 +34,18 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        @Inject(PLATFORM_ID) private platformId: Object
     ) {
-        // Load from localStorage on init
-        this.loadFromStorage();
+        // Load from localStorage on init only if in browser
+        if (isPlatformBrowser(this.platformId)) {
+            this.loadFromStorage();
+        }
     }
 
     private loadFromStorage(): void {
+        if (!isPlatformBrowser(this.platformId)) return;
+
         const storedToken = localStorage.getItem('token');
         const storedUser = localStorage.getItem('user');
 
@@ -69,8 +75,10 @@ export class AuthService {
     }
 
     logout(): void {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+        }
         this.token.set(null);
         this.currentUser.set(null);
         this.router.navigate(['/']);
@@ -81,8 +89,10 @@ export class AuthService {
     }
 
     private handleAuth(response: AuthResponse): void {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user', JSON.stringify(response.user));
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('user', JSON.stringify(response.user));
+        }
         this.token.set(response.token);
         this.currentUser.set(response.user);
     }
