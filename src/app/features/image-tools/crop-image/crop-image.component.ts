@@ -1,5 +1,5 @@
-import { Component, ChangeDetectorRef, inject, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectorRef, inject, ViewChild, ElementRef, AfterViewInit, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WorkspaceService } from '../../../shared/services/workspace.service';
 import { SendToToolComponent } from '../../../shared/components/send-to-tool/send-to-tool.component';
@@ -26,6 +26,7 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
     private workspaceService = inject(WorkspaceService);
     private analyticsService = inject(AnalyticsService);
     private seoService = inject(SeoService);
+    private platformId = inject(PLATFORM_ID);
 
     currentRoute = '/image/crop';
 
@@ -116,18 +117,22 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        // Add global listeners for drag operations
-        document.addEventListener('mousemove', this.boundMouseMove);
-        document.addEventListener('mouseup', this.boundMouseUp);
-        document.addEventListener('touchmove', this.boundTouchMove, { passive: false });
-        document.addEventListener('touchend', this.boundTouchEnd);
+        if (isPlatformBrowser(this.platformId)) {
+            // Add global listeners for drag operations
+            document.addEventListener('mousemove', this.boundMouseMove);
+            document.addEventListener('mouseup', this.boundMouseUp);
+            document.addEventListener('touchmove', this.boundTouchMove, { passive: false });
+            document.addEventListener('touchend', this.boundTouchEnd);
+        }
     }
 
     ngOnDestroy(): void {
-        document.removeEventListener('mousemove', this.boundMouseMove);
-        document.removeEventListener('mouseup', this.boundMouseUp);
-        document.removeEventListener('touchmove', this.boundTouchMove);
-        document.removeEventListener('touchend', this.boundTouchEnd);
+        if (isPlatformBrowser(this.platformId)) {
+            document.removeEventListener('mousemove', this.boundMouseMove);
+            document.removeEventListener('mouseup', this.boundMouseUp);
+            document.removeEventListener('touchmove', this.boundTouchMove);
+            document.removeEventListener('touchend', this.boundTouchEnd);
+        }
     }
 
     onFileSelected(event: Event): void {
@@ -619,9 +624,11 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.updateSliderPosition(event.clientX);
 
-        // Add temporary global listeners
-        document.addEventListener('mousemove', this.onSliderMove);
-        document.addEventListener('mouseup', this.onSliderUp);
+        if (isPlatformBrowser(this.platformId)) {
+            // Add temporary global listeners
+            document.addEventListener('mousemove', this.onSliderMove);
+            document.addEventListener('mouseup', this.onSliderUp);
+        }
     }
 
     onSliderTouchStart(event: TouchEvent): void {
@@ -634,8 +641,10 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
             }
             this.updateSliderPosition(event.touches[0].clientX);
 
-            document.addEventListener('touchmove', this.onSliderTouchMove, { passive: false });
-            document.addEventListener('touchend', this.onSliderTouchUp);
+            if (isPlatformBrowser(this.platformId)) {
+                document.addEventListener('touchmove', this.onSliderTouchMove, { passive: false });
+                document.addEventListener('touchend', this.onSliderTouchUp);
+            }
         }
     }
 
@@ -655,15 +664,19 @@ export class CropImageComponent implements OnInit, AfterViewInit, OnDestroy {
     private onSliderUp = (): void => {
         this.isSliderDragging = false;
         this.sliderContainerRect = null;
-        document.removeEventListener('mousemove', this.onSliderMove);
-        document.removeEventListener('mouseup', this.onSliderUp);
+        if (isPlatformBrowser(this.platformId)) {
+            document.removeEventListener('mousemove', this.onSliderMove);
+            document.removeEventListener('mouseup', this.onSliderUp);
+        }
     };
 
     private onSliderTouchUp = (): void => {
         this.isSliderDragging = false;
         this.sliderContainerRect = null;
-        document.removeEventListener('touchmove', this.onSliderTouchMove);
-        document.removeEventListener('touchend', this.onSliderTouchUp);
+        if (isPlatformBrowser(this.platformId)) {
+            document.removeEventListener('touchmove', this.onSliderTouchMove);
+            document.removeEventListener('touchend', this.onSliderTouchUp);
+        }
     };
 
     private updateSliderPosition(clientX: number): void {

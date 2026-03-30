@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, inject, ChangeDetectorRef, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FeedbackService, Feedback } from '../../../core/services/feedback.service';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
@@ -204,6 +204,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   private feedbackService = inject(FeedbackService);
   private cdr = inject(ChangeDetectorRef);
   private seoService = inject(SeoService);
+  private platformId = inject(PLATFORM_ID);
 
   ngOnInit(): void {
     this.seoService.updateSeo({
@@ -212,10 +213,13 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       url: 'https://2olhub.netlify.app/feedback'
     });
     this.loadFeedbacks();
-    // Poll every 10 seconds
-    this.pollInterval = setInterval(() => {
-      this.loadFeedbacks(false);
-    }, 10000);
+    
+    // Poll every 10 seconds only in browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.pollInterval = setInterval(() => {
+        this.loadFeedbacks(false);
+      }, 10000);
+    }
   }
 
   ngOnDestroy(): void {
