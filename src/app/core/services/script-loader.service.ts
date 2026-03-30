@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 interface ScriptConfig {
     src: string;
@@ -19,6 +20,8 @@ export class ScriptLoaderService {
         'html2pdf': { src: 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js', loaded: false }
     };
 
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
     load(scriptNames: string[]): Promise<void[]> {
         const promises: Promise<void>[] = [];
         scriptNames.forEach(name => promises.push(this.loadScript(name)));
@@ -37,31 +40,36 @@ export class ScriptLoaderService {
                 return;
             }
 
-            // Check if already in DOM (e.g. from another proactive load)
-            const existingScript = document.querySelector(`script[src="${this.scripts[name].src}"]`);
-            if (existingScript) {
-                this.scripts[name].loaded = true;
+            if (isPlatformBrowser(this.platformId)) {
+                // Check if already in DOM (e.g. from another proactive load)
+                const existingScript = document.querySelector(`script[src="${this.scripts[name].src}"]`);
+                if (existingScript) {
+                    this.scripts[name].loaded = true;
+                    resolve();
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = this.scripts[name].src;
+                script.type = 'text/javascript';
+                script.async = true;
+
+                script.onload = () => {
+                    this.scripts[name].loaded = true;
+                    console.log(`${name} loaded successfully`);
+                    resolve();
+                };
+
+                script.onerror = (error: any) => {
+                    console.error(`Could not load script ${name}`, error);
+                    reject(`Could not load script ${name}`);
+                };
+
+                document.getElementsByTagName('head')[0].appendChild(script);
+            } else {
+                // Return safely on server / prerendering since scripts are browser-only
                 resolve();
-                return;
             }
-
-            const script = document.createElement('script');
-            script.src = this.scripts[name].src;
-            script.type = 'text/javascript';
-            script.async = true;
-
-            script.onload = () => {
-                this.scripts[name].loaded = true;
-                console.log(`${name} loaded successfully`);
-                resolve();
-            };
-
-            script.onerror = (error: any) => {
-                console.error(`Could not load script ${name}`, error);
-                reject(`Could not load script ${name}`);
-            };
-
-            document.getElementsByTagName('head')[0].appendChild(script);
         });
     }
 }
